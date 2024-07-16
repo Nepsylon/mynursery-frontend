@@ -1,0 +1,13 @@
+.card:hover {
+    border-color: blue;
+    box-shadow: 0 0 10px blue;
+}
+.stretched-link::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+}
