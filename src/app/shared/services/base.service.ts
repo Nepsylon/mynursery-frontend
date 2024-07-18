@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
+import { PaginatedItems } from '../interfaces/paginated-items.interface';
 
 @Injectable()
 export abstract class BaseService<T> {
@@ -28,5 +29,9 @@ export abstract class BaseService<T> {
 
     delete(id: string): Observable<unknown> {
         return this.http.delete<unknown>(`${this.baseUrl}/${this.endPoint}/${id}`);
+    }
+
+    getPaginatedItems(pageNumber: number, itemQuantity: number): Observable<PaginatedItems> {
+        return this.http.get<PaginatedItems>(`${this.baseUrl}/${this.endPoint}/paginated?page=${pageNumber}&itemQuantity=${itemQuantity}`);
     }
 }

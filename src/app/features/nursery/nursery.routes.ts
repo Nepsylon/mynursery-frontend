@@ -3,14 +3,14 @@ import { NurseryViewComponent } from './nursery-view/nursery-view.component';
 import { NurseryDetailsComponent } from './nursery-details/nursery-details.component';
 
 export const nurseryRoutes: Routes = [
-    { path: '', redirectTo: 'page/1', pathMatch: 'full' },
     {
-        path: 'page/:index',
+        path: 'pages',
         component: NurseryViewComponent,
     },
     {
         path: 'selected/:id',
         component: NurseryDetailsComponent,
     },
-    { path: '**', redirectTo: 'page/1' },
+    { path: '', redirectTo: 'pages', pathMatch: 'full' },
+    { path: '**', redirectTo: 'pages' },
 ];
