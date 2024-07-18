@@ -11,6 +11,14 @@ export const adminRoutes: Routes = [
                 path: '',
                 component: HomeAdminComponent,
             },
+            {
+                path: 'nurseries',
+                loadChildren: () => import('../nursery/nursery.routes').then((m) => m.nurseryRoutes),
+            },
         ],
+    },
+    {
+        path: '**',
+        redirectTo: '',
     },
 ];

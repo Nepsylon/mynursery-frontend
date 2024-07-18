@@ -1,9 +1,10 @@
 .card:hover {
-    border-color: blue;
-    box-shadow: 0 0 10px blue;
+    border-color: orange;
+    box-shadow: 0 0 10px orange;
 }
 .stretched-link {
     text-decoration: none;
+    color: orange;
 }
 .stretched-link::after {
     content: '';
