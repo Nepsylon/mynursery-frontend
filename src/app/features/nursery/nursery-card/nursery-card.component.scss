@@ -1,10 +1,13 @@
+.card {
+    padding: 1rem;
+}
 .card:hover {
-    border-color: orange;
-    box-shadow: 0 0 10px orange;
+    border-color: darkcyan;
+    box-shadow: 0 0 10px darkcyan;
 }
 .stretched-link {
     text-decoration: none;
-    color: orange;
+    color: darkcyan;
 }
 .stretched-link::after {
     content: '';

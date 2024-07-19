@@ -19,14 +19,12 @@ export class NurseryViewComponent implements OnInit {
     filteredNurseries: Nursery[] = [];
     totalCount: number = 0;
     first: number = 0;
-    rows: number = 10;
+    rows: number = 12;
 
     constructor(private nurseryService: NurseryService, private route: ActivatedRoute, private router: Router) {}
 
     ngOnInit(): void {
-        this.route.params.subscribe((params) => {
-            this.generatePage(this.first, this.rows);
-        });
+        this.generatePage(this.first, this.rows);
     }
 
     // Affiche une page sur base de son index

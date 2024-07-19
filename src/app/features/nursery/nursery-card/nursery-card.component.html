@@ -1,4 +1,4 @@
-<div class="col">
+<!-- <div class="col">
     <div class="card h-100">
         <a routerLink="../selected/{{ nursery.id }}" class="stretched-link">
             <img src="https://via.placeholder.com/150" class="card-img-top" alt="Image 1" />
@@ -7,6 +7,27 @@
                 <h5 class="card-title">{{ nursery.name }}</h5>
                 <p class="card-text">{{ nursery.location }}</p>
             </div>
+        </a>
+    </div>
+</div> -->
+<div class="col">
+    <div class="card d-flex justify-content-center">
+        <a routerLink="../selected/{{ nursery.id }}" class="stretched-link">
+            <p-card [header]="nursery.name" [subheader]="nursery.location">
+                <!-- <ng-template pTemplate="header">
+                <img alt="Card" src="https://primefaces.org/cdn/primeng/images/card-ng.jpg" />
+            </ng-template> -->
+                @if (nursery.owner?.name) {
+                <p>Gérant : {{ nursery.owner.name }}</p>
+                }
+                <p>Nombre d'enfants : {{ nursery.total_children }}</p>
+                <ng-template pTemplate="footer">
+                    <div class="flex gap-3 mt-1">
+                        <p-button label="Cancel" severity="secondary" class="w-full" styleClass="w-full" />
+                        <p-button label="Save" class="w-full" styleClass="w-full" />
+                    </div>
+                </ng-template>
+            </p-card>
         </a>
     </div>
 </div>
