@@ -4,13 +4,13 @@ import { NurseryDetailsComponent } from './nursery-details/nursery-details.compo
 
 export const nurseryRoutes: Routes = [
     {
-        path: 'pages',
+        path: '',
         component: NurseryViewComponent,
     },
     {
-        path: 'selected/:id',
+        path: ':id',
         component: NurseryDetailsComponent,
     },
-    { path: '', redirectTo: 'pages', pathMatch: 'full' },
-    { path: '**', redirectTo: 'pages' },
+    { path: '', redirectTo: '', pathMatch: 'full' },
+    { path: '**', redirectTo: '' },
 ];

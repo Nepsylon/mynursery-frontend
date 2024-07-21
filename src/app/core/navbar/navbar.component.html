@@ -1,4 +1,6 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
+<!-- Boostrap -->
+
+<!-- <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid container">
         <div class="navbar-brand">My Nursery</div>
         <button
@@ -49,4 +51,33 @@
             </div>
         </div>
     </div>
-</nav>
+</nav> -->
+
+<div class="navbar-collapse justify-content-center">
+    <p-menubar [model]="items" styleClass="prime-menubar-override">
+        <ng-template pTemplate="item" let-item let-root="root">
+            <a pRipple class="pRipple align-items-center p-menuitem-link" id="{{ item.id }}" [routerLink]="['./', item.url]">
+                <span [class]="item.icon"></span>
+                @if(item?.faIcon){
+                <fa-icon [icon]="item.faIcon"></fa-icon>
+                }
+                <span class="ml-2">{{ item.label }}</span>
+                <span *ngIf="item.shortcut" class="ml-auto border-1 surface-border border-round surface-100 text-xs p-1">{{
+                    item.shortcut
+                }}</span>
+                <i *ngIf="item.items" [ngClass]="['pi', root ? 'pi-angle-down ml-2' : 'pi-angle-right ml-auto']"></i>
+            </a>
+        </ng-template>
+        <ng-template pTemplate="end">
+            <div class="d-flex align-items-center gap-2">
+                <div class="d-flex">
+                    <mn-search-bar></mn-search-bar>
+                    <p-button styleClass="p-button-secondary" class="btn profile"><span class="pi pi-cog"></span> Profil</p-button>
+                    <p-button styleClass="p-button-secondary" class="btn logout" (click)="logout()">
+                        <span class="pi pi-sign-out"></span> Déconnexion
+                    </p-button>
+                </div>
+            </div>
+        </ng-template>
+    </p-menubar>
+</div>

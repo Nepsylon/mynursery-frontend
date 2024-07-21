@@ -1,13 +1,16 @@
 .card {
-    padding: 1rem;
+    padding: 0.4rem;
+    //border-color: var(--tableau-de-bord-color);
+    border-color: #8b8b8b;
 }
+
 .card:hover {
-    border-color: darkcyan;
-    box-shadow: 0 0 10px darkcyan;
+    transition: 1s;
+    background-color: var(--nursery-color);
 }
+
 .stretched-link {
     text-decoration: none;
-    color: darkcyan;
 }
 .stretched-link::after {
     content: '';

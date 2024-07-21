@@ -3,6 +3,7 @@
 @import 'primeng/resources/themes/lara-light-blue/theme.css';
 @import 'primeng/resources/primeng.min.css';
 @import 'bootstrap/dist/css/bootstrap.min.css' layer(bootstrap);
+@import 'primeicons/primeicons.css';
 
 html {
     font-size: 14px;
@@ -13,9 +14,10 @@ body {
     font-weight: normal;
     background: var(--surface-ground);
     color: var(--text-color);
-    padding: 1rem;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    display: flex;
+    flex-direction: column;
 }
 
 .card {
@@ -23,4 +25,12 @@ body {
     padding: 2rem;
     border-radius: 10px;
     margin-bottom: 1rem;
+}
+
+:root {
+    --dashboard-color: #4543a3;
+    --nursery-color: #4381a3;
+    --child-color: #43a363;
+    --parent-color: #a8a432;
+    --activity-color: #a84e32;
 }

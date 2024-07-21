@@ -5,33 +5,26 @@
                 <div class="card-header">
                     <h5 class="card-title">Gestion de la crèche</h5>
                 </div>
-                <div class="card-body">
+                <form (ngSubmit)="onSubmit()" class="card-body">
                     <div class="mb-3">
                         <label for="nom" class="form-label">Nom :</label>
-                        <input type="text" id="nom" class="form-control" value="{{ nursery.name }}" readonly />
+                        <input type="text" id="name" class="form-control" value="{{ nursery.name }}" readonly />
                     </div>
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Email :</label>
-                        <input type="email" id="email" class="form-control" value="jean.dupont@example.com" readonly />
-                    </div>
-
                     <div class="mb-3">
                         <label for="location" class="form-label">Adresse :</label>
-                        <textarea id="location" class="form-control" rows="3" readonly>{{ nursery.location }}</textarea>
+                        <input type="text" id="location" class="form-control" value="{{ nursery.location }}" readonly />
                     </div>
                     <div class="mb-3">
-                        <label for="dateNaissance" class="form-label">Date de naissance :</label>
-                        <input type="date" id="dateNaissance" class="form-control" value="1990-01-01" readonly />
+                        <label for="dateNaissance" class="form-label">Nombre total d'enfants</label>
+                        <input type="number" id="total_children" class="form-control" value="{{ nursery.total_children }}" readonly />
                     </div>
-                    <div class="mb-3">
+                    <!-- <div class="mb-3">
                         <label for="owner" class="form-label">Gérant :</label>
-                        <select id="owner" class="form-select" disabled>
-                            <option value="homme" selected>{{ this.nursery.owner }}</option>
-                            <option value="femme">Femme</option>
-                            <option value="autre">Autre</option>
-                        </select>
-                    </div>
-                </div>
+                        <input type="text" id="name" class="form-control" value="{{ nursery.owner.name }}" readonly />
+                    </div> -->
+                    <p-button label="Enregistrer" [outlined]="true" class="btn-save" severity="secondary" />
+                    <p-button label="Supprimer" [outlined]="true" class="btn-delete" severity="danger" />
+                </form>
             </div>
         </div>
     </div>

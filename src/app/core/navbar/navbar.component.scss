@@ -1,0 +1,44 @@
+:host {
+    ::ng-deep .prime-menubar-override {
+        text-align: center;
+        border-radius: 0%;
+    }
+}
+
+.ml-2 {
+    margin-left: 0.5rem;
+    font-size: 1.2rem;
+}
+
+.logout:hover {
+    color: #a34343;
+}
+
+.profile:hover {
+    color: #ae7db3;
+}
+
+.p-menuitem-link-active:active {
+    color: aqua;
+}
+
+#dashboard:hover,
+:active {
+    color: var(--dashboard-color);
+}
+
+#nursery:hover {
+    color: var(--nursery-color);
+}
+
+#children:hover {
+    color: var(--child-color);
+}
+
+#parents:hover {
+    color: var(--parent-color);
+}
+
+#activities:hover {
+    color: var(--activity-color);
+}

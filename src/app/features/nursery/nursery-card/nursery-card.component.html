@@ -12,11 +12,11 @@
 </div> -->
 <div class="col">
     <div class="card d-flex justify-content-center">
-        <a routerLink="../selected/{{ nursery.id }}" class="stretched-link">
+        <a routerLink="./{{ nursery.id }}" class="stretched-link">
             <p-card [header]="nursery.name" [subheader]="nursery.location">
-                <!-- <ng-template pTemplate="header">
-                <img alt="Card" src="https://primefaces.org/cdn/primeng/images/card-ng.jpg" />
-            </ng-template> -->
+                <ng-template pTemplate="header">
+                    <img alt="Card" src="https://primefaces.org/cdn/primeng/images/card-ng.jpg" />
+                </ng-template>
                 @if (nursery.owner?.name) {
                 <p>Gérant : {{ nursery.owner.name }}</p>
                 }
