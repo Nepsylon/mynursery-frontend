@@ -1,0 +1,40 @@
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Création de la crèche</h5>
+                </div>
+                <form class="card-body">
+                    <div class="mb-3">
+                        <label for="nom" class="form-label">Nom :</label>
+                        <input type="text" id="name" class="form-control" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="location" class="form-label">Adresse :</label>
+                        <input type="text" id="location" class="form-control" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="dateNaissance" class="form-label">Nombre total d'enfants :</label>
+                        <input type="number" id="total_children" class="form-control" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="dateNaissance" class="form-label">Logo de la crèche :</label>
+                        <!-- <div class="card flex justify-content-center">
+                            <p-toast />
+                            <p-fileUpload
+                                mode="basic"
+                                chooseLabel="Choose"
+                                chooseIcon="pi pi-upload"
+                                accept="image/*"
+                                maxFileSize="1000000"
+                                (onUpload)="onUpload($event)"
+                            />
+                        </div> -->
+                    </div>
+                    <p-button label="Créer" [outlined]="true" class="btn-save" severity="secondary" />
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

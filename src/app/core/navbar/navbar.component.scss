@@ -3,23 +3,19 @@
         text-align: center;
         border-radius: 0%;
     }
+    ::ng-deep .p-menubar {
+        border: none;
+    }
 }
 
 .ml-2 {
     margin-left: 0.5rem;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
 }
 
-.logout:hover {
-    color: #a34343;
-}
-
-.profile:hover {
-    color: #ae7db3;
-}
-
-.p-menuitem-link-active:active {
-    color: aqua;
+.params {
+    margin-left: 1rem;
+    color: #4b5563;
 }
 
 #dashboard:hover,
@@ -41,4 +37,16 @@
 
 #activities:hover {
     color: var(--activity-color);
+}
+
+#search:hover {
+    color: #a83232;
+}
+
+#profile:hover {
+    color: #a8329c;
+}
+
+#disconnect:hover {
+    color: #6932a8;
 }

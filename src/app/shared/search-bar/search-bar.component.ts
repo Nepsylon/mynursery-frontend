@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { SearchBarService } from './search-bar.service';
 import { CommonModule } from '@angular/common';
@@ -7,6 +7,7 @@ import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
+
 interface SearchSelect {
     name: string;
     endpoint: string;
@@ -21,6 +22,7 @@ type Dictionary = { [index: string]: string };
     styleUrl: './search-bar.component.scss',
 })
 export class SearchBarComponent {
+    @Output() hide = new EventEmitter<void>();
     fields: Dictionary = {
         nurseries: 'name',
         children: 'name',
@@ -49,11 +51,16 @@ export class SearchBarComponent {
     searchRepo: string = this.repositories[0].endpoint;
     searchValue: string = '';
     results: any[] = [];
+    searchBarVisible = false;
 
     constructor(private searchBarService: SearchBarService) {}
 
+    hideSearchBar() {
+        this.hide.emit();
+    }
+
     onSearch() {
-        if (this.searchValue == '') {
+        if (this.searchValue.trim() === '') {
             this.results = [];
             return;
         }
@@ -73,9 +80,9 @@ export class SearchBarComponent {
         this.searchValue = '';
     }
 
-    selectResult() {
+    selectResult(event: any) {
         console.log('Selected result id:', this.searchValue);
         this.results = [];
-        this.searchValue = '';
+        this.searchValue = event.label;
     }
 }

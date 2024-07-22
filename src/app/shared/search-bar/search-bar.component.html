@@ -1,27 +1,30 @@
-<p-inputGroup>
-    <p-inputGroupAddon>Repository</p-inputGroupAddon>
-    <p-dropdown
-        [options]="repositories"
-        optionLabel="name"
-        optionValue="endpoint"
-        [(ngModel)]="searchRepo"
-        name="repository"
-        placeholder="Select a repository"
-        [style]="{ 'border-radius': '0px' }"
-        (onChange)="refreshSearchValue()"
-    >
-    </p-dropdown>
-    <p-dropdown
-        [options]="results"
-        placeholder="Rechercher..."
-        [editable]="true"
-        [(ngModel)]="searchValue"
-        name="result"
-        optionLabel="name"
-        optionValue="id"
-        [style]="{ 'border-radius': '0px' }"
-        (onChange)="onSearch()"
-        (onClick)="selectResult()"
-    ></p-dropdown>
-    <p-inputGroupAddon><i class="pi pi-search"></i></p-inputGroupAddon>
-</p-inputGroup>
+<div class="search-container container">
+    <p-inputGroup>
+        <p-inputGroupAddon>Catégories</p-inputGroupAddon>
+        <p-dropdown
+            [options]="repositories"
+            optionLabel="name"
+            optionValue="endpoint"
+            [(ngModel)]="searchRepo"
+            name="repository"
+            placeholder="Select a repository"
+            [style]="{ 'border-radius': '0px' }"
+            (onChange)="refreshSearchValue()"
+        >
+        </p-dropdown>
+        <p-dropdown
+            [options]="results"
+            placeholder="Rechercher..."
+            [editable]="true"
+            [(ngModel)]="searchValue"
+            name="result"
+            optionLabel="name"
+            optionValue="id"
+            [style]="{ 'border-radius': '0px' }"
+            (onChange)="onSearch()"
+            (onClick)="selectResult($event)"
+            (onBlur)="hideSearchBar()"
+        ></p-dropdown>
+        <p-inputGroupAddon><i class="pi pi-search"></i></p-inputGroupAddon>
+    </p-inputGroup>
+</div>

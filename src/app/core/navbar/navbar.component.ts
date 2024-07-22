@@ -14,6 +14,8 @@ import { FaConfig, FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular
 import { faBaby, faHouse } from '@fortawesome/free-solid-svg-icons';
 import { Role } from '../auth/enums/role.enum';
 import { SearchBarComponent } from '../../shared/search-bar/search-bar.component';
+import { animate, state, style, transition, trigger } from '@angular/animations';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
     selector: 'mn-navbar',
@@ -31,11 +33,33 @@ import { SearchBarComponent } from '../../shared/search-bar/search-bar.component
         InputIconModule,
         FontAwesomeModule,
         SearchBarComponent,
+        ButtonModule,
     ],
     templateUrl: './navbar.component.html',
     styleUrl: './navbar.component.scss',
+    animations: [
+        trigger('toggleSearch', [
+            state(
+                'hidden',
+                style({
+                    opacity: 0,
+                    height: '0px',
+                    overflow: 'hidden',
+                })
+            ),
+            state(
+                'visible',
+                style({
+                    opacity: 1,
+                    height: '*',
+                })
+            ),
+            transition('hidden <=> visible', [animate('300ms ease-in-out')]),
+        ]),
+    ],
 })
 export class NavbarComponent implements OnInit {
+    showSearchBar = false;
     userRole: string | null = '';
     items: MenuItem[] | undefined;
     adminItems: MenuItem[] = [
@@ -67,6 +91,7 @@ export class NavbarComponent implements OnInit {
             label: 'Les activités',
             id: 'activities',
             icon: 'pi pi-book',
+            command: this.toggleSearchBar,
         },
     ];
     ownerItems: MenuItem[] = [
@@ -137,6 +162,12 @@ export class NavbarComponent implements OnInit {
                 this.items = this.userItems;
                 break;
         }
+    }
+
+    toggleSearchBar() {
+        console.log("J'ai cliqué chef");
+        this.showSearchBar = !this.showSearchBar;
+        console.log(this.showSearchBar);
     }
 
     logout() {
