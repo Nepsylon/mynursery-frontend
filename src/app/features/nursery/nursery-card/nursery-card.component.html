@@ -15,7 +15,9 @@
         <a routerLink="./{{ nursery.id }}" class="stretched-link">
             <p-card [header]="nursery.name" [subheader]="nursery.location">
                 <ng-template pTemplate="header">
-                    <img alt="Card" src="https://primefaces.org/cdn/primeng/images/card-ng.jpg" />
+                    @if (nursery.logo){
+                    <img alt="Card" class="logo-nursery" src="{{ nursery.logo }}" />
+                    }
                 </ng-template>
                 @if (nursery.owner?.name) {
                 <p>Gérant : {{ nursery.owner?.name }}</p>

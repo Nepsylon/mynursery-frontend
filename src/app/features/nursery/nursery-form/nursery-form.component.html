@@ -1,25 +1,27 @@
-<div class="container mt-5">
+<!-- <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-lg-8">
             <div class="card">
                 <div class="card-header">
                     <h5 class="card-title">Création de la crèche</h5>
                 </div>
-                <form class="card-body">
+                <form [formGroup]="nurseryForm" (ngSubmit)="onSubmit()" class="card-body">
                     <div class="mb-3">
-                        <label for="nom" class="form-label">Nom :</label>
-                        <input type="text" id="name" class="form-control" />
+                        <label for="name" class="form-label">Nom :</label>
+                        <input required minlength="4" [(ngModel)]="nursery.name" />
+                        <div *ngIf="nursery.name.errors?.['required']">Name is required.</div>
+                        <div *ngIf="nursery.name.errors?.['minlength']">Name must be at least 4 characters long.</div>
                     </div>
                     <div class="mb-3">
                         <label for="location" class="form-label">Adresse :</label>
-                        <input type="text" id="location" class="form-control" />
+                        <input type="text" id="location" class="form-control" formControlName="location" />
                     </div>
                     <div class="mb-3">
-                        <label for="dateNaissance" class="form-label">Nombre total d'enfants :</label>
-                        <input type="number" id="total_children" class="form-control" />
+                        <label for="total_children" class="form-label">Nombre total d'enfants :</label>
+                        <input type="number" id="total_children" class="form-control" formControlName="total_children" />
                     </div>
                     <div class="mb-3">
-                        <label for="dateNaissance" class="form-label">Logo de la crèche :</label>
+                        <label for="logo" class="form-label">Logo de la crèche :</label>
                         <!-- <div class="card flex justify-content-center">
                             <p-toast />
                             <p-fileUpload
@@ -31,8 +33,80 @@
                                 (onUpload)="onUpload($event)"
                             />
                         </div> -->
+<!-- </div>
+                    <p-button type="submit" label="Créer" [outlined]="true" class="btn-save" severity="secondary" (click)="onSubmit()" />
+                </form>
+            </div>
+        </div>
+    </div>
+</div> -->
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Création de la crèche</h5>
+                </div>
+                <form [formGroup]="nurseryForm" (ngSubmit)="onSubmit()" novalidate>
+                    <div class="form-group">
+                        <label>Nom</label>
+                        <input type="text" class="form-control" formControlName="name" required />
+                        @if (nurseryForm.controls["name"].invalid && nurseryForm.controls["name"].touched) {
+                        <div class="alert alert-danger">Veuillez introduire un nom d'une taille autorisée (6-30 caractères)</div>
+                        }
                     </div>
-                    <p-button label="Créer" [outlined]="true" class="btn-save" severity="secondary" />
+
+                    <div class="form-group">
+                        <label>Adresse</label>
+                        <input type="text" class="form-control" name="location" formControlName="location" required />
+                        @if (nurseryForm.controls["location"].invalid && nurseryForm.controls["location"].touched) {
+                        <div class="alert alert-danger">Veuillez introduire une adresse d'une taille autorisée (6-80 caractères)</div>
+                        }
+                    </div>
+
+                    <div class="form-group">
+                        <label>Capacité de la crèche en nombre d'enfants</label>
+                        <input type="number" class="form-control" min="0" formControlName="total_children" required />
+                        @if (nurseryForm.controls["total_children"].invalid && nurseryForm.controls["total_children"].touched) {
+                        <div class="alert alert-danger">Veuillez introduire un nombre (min 0)</div>
+                        }
+                    </div>
+                    <div class="form-group">
+                        <label>Gérant</label>
+                        <div>
+                            <select name="select" formControlName="owner">
+                                @for (owner of listPotentialOwners; track owner){
+                                <option [value]="owner.id">
+                                    {{ owner.name }}
+                                </option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="logo" class="form-label">Image de la crèche</label>
+                        <input
+                            type="file"
+                            accept="image/png, image/jpeg, image/jpg"
+                            id="logo"
+                            class="form-control"
+                            formControlName="logo"
+                            (change)="onFileChange($any($event))"
+                        />
+                    </div>
+                    <hr />
+                    <div class="form-group">
+                        <!-- <button type="submit" class="btn btn-primary" [disabled]="!nurseryForm.valid || loading">Register</button> -->
+                        <p-button
+                            type="submit"
+                            label="Créer"
+                            [outlined]="true"
+                            class="btn-save"
+                            severity="secondary"
+                            [disabled]="!nurseryForm.valid || loading"
+                            (click)="onSubmit()"
+                        />
+                    </div>
                 </form>
             </div>
         </div>
