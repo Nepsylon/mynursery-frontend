@@ -4,26 +4,88 @@
             <div class="card">
                 <div class="card-header">
                     <h5 class="card-title">Gestion de la crèche</h5>
+
+                    <!-- Provoque une erreur en console -->
+                    @if (nursery.logo){
+                    <img alt="Card" class="logo-nursery" src="{{ nursery.logo }}" />
+                    }
                 </div>
-                <form (ngSubmit)="onSubmit()" class="card-body">
-                    <div class="mb-3">
-                        <label for="nom" class="form-label">Nom :</label>
-                        <input type="text" id="name" class="form-control" value="{{ nursery.name }}" />
+                <form [formGroup]="nurseryForm" (ngSubmit)="onUpdate()" novalidate method="post">
+                    <div class="form-group">
+                        <label>Nom</label>
+                        <input type="text" class="form-control" formControlName="name" required />
+                        @if (nurseryForm.controls["name"].invalid && nurseryForm.controls["name"].touched) {
+                        <div class="alert alert-danger">Veuillez introduire un nom d'une taille autorisée (6-30 caractères)</div>
+                        }
                     </div>
-                    <div class="mb-3">
-                        <label for="location" class="form-label">Adresse :</label>
-                        <input type="text" id="location" class="form-control" value="{{ nursery.location }}" />
+
+                    <div class="form-group">
+                        <label>Adresse</label>
+                        <input type="text" class="form-control" formControlName="location" required />
+                        @if (nurseryForm.controls["location"].invalid && nurseryForm.controls["location"].touched) {
+                        <div class="alert alert-danger">Veuillez introduire une adresse d'une taille autorisée (6-80 caractères)</div>
+                        }
                     </div>
-                    <div class="mb-3">
-                        <label for="dateNaissance" class="form-label">Nombre total d'enfants</label>
-                        <input type="number" id="total_children" class="form-control" value="{{ nursery.total_children }}" />
+
+                    <div class="form-group">
+                        <label>Capacité de la crèche en nombre d'enfants</label>
+                        <input type="number" class="form-control" min="0" formControlName="total_children" required />
+                        @if (nurseryForm.controls["total_children"].invalid && nurseryForm.controls["total_children"].touched) {
+                        <div class="alert alert-danger">Veuillez introduire un nombre (min 0)</div>
+                        }
                     </div>
-                    <!-- <div class="mb-3">
-                        <label for="owner" class="form-label">Gérant :</label>
-                        <input type="text" id="name" class="form-control" value="{{ nursery.owner.name }}" readonly />
-                    </div> -->
-                    <p-button label="Enregistrer" [outlined]="true" class="btn-save" severity="secondary" />
-                    <p-button label="Supprimer" [outlined]="true" class="btn-delete" severity="danger" />
+                    <div class="form-group">
+                        <label>Gérant</label>
+                        <div>
+                            <select name="select" class="form-control" formControlName="owner" required>
+                                @for (owner of listPotentialOwners; track owner){
+                                <option [value]="owner.id">
+                                    {{ owner.name }}
+                                </option>
+                                }
+                            </select>
+                            @if (nurseryForm.controls["owner"].invalid && nurseryForm.controls["owner"].touched) {
+                            <div class="alert alert-danger">Veuillez choisir un gérant</div>
+                            }
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="form-group">
+                        <p-button
+                            type="submit"
+                            label="Enregistrer"
+                            [outlined]="true"
+                            class="btn-save"
+                            severity="secondary"
+                            [disabled]="!nurseryForm.valid || loading"
+                        />
+                        <p-button
+                            type="submit"
+                            label="Supprimer"
+                            [outlined]="true"
+                            class="btn-delete"
+                            severity="danger"
+                            (onClick)="onDelete()"
+                        />
+                    </div>
+                    <div class="form-group"></div>
+                </form>
+                <form [formGroup]="logoForm" (ngSubmit)="onUpload()" novalidate>
+                    <div class="mb-3">
+                        <label for="logo" class="form-label">Image de la crèche</label>
+                        <input
+                            type="file"
+                            accept="image/png, image/jpeg, image/jpg"
+                            id="logo"
+                            class="form-control"
+                            formControlName="logo"
+                            (change)="onFileChange($any($event))"
+                        />
+                    </div>
+                    <hr />
+                    <div class="form-group">
+                        <p-button type="submit" label="Modifier" [outlined]="true" class="btn-save" severity="secondary" />
+                    </div>
                 </form>
             </div>
         </div>

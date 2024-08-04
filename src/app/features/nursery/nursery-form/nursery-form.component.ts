@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, NgForm, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
-import { FileUploadModule, UploadEvent } from 'primeng/fileupload';
+import { FileUploadModule } from 'primeng/fileupload';
 import { ToastModule } from 'primeng/toast';
 import { Nursery } from '../../../shared/interfaces/nursery.interface';
 import { NurseryService } from '../nursery.service';
@@ -30,7 +30,6 @@ export class NurseryFormComponent implements OnInit {
         private router: Router,
         private userService: UserService
     ) {}
-    onUpload(event: UploadEvent) {}
 
     ngOnInit() {
         this.userService.getPotentialOwners().subscribe({
@@ -60,7 +59,6 @@ export class NurseryFormComponent implements OnInit {
         this.loading = true;
         const formData = new FormData();
         const formControls = this.nurseryForm.controls;
-        console.log(this.nurseryForm);
 
         if (this.selectedLogo) {
             formData.append('logo', this.selectedLogo);

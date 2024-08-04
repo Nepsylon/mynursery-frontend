@@ -2,9 +2,27 @@
     ::ng-deep .prime-menubar-override {
         text-align: center;
         border-radius: 0%;
+        min-width: auto;
     }
+
     ::ng-deep .p-menubar {
         border: none;
+    }
+
+    ::ng-deep {
+        @media (min-width: 100px) {
+            .container {
+                max-width: 1320px;
+            }
+        }
+    }
+}
+
+:host::ng-deep {
+    @media screen and (max-width: 1000px) {
+        .p-menubar {
+            position: relative;
+        }
     }
 }
 

@@ -69,29 +69,46 @@ export class NavbarComponent implements OnInit {
             icon: 'pi pi-home',
         },
         {
-            label: 'Crèches',
-            id: 'nursery',
+            label: 'Les crèches',
+            id: 'nurseries',
             icon: 'pi pi-star',
             url: 'nurseries',
         },
 
         {
-            label: 'Les enfants',
-            id: 'children',
-            faIcon: faBaby,
-        },
+            label: 'Dans la crèche',
+            id: 'nursery',
+            icon: 'pi pi-shop',
+            items: [
+                {
+                    label: 'Les employés',
+                    id: 'employees',
+                    icon: 'pi pi-users',
+                    url: 'employees',
+                },
 
-        {
-            label: 'Les parents',
-            id: 'parents',
-            icon: 'pi pi-users',
-        },
+                {
+                    label: 'Les enfants',
+                    id: 'children',
+                    faIcon: faBaby,
+                    url: 'children',
+                },
 
-        {
-            label: 'Les activités',
-            id: 'activities',
-            icon: 'pi pi-book',
-            command: this.toggleSearchBar,
+                {
+                    label: 'Les parents',
+                    id: 'parents',
+                    icon: 'pi pi-user',
+                    url: 'parents',
+                },
+
+                {
+                    label: 'Les activités',
+                    id: 'activities',
+                    icon: 'pi pi-book',
+                    url: 'activities',
+                    command: this.toggleSearchBar,
+                },
+            ],
         },
     ];
     ownerItems: MenuItem[] = [
@@ -101,28 +118,46 @@ export class NavbarComponent implements OnInit {
             icon: 'pi pi-home',
         },
         {
-            label: 'Crèches',
-            id: 'nursery',
+            label: 'Les crèches',
+            id: 'nurseries',
             icon: 'pi pi-star',
             url: 'nurseries',
         },
 
         {
-            label: 'Les enfants',
-            id: 'children',
-            faIcon: faBaby,
-        },
+            label: 'Dans la crèche',
+            id: 'nursery',
+            icon: 'pi pi-shop',
+            items: [
+                {
+                    label: 'Les employés',
+                    id: 'employees',
+                    icon: 'pi pi-users',
+                    url: 'employees',
+                },
 
-        {
-            label: 'Les parents',
-            id: 'parents',
-            icon: 'pi pi-users',
-        },
+                {
+                    label: 'Les enfants',
+                    id: 'children',
+                    faIcon: faBaby,
+                    url: 'children',
+                },
 
-        {
-            label: 'Les activités',
-            id: 'activities',
-            icon: 'pi pi-book',
+                {
+                    label: 'Les parents',
+                    id: 'parents',
+                    icon: 'pi pi-user',
+                    url: 'parents',
+                },
+
+                {
+                    label: 'Les activités',
+                    id: 'activities',
+                    icon: 'pi pi-book',
+                    url: 'activities',
+                    command: this.toggleSearchBar,
+                },
+            ],
         },
     ];
     userItems: MenuItem[] = [

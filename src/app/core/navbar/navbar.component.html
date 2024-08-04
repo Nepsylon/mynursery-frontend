@@ -1,7 +1,8 @@
 <div class="container navbar-collapse justify-content-center">
-    <p-menubar [model]="items" styleClass="prime-menubar-override">
+    <p-menubar [model]="items" styleClass="prime-menubar-override md:min-w-min">
+        <ng-template pTemplate="start"> </ng-template>
         <ng-template pTemplate="item" let-item let-root="root">
-            <a pRipple class="pRipple align-items-center p-menuitem-link" id="{{ item.id }}" [routerLink]="['./', item.url]">
+            <a pRipple class="pRipple flex align-items-center p-menuitem-link" id="{{ item.id }}" [routerLink]="['./', item.url]">
                 <span [class]="item.icon"></span>
                 @if(item?.faIcon){
                 <fa-icon [icon]="item.faIcon"></fa-icon>
@@ -15,7 +16,7 @@
         </ng-template>
         <ng-template pTemplate="end">
             <div class="d-flex align-items-center gap-2">
-                <a pRipple class="pRipple align-items-center p-menuitem-link params" (click)="toggleSearchBar()"
+                <a pRipple class="pRipple d-flex align-items-center p-menuitem-link params" (click)="toggleSearchBar()"
                     ><span class="pi pi-search"></span> <span class="ml-2" id="search">Recherche</span></a
                 >
 
@@ -26,14 +27,6 @@
                     <span class="pi pi-sign-out"></span>
                     <span class="ml-2" id="disconnect">Déconnexion</span>
                 </a>
-                <!-- <p-button styleClass="p-button-secondary" class="btn search" (click)="toggleSearchBar()"
-                    ><span class="pi pi-search"></span> Recherche</p-button
-                >
-
-                <p-button styleClass="p-button-secondary" class="btn profile"><span class="pi pi-cog"></span> Profil</p-button>
-                <p-button styleClass="p-button-secondary" class="btn logout" (click)="logout()">
-                    <span class="pi pi-sign-out"></span> Déconnexion
-                </p-button> -->
             </div>
         </ng-template>
     </p-menubar>
