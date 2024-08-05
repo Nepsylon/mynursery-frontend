@@ -37,10 +37,10 @@
                     <div class="form-group">
                         <label>Gérant</label>
                         <div>
-                            <select name="select" class="form-control" formControlName="owner" required>
-                                @for (owner of listPotentialOwners; track owner){
-                                <option [value]="owner.id">
-                                    {{ owner.name }}
+                            <select name="select" [(ngModel)]="this.ActualOwnerId" class="form-control" formControlName="owner" required>
+                                @for (candidate of listPotentialOwners; track candidate){
+                                <option [defaultSelected]="ActualOwnerId" [value]="candidate.id">
+                                    {{ candidate.name }}
                                 </option>
                                 }
                             </select>
@@ -59,14 +59,21 @@
                             severity="secondary"
                             [disabled]="!nurseryForm.valid || loading"
                         />
-                        <p-button
+                        <!-- <p-button
                             type="submit"
                             label="Supprimer"
                             [outlined]="true"
                             class="btn-delete"
                             severity="danger"
                             (onClick)="onDelete()"
-                        />
+                        /> -->
+                        <mn-modal
+                            title="Suppression d'une crèche"
+                            description="Êtes-vous sûr de vouloir supprimer la crèche ?"
+                            (onClick)="showDialog()"
+                            (onCancel)="showDialog()"
+                            (onConfirm)="onDelete()"
+                        ></mn-modal>
                     </div>
                     <div class="form-group"></div>
                 </form>

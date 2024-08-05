@@ -6,7 +6,6 @@ import { TagModule } from 'primeng/tag';
 import { RatingModule } from 'primeng/rating';
 import { ButtonModule } from 'primeng/button';
 import { CommonModule } from '@angular/common';
-import { Product } from './product.interface';
 import { CardModule } from 'primeng/card';
 @Component({
     selector: 'mn-nursery-list',

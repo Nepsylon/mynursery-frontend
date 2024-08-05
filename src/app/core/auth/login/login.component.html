@@ -17,8 +17,24 @@
                     <input type="password" class="form-control" formControlName="password" required />
                 </div>
 
-                <div class="text-center mb-3">
-                    <button type="submit" class="btn btn-primary text-center" [disabled]="!loginForm.valid">Connexion</button>
+                <div class="text-center mb-3 buttons">
+                    <p-button
+                        type="submit"
+                        label="Connexion"
+                        [outlined]="true"
+                        class="btn-home"
+                        severity="info"
+                        [disabled]="!loginForm.valid"
+                    />
+                    <p-button
+                        type="submit"
+                        label="Accueil"
+                        [outlined]="true"
+                        class="btn-home"
+                        severity="secondary"
+                        (onClick)="redirectToHome()"
+                        icon="pi pi-home"
+                    />
                 </div>
 
                 @if (loading){

@@ -15,6 +15,11 @@ export const adminRoutes: Routes = [
                 path: 'nurseries',
                 loadChildren: () => import('../nursery/nursery.routes').then((m) => m.nurseryRoutes),
             },
+
+            {
+                path: 'children',
+                loadChildren: () => import('../child/child.routes').then((m) => m.childRoutes),
+            },
         ],
     },
     {

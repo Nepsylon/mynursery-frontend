@@ -10,11 +10,13 @@ import { User } from '../../../shared/interfaces/user.interface';
 import { FileUploadModule } from 'primeng/fileupload';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { DialogModule } from 'primeng/dialog';
+import { ModalComponent } from '../../../shared/modal/modal.component';
 
 @Component({
     selector: 'mn-nursery-details',
     standalone: true,
-    imports: [ButtonModule, FileUploadModule, ToastModule, ReactiveFormsModule, FormsModule, CommonModule],
+    imports: [ButtonModule, FileUploadModule, ToastModule, ReactiveFormsModule, FormsModule, CommonModule, DialogModule, ModalComponent],
     providers: [NurseryService],
     templateUrl: './nursery-details.component.html',
     styleUrl: './nursery-details.component.scss',
@@ -24,6 +26,8 @@ export class NurseryDetailsComponent implements OnInit {
     selectedLogo: File | null;
     listPotentialOwners: User[] = [];
     nursery: Nursery;
+    ActualOwnerId: number | undefined;
+    visible: boolean = false;
 
     constructor(
         private nurseryService: NurseryService,
@@ -44,7 +48,7 @@ export class NurseryDetailsComponent implements OnInit {
                     total_children: data.total_children?.toString(),
                     owner: data.owner?.name,
                 });
-                console.log(this.nurseryForm.value);
+                this.ActualOwnerId = data.owner?.id;
             },
             error: (error) => {
                 console.error('Une erreur est survenue pendant la requête', error);
@@ -70,10 +74,13 @@ export class NurseryDetailsComponent implements OnInit {
         logo: new FormControl(null),
     });
 
+    showDialog() {
+        this.visible = !this.visible;
+    }
+
     public get form() {
         return this.nurseryForm.controls;
     }
-
     onFileChange(event: any): void {
         this.selectedLogo = event.target.files[0];
     }

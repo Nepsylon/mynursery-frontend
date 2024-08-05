@@ -1,0 +1,59 @@
+<div class="container">
+    <div>
+        <p-button
+            type="submit"
+            label="Se connecter"
+            [outlined]="true"
+            class="btn-login"
+            severity="secondary"
+            (onClick)="redirecToLogin()"
+            icon="pi pi-sign-in"
+        />
+        <p-button
+            type="submit"
+            label="S'inscrire"
+            [outlined]="true"
+            class="btn-sign-in"
+            severity="secondary"
+            (onClick)="redirecToSignIn()"
+            icon="pi pi-pen-to-square"
+        />
+    </div>
+    <h1>Bienvenue sur My Nursery</h1>
+    <p class="paragraph">
+        Cette application innovante conçue pour simplifier et optimiser la gestion des crèches. Cette solution intégrée propose divers
+        modules pour gérer efficacement les crèches, les enfants, les parents et les employés, garantissant une organisation fluide.
+    </p>
+    <p-carousel
+        [value]="items"
+        [numVisible]="3"
+        [numScroll]="1"
+        [circular]="true"
+        [responsiveOptions]="responsiveOptions"
+        autoplayInterval="3000"
+    >
+        <ng-template let-items pTemplate="item">
+            <div class="border-1 surface-border border-round m-2 p-3">
+                <div class="mb-3">
+                    <div class="relative mx-auto">
+                        <img
+                            src="https://medias.cerveauetpsycho.fr/api/v1/images/view/5bb61ade8fe56f686f3da610/wide_1300/image.jpg"
+                            alt="nursery"
+                            class="w-full border-round"
+                            width="400px"
+                        />
+                    </div>
+                </div>
+                <div class="mb-3 font-medium titles">
+                    {{ items.title }}
+                </div>
+                <div class="flex justify-content-between align-items-center">
+                    <div class="mt-0 font-semibold text-xl">
+                        {{ items.description }}
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+    </p-carousel>
+</div>
+<mn-footer></mn-footer>

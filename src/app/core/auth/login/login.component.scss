@@ -1,3 +1,10 @@
 .container {
     height: 100vh;
 }
+
+.buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: center; /* Centre les éléments horizontalement */
+    align-items: center;
+}

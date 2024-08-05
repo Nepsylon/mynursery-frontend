@@ -4,11 +4,17 @@ import { authGuard } from './core/auth/guards/auth.guard';
 import { LayoutComponent } from './core/layout/layout.component';
 import { roleGuard } from './core/auth/guards/role.guard';
 import { Role } from './core/auth/enums/role.enum';
+import { HomeComponent } from './core/home/home.component';
 
 export const routes: Routes = [
     {
         path: 'login',
         component: LoginComponent,
+    },
+
+    {
+        path: 'home',
+        component: HomeComponent,
     },
     {
         path: '',

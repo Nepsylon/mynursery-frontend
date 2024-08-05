@@ -6,11 +6,12 @@ import { AccessToken } from '../interfaces/access-token.interface';
 import { RecaptchaV3Module, ReCaptchaV3Service } from 'ng-recaptcha';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
     selector: 'mn-login',
     standalone: true,
-    imports: [ReactiveFormsModule, RecaptchaV3Module],
+    imports: [ReactiveFormsModule, RecaptchaV3Module, ButtonModule],
     templateUrl: './login.component.html',
     styleUrl: './login.component.scss',
 })
@@ -72,6 +73,9 @@ export class LoginComponent implements OnInit, OnDestroy {
                 this.errorMessage = 'Erreur reCAPTCHA, veuillez réessayer.';
             },
         });
+    }
+    redirectToHome() {
+        this.router.navigate(['/home']);
     }
 
     submitLoginForm() {

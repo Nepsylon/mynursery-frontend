@@ -1,0 +1,14 @@
+.btn-delete {
+    position: relative;
+    float: right;
+}
+
+:host {
+    ::ng-deep .p-dialog-header {
+        justify-content: center;
+    }
+}
+
+.buttons {
+    padding: 10px;
+}

@@ -200,9 +200,7 @@ export class NavbarComponent implements OnInit {
     }
 
     toggleSearchBar() {
-        console.log("J'ai cliqué chef");
         this.showSearchBar = !this.showSearchBar;
-        console.log(this.showSearchBar);
     }
 
     logout() {
