@@ -68,8 +68,12 @@ export class AuthService extends BaseService<any> {
 
     // Suppression du jeton et redirection de l'utilisateur
     logout() {
+        console.log(this.isAuth);
+
         localStorage.removeItem('mn-token');
         this.isAuth.next(false);
+        console.log(this.isAuth);
+
         this.router.navigateByUrl('login');
     }
 
@@ -112,7 +116,7 @@ export class AuthService extends BaseService<any> {
                 this.router.navigate(['/user']);
                 break;
             default:
-                this.router.navigate(['/login']);
+                this.router.navigate(['/home']);
                 break;
         }
     }

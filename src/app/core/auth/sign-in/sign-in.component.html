@@ -1,0 +1,86 @@
+<div class="container d-flex justify-content-center align-items-center vh-100">
+    <div class="row justify-content-center w-100">
+        <div class="col-md-6 position-relative">
+            <p-button
+                label="Accueil"
+                [outlined]="true"
+                class="btn-home"
+                severity="secondary"
+                (onClick)="redirectToHome()"
+                icon="pi pi-home"
+            />
+            <!-- Icône de profil -->
+            <div class="sign-in-icon mt-4 text-center">
+                <fa-icon [icon]="faPenToSquare"></fa-icon>
+            </div>
+            <h2 class="mb-4 text-center">Inscription</h2>
+            <form [formGroup]="registerForm" (ngSubmit)="register()">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Prénom</label>
+                    <input id="name" class="form-control" formControlName="name" />
+                    @if (registerForm.get('name')?.invalid && registerForm.get('name')?.touched) {
+                    <div class="alert alert-danger">Veuillez entrer votre prénom</div>
+                    }
+                </div>
+
+                <div class="mb-3">
+                    <label for="surname" class="form-label">Nom</label>
+                    <input id="surname" class="form-control" formControlName="surname" />
+                    @if (registerForm.get('surname')?.invalid && registerForm.get('surname')?.touched) {
+                    <div class="alert alert-danger">Veuillez entrer votre nom</div>
+                    }
+                </div>
+
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input id="email" class="form-control" formControlName="email" />
+                    @if (registerForm.get('email')?.invalid && registerForm.get('email')?.touched) {
+                    <div class="alert alert-danger">
+                        @if (registerForm.get('email')?.errors?.required) {
+                        <div>Une adresse mail est requise</div>
+                        } @if (registerForm.get('email')?.errors?.email) {
+                        <div>Format de mail incorrect</div>
+                        }
+                    </div>
+                    }
+                </div>
+
+                <div class="mb-3">
+                    <label for="password" class="form-label">Mot de passe</label>
+                    <input id="password" class="form-control" type="password" formControlName="password" />
+                    @if (registerForm.get('password')?.invalid && registerForm.get('password')?.touched) {
+                    <div class="alert alert-danger">
+                        @if (registerForm.get('password')?.errors?.required) {
+                        <div>Un mot de passe est requis</div>
+                        } @if (registerForm.get('password')?.errors?.minlength) {
+                        <div>Minimum 6 caractères requis</div>
+                        }
+                    </div>
+                    }
+                </div>
+
+                <div class="text-center mb-3">
+                    <p-button
+                        type="submit"
+                        label="Inscription"
+                        [outlined]="true"
+                        class="btn-home"
+                        severity="info"
+                        [disabled]="!registerForm.valid"
+                    />
+                </div>
+                @if (loading){
+                <div class="text-center">
+                    <div class="spinner-grow text-info" role="status"></div>
+                </div>
+                }
+            </form>
+            @if (errorMessage) {
+            <div class="alert alert-danger text-center">
+                {{ errorMessage }}
+            </div>
+            }
+            <div class="text-center">Vous possédez un compte ? <a [routerLink]="['/login']">Cliquez ici pour vous connecter</a></div>
+        </div>
+    </div>
+</div>

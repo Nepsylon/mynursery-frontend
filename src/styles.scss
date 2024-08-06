@@ -34,3 +34,13 @@ body {
     --parent-color: #a8a432;
     --activity-color: #a84e32;
 }
+
+/* hide recaptcha badge*/
+.grecaptcha-badge {
+    visibility: hidden;
+}
+
+/* only show recaptcha badge on needed pages */
+body.recaptcha .grecaptcha-badge {
+    visibility: visible;
+}

@@ -1,16 +1,27 @@
-<div class="container d-flex justify-content-center align-items-center">
+<div class="container d-flex justify-content-center align-items-center vh-100">
     <div class="row justify-content-center w-100">
-        <div class="col-md-6">
-            <h2 class="text-center my-4">Connexion</h2>
+        <div class="col-md-6 position-relative">
+            <p-button
+                label="Accueil"
+                [outlined]="true"
+                class="btn-home"
+                severity="secondary"
+                (onClick)="redirectToHome()"
+                icon="pi pi-home"
+            />
+            <!-- Icône de profil -->
+            <div class="profile-icon mt-4 text-center">
+                <fa-icon [icon]="faUser"></fa-icon>
+            </div>
+            <h2 class="text-center mb-4">Connexion</h2>
             <form [formGroup]="loginForm" (ngSubmit)="login()">
                 <div class="mb-3">
                     <label for="email" class="form-label">Adresse email</label>
                     <input type="email" class="form-control" id="email" formControlName="email" required />
+                    @if(email?.invalid && email?.touched){
+                    <div class="alert alert-danger">Veuillez vérifier l'adresse introduite</div>
+                    }
                 </div>
-
-                @if(email?.invalid && email?.touched){
-                <div class="alert alert-danger">Veuillez vérifier l'adresse introduite</div>
-                }
 
                 <div class="mb-3">
                     <label for="password" class="form-label">Mot de passe</label>
@@ -26,24 +37,16 @@
                         severity="info"
                         [disabled]="!loginForm.valid"
                     />
-                    <p-button
-                        type="submit"
-                        label="Accueil"
-                        [outlined]="true"
-                        class="btn-home"
-                        severity="secondary"
-                        (onClick)="redirectToHome()"
-                        icon="pi pi-home"
-                    />
                 </div>
-
+                @if (errorMessage) {
+                <div class="alert alert-danger text-center">
+                    {{ errorMessage }}
+                </div>
+                }
+                <div class="text-center">Pas encore inscrit ? <a [routerLink]="['/sign-in']">Cliquez ici pour créer un compte</a></div>
                 @if (loading){
                 <div class="text-center">
                     <div class="spinner-grow text-info" role="status"></div>
-                </div>
-                } @if (errorMessage) {
-                <div class="alert alert-danger text-center">
-                    {{ errorMessage }}
                 </div>
                 }
             </form>

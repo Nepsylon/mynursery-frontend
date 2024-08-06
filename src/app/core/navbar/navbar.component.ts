@@ -10,7 +10,7 @@ import { CommonModule } from '@angular/common';
 import { RippleModule } from 'primeng/ripple';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
-import { FaConfig, FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faBaby, faHouse } from '@fortawesome/free-solid-svg-icons';
 import { Role } from '../auth/enums/role.enum';
 import { SearchBarComponent } from '../../shared/search-bar/search-bar.component';

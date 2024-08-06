@@ -98,11 +98,11 @@ export class HomeComponent {
         },
     ];
 
-    redirecToLogin() {
+    redirectToLogin() {
         this.router.navigate(['/login']);
     }
 
-    redirecToSignIn() {
+    redirectToSignIn() {
         this.router.navigate(['/sign-in']);
     }
 }

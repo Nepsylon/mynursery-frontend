@@ -1,17 +1,19 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { LoginDto } from '../interfaces/login-dto.interface';
 import { AccessToken } from '../interfaces/access-token.interface';
 import { RecaptchaV3Module, ReCaptchaV3Service } from 'ng-recaptcha';
 import { Subscription } from 'rxjs';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @Component({
     selector: 'mn-login',
     standalone: true,
-    imports: [ReactiveFormsModule, RecaptchaV3Module, ButtonModule],
+    imports: [ReactiveFormsModule, RecaptchaV3Module, ButtonModule, FontAwesomeModule, RouterLink],
     templateUrl: './login.component.html',
     styleUrl: './login.component.scss',
 })
@@ -19,13 +21,23 @@ export class LoginComponent implements OnInit, OnDestroy {
     public errorMessage: string = '';
     private recaptchaSubscription: Subscription | undefined;
     private authSubscription: Subscription | undefined;
+    faUser = faUser;
 
-    constructor(private authService: AuthService, private recaptchaV3Service: ReCaptchaV3Service, private router: Router) {}
+    constructor(
+        private authService: AuthService,
+        private recaptchaV3Service: ReCaptchaV3Service,
+        private router: Router,
+        private renderer: Renderer2
+    ) {}
 
     ngOnInit(): void {
-        if (this.authService.isAuth) {
-            this.authService.redirect();
-        }
+        this.authService.isAuth.subscribe((isAuthenticated: boolean) => {
+            if (isAuthenticated) {
+                this.authService.redirect();
+            }
+        });
+
+        this.renderer.addClass(document.body, 'recaptcha');
     }
     ngOnDestroy(): void {
         if (this.recaptchaSubscription) {
@@ -35,23 +47,12 @@ export class LoginComponent implements OnInit, OnDestroy {
             this.authSubscription.unsubscribe();
         }
 
-        // Supprimer le script reCAPTCHA pour éviter qu'il persiste
-        const recaptchaScript = document.querySelector('script[src="https://www.google.com/recaptcha/api.js"]');
-        if (recaptchaScript) {
-            recaptchaScript.remove();
-        }
-
-        // Supprimer le badge reCAPTCHA
-        const recaptchaBadge = document.querySelector('.grecaptcha-badge');
-        if (recaptchaBadge) {
-            recaptchaBadge.remove();
-        }
+        this.renderer.removeClass(document.body, 'recaptcha');
     }
 
     loginForm = new FormGroup({
         email: new FormControl('', [Validators.required, Validators.email]),
         password: new FormControl('', Validators.required),
-        //recaptcha: new FormControl(null, Validators.required),
     });
 
     loading: boolean = false;
@@ -64,7 +65,6 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.loading = true;
         this.recaptchaSubscription = this.recaptchaV3Service.execute('login').subscribe({
             next: (token: string) => {
-                //console.log('reCAPTCHA', token);
                 this.submitLoginForm();
             },
             error: (error) => {
