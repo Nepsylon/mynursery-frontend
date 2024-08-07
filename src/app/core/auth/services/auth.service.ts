@@ -68,13 +68,9 @@ export class AuthService extends BaseService<any> {
 
     // Suppression du jeton et redirection de l'utilisateur
     logout() {
-        console.log(this.isAuth);
-
         localStorage.removeItem('mn-token');
         this.isAuth.next(false);
-        console.log(this.isAuth);
-
-        this.router.navigateByUrl('login');
+        this.router.navigateByUrl('home');
     }
 
     // Vérifier périodiquement l'expiration du jeton
@@ -102,6 +98,16 @@ export class AuthService extends BaseService<any> {
         return null;
     }
 
+    // Obtenir l'id de l'utilisateur sur base du jeton
+    getUserId(): string | null {
+        const token = this.getToken();
+        if (token) {
+            const decoded = this.decodeToken(token);
+            return decoded?.id || null;
+        }
+        return null;
+    }
+
     redirect() {
         const role = this.getUserRole();
 
@@ -116,7 +122,7 @@ export class AuthService extends BaseService<any> {
                 this.router.navigate(['/user']);
                 break;
             default:
-                this.router.navigate(['/home']);
+                this.router.navigate(['']);
                 break;
         }
     }

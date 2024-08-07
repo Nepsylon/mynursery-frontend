@@ -12,7 +12,7 @@
                 </div>
                 <form [formGroup]="nurseryForm" (ngSubmit)="onUpdate()" novalidate method="post">
                     <div class="form-group">
-                        <label>Nom</label>
+                        <label class="fw-bold">Nom</label>
                         <input type="text" class="form-control" formControlName="name" required />
                         @if (nurseryForm.controls["name"].invalid && nurseryForm.controls["name"].touched) {
                         <div class="alert alert-danger">Veuillez introduire un nom d'une taille autorisée (6-30 caractères)</div>
@@ -20,7 +20,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label>Adresse</label>
+                        <label class="fw-bold">Adresse</label>
                         <input type="text" class="form-control" formControlName="location" required />
                         @if (nurseryForm.controls["location"].invalid && nurseryForm.controls["location"].touched) {
                         <div class="alert alert-danger">Veuillez introduire une adresse d'une taille autorisée (6-80 caractères)</div>
@@ -28,14 +28,14 @@
                     </div>
 
                     <div class="form-group">
-                        <label>Capacité de la crèche en nombre d'enfants</label>
+                        <label class="fw-bold">Capacité de la crèche en nombre d'enfants</label>
                         <input type="number" class="form-control" min="0" formControlName="total_children" required />
                         @if (nurseryForm.controls["total_children"].invalid && nurseryForm.controls["total_children"].touched) {
                         <div class="alert alert-danger">Veuillez introduire un nombre (min 0)</div>
                         }
                     </div>
                     <div class="form-group">
-                        <label>Gérant</label>
+                        <label class="fw-bold">Gérant</label>
                         <div>
                             <select name="select" [(ngModel)]="this.ActualOwnerId" class="form-control" formControlName="owner" required>
                                 @for (candidate of listPotentialOwners; track candidate){
@@ -59,14 +59,7 @@
                             severity="secondary"
                             [disabled]="!nurseryForm.valid || loading"
                         />
-                        <!-- <p-button
-                            type="submit"
-                            label="Supprimer"
-                            [outlined]="true"
-                            class="btn-delete"
-                            severity="danger"
-                            (onClick)="onDelete()"
-                        /> -->
+
                         <mn-modal
                             title="Suppression d'une crèche"
                             description="Êtes-vous sûr de vouloir supprimer la crèche ?"
@@ -79,7 +72,7 @@
                 </form>
                 <form [formGroup]="logoForm" (ngSubmit)="onUpload()" novalidate>
                     <div class="mb-3">
-                        <label for="logo" class="form-label">Image de la crèche</label>
+                        <label for="logo" class="fw-bold">Image de la crèche</label>
                         <input
                             type="file"
                             accept="image/png, image/jpeg, image/jpg"

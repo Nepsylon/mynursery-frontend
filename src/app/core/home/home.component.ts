@@ -3,6 +3,7 @@ import { CarouselModule } from 'primeng/carousel';
 import { FooterComponent } from '../footer/footer.component';
 import { Router } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
+import { AuthService } from '../auth/services/auth.service';
 
 interface Carousel {
     id: string;
@@ -18,10 +19,16 @@ interface Carousel {
     templateUrl: './home.component.html',
     styleUrl: './home.component.scss',
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
     responsiveOptions: any[] | undefined;
-    constructor(private router: Router) {}
-    ngOnInit() {
+    constructor(private router: Router, private authService: AuthService) {}
+    ngOnInit(): void {
+        this.authService.isAuth.subscribe((isAuthenticated: boolean) => {
+            if (isAuthenticated) {
+                this.authService.redirect();
+            }
+        });
+
         this.responsiveOptions = [
             {
                 breakpoint: '1199px',

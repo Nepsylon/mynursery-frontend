@@ -1,0 +1,73 @@
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Gestion du profil</h5>
+                </div>
+                <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" novalidate method="post">
+                    <div class="form-group">
+                        <label class="fw-bold">Nom</label>
+                        <input type="text" class="form-control" formControlName="surname" required />
+                        @if (profileForm.controls["surname"].invalid && profileForm.controls["surname"].touched) {
+                        <div class="alert alert-danger">Veuillez introduire un nom d'une taille autorisée (6-30 caractères)</div>
+                        }
+                    </div>
+
+                    <div class="form-group">
+                        <label class="fw-bold">Prénom</label>
+                        <input type="text" class="form-control" formControlName="name" required />
+                        @if (profileForm.controls["name"].invalid && profileForm.controls["name"].touched) {
+                        <div class="alert alert-danger">Veuillez introduire un nom d'une taille autorisée (6-30 caractères)</div>
+                        }
+                    </div>
+
+                    <div class="form-group">
+                        <label class="fw-bold">Adresse mail</label>
+                        <input type="text" class="form-control" formControlName="email" required />
+                        @if (profileForm.controls["email"].invalid && profileForm.controls["email"].touched) {
+                        <div class="alert alert-danger">Veuillez introduire un nom d'une taille autorisée (6-30 caractères)</div>
+                        }
+                    </div>
+
+                    <div class="form-group">
+                        <label class="fw-bold">Nouveau mot de passe</label>
+                        <input type="password" class="form-control" formControlName="password" />
+                        @if (profileForm.controls["password"].invalid && profileForm.controls["password"].touched) {
+                        <div class="alert alert-danger">Veuillez introduire un nom d'une taille autorisée (6-30 caractères)</div>
+                        }
+                    </div>
+
+                    <div class="form-group">
+                        <label class="fw-bold">Confirmation du mot de passe</label>
+                        <input type="password" class="form-control" formControlName="confirmPassword" />
+                        @if (profileForm.errors?.['PasswordNoMatch']) {
+                        <div class="alert alert-danger">Les mots de passe doivent être identiques</div>
+                        }
+                    </div>
+
+                    <hr />
+                    <div class="form-group">
+                        <p-button
+                            type="submit"
+                            label="Mettre à jour le profil"
+                            [outlined]="true"
+                            class="btn-save"
+                            severity="secondary"
+                            [disabled]="!profileForm.valid || loading"
+                        />
+
+                        <mn-modal
+                            title="Suppression du compte My Nursery"
+                            description="Êtes-vous sûr de vouloir supprimer votre compte ?"
+                            (onClick)="showDialog()"
+                            (onCancel)="showDialog()"
+                            (onConfirm)="onDelete()"
+                        ></mn-modal>
+                    </div>
+                    <div class="form-group"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { BoardAdminComponent } from './board-admin/board-admin.component';
 import { HomeAdminComponent } from './home-admin/home-admin.component';
+import { ProfileComponent } from '../profile/profile.component';
 
 export const adminRoutes: Routes = [
     {
@@ -12,13 +13,16 @@ export const adminRoutes: Routes = [
                 component: HomeAdminComponent,
             },
             {
+                path: 'children',
+                loadChildren: () => import('../child/child.routes').then((m) => m.childRoutes),
+            },
+            {
                 path: 'nurseries',
                 loadChildren: () => import('../nursery/nursery.routes').then((m) => m.nurseryRoutes),
             },
-
             {
-                path: 'children',
-                loadChildren: () => import('../child/child.routes').then((m) => m.childRoutes),
+                path: 'profile',
+                component: ProfileComponent,
             },
         ],
     },

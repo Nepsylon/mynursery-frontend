@@ -44,7 +44,6 @@ import { ButtonModule } from 'primeng/button';
                 style({
                     opacity: 0,
                     height: '0px',
-                    overflow: 'hidden',
                 })
             ),
             state(
@@ -67,6 +66,7 @@ export class NavbarComponent implements OnInit {
             label: 'Tableau de bord',
             id: 'dashboard',
             icon: 'pi pi-home',
+            url: '',
         },
         {
             label: 'Les crèches',
@@ -106,7 +106,7 @@ export class NavbarComponent implements OnInit {
                     id: 'activities',
                     icon: 'pi pi-book',
                     url: 'activities',
-                    command: this.toggleSearchBar,
+                    //command: this.toggleSearchBar,
                 },
             ],
         },

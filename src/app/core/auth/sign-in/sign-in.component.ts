@@ -6,12 +6,11 @@ import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AuthService } from '../services/auth.service';
 import { SignInService } from '../services/sign-in.service';
-import { createUserDto } from '../../../shared/interfaces/create-user.dto';
+import { createUserDto } from '../interfaces/create-user.dto';
 import { User } from '../../../shared/interfaces/user.interface';
 import { LoginDto } from '../interfaces/login-dto.interface';
 import { AccessToken } from '../interfaces/access-token.interface';
 import { RecaptchaV3Module, ReCaptchaV3Service } from 'ng-recaptcha';
-import { ErrorMessage } from '../../../shared/models/error-message';
 
 @Component({
     selector: 'mn-sign-in',
@@ -69,8 +68,6 @@ export class SignInComponent implements OnInit, OnDestroy {
 
         this.recaptchaV3Service.execute('register').subscribe({
             next: (token: string) => {
-                console.log(this.userDto, this.loginDto);
-
                 this.signInService.register(this.userDto).subscribe({
                     next: (res: User | any) => {
                         this.authService.login(this.loginDto).subscribe({
@@ -85,15 +82,11 @@ export class SignInComponent implements OnInit, OnDestroy {
                             },
                             error: (err: any) => {
                                 this.loading = false;
-                                console.log(err);
-
                                 this.errorMessage = err.error.errors[0].message;
                             },
                         });
                     },
                     error: (err: any) => {
-                        console.log(err);
-
                         this.loading = false;
                         this.errorMessage = err.error.errors[0].message;
                     },

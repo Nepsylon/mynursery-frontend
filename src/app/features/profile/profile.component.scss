@@ -1,0 +1,21 @@
+.card {
+    border-color: gray;
+}
+
+.card-header {
+    text-align: center;
+}
+
+input,
+select {
+    border-color: grey;
+}
+
+input:hover {
+    border-color: var(--nursery-color);
+}
+
+.btn-delete {
+    position: relative;
+    float: right;
+}

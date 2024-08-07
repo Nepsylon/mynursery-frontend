@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { UserService } from '../../user/user.service';
 import { User } from '../../../shared/interfaces/user.interface';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'mn-nursery-form',
@@ -25,10 +26,10 @@ export class NurseryFormComponent implements OnInit {
     listPotentialOwners: User[] = [];
 
     constructor(
-        private fb: FormBuilder,
         private nurseryService: NurseryService,
         private router: Router,
-        private userService: UserService
+        private userService: UserService,
+        private toastr: ToastrService
     ) {}
 
     ngOnInit() {
@@ -81,6 +82,7 @@ export class NurseryFormComponent implements OnInit {
                 },
                 error: (res: any) => {
                     console.log('error', res);
+                    this.toastr.error('Une erreur est survenue pendant la création de la crèche');
                 },
             });
         }

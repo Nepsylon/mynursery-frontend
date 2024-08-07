@@ -1,7 +1,6 @@
 import { Routes } from '@angular/router';
 import { LoginComponent } from './core/auth/login/login.component';
 import { authGuard } from './core/auth/guards/auth.guard';
-import { LayoutComponent } from './core/layout/layout.component';
 import { roleGuard } from './core/auth/guards/role.guard';
 import { Role } from './core/auth/enums/role.enum';
 import { HomeComponent } from './core/home/home.component';
@@ -9,7 +8,7 @@ import { SignInComponent } from './core/auth/sign-in/sign-in.component';
 
 export const routes: Routes = [
     {
-        path: 'home',
+        path: '',
         component: HomeComponent,
     },
     {
@@ -19,10 +18,6 @@ export const routes: Routes = [
     {
         path: 'sign-in',
         component: SignInComponent,
-    },
-    {
-        path: '',
-        component: LayoutComponent,
     },
     {
         path: 'admin',

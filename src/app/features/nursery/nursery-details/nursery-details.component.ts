@@ -12,6 +12,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { DialogModule } from 'primeng/dialog';
 import { ModalComponent } from '../../../shared/modal/modal.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'mn-nursery-details',
@@ -32,9 +33,9 @@ export class NurseryDetailsComponent implements OnInit {
     constructor(
         private nurseryService: NurseryService,
         private route: ActivatedRoute,
-        private fb: FormBuilder,
         private userService: UserService,
-        private router: Router
+        private router: Router,
+        private toastr: ToastrService
     ) {}
 
     ngOnInit(): void {
@@ -52,6 +53,7 @@ export class NurseryDetailsComponent implements OnInit {
             },
             error: (error) => {
                 console.error('Une erreur est survenue pendant la requête', error);
+                this.toastr.error('Une erreur est survenue pendant la requête');
             },
         });
 
@@ -91,24 +93,29 @@ export class NurseryDetailsComponent implements OnInit {
         this.nurseryService.update(nurseryId, this.nurseryForm.value).subscribe({
             next: (res: any) => {
                 this.loading = false;
-                console.log('Update successful', res);
+                this.toastr.success('Crèche mise à jour');
             },
             error: (res: any) => {
+                this.loading = false;
                 console.log('error', res);
+                this.toastr.error('Une erreur est survenue pendant la mise à jour des informations');
             },
         });
     }
 
     onDelete(): void {
+        this.loading = true;
         const nurseryId = this.route.snapshot.params['id'];
         this.nurseryService.delete(nurseryId).subscribe({
             next: (res: any) => {
                 this.loading = false;
-                console.log('Update successful', res);
+                this.toastr.success('Crèche supprimée');
                 this.router.navigate(['/admin/nurseries']);
             },
             error: (res: any) => {
+                this.loading = false;
                 console.log('error', res);
+                this.toastr.error('Une erreur est survenue pendant la suppression');
             },
         });
     }
@@ -121,10 +128,11 @@ export class NurseryDetailsComponent implements OnInit {
         }
         this.nurseryService.update(nurseryId, formData).subscribe({
             next: (res: any) => {
-                console.log('Update successful', res);
+                this.toastr.success('Image sauvegardée');
             },
             error: (res: any) => {
                 console.log('error', res);
+                this.toastr.error('Une erreur est survenue');
             },
         });
     }

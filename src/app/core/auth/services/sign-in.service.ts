@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { createUserDto } from '../../../shared/interfaces/create-user.dto';
+import { createUserDto } from '../interfaces/create-user.dto';
 import { BaseService } from '../../../shared/services/base.service';
 import { User } from '../../../shared/interfaces/user.interface';
 import { HttpClient } from '@angular/common/http';

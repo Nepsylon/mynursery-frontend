@@ -14,16 +14,15 @@ export class ModalComponent {
     @Input() title: string;
     @Input() description?: string;
     @Output() onCancel = new EventEmitter<void>();
-    @Output() onConfirm = new EventEmitter<boolean>();
+    @Output() onConfirm = new EventEmitter<void>();
     @HostListener('click') onClick() {
         this.visible = !this.visible;
-        console.log(this.visible);
     }
 
     cancel() {
         this.onCancel.emit();
     }
     confirm() {
-        this.onConfirm.emit(true);
+        this.onConfirm.emit();
     }
 }
