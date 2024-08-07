@@ -7,6 +7,7 @@ import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
+import { Router, RouterLink } from '@angular/router';
 
 interface SearchSelect {
     name: string;
@@ -17,7 +18,16 @@ type Dictionary = { [index: string]: string };
 @Component({
     selector: 'mn-search-bar',
     standalone: true,
-    imports: [FormsModule, CommonModule, DropdownModule, InputGroupModule, InputGroupAddonModule, InputTextModule, ButtonModule],
+    imports: [
+        FormsModule,
+        CommonModule,
+        DropdownModule,
+        InputGroupModule,
+        InputGroupAddonModule,
+        InputTextModule,
+        ButtonModule,
+        RouterLink,
+    ],
     templateUrl: './search-bar.component.html',
     styleUrl: './search-bar.component.scss',
 })
@@ -53,7 +63,7 @@ export class SearchBarComponent {
     results: any[] = [];
     searchBarVisible = false;
 
-    constructor(private searchBarService: SearchBarService) {}
+    constructor(private searchBarService: SearchBarService, private router: Router) {}
 
     hideSearchBar() {
         this.hide.emit();
@@ -75,13 +85,18 @@ export class SearchBarComponent {
         });
     }
 
+    onSearchButton() {
+        this.router.navigate([this.searchRepo, this.searchValue]);
+    }
+
     refreshSearchValue() {
         this.results = [];
         this.searchValue = '';
     }
 
     selectResult(event: any) {
-        console.log('Selected result id:', this.searchValue);
+        console.log('Selected result id:', typeof this.searchValue);
+        console.log('Selected result id:', this.searchRepo);
         this.results = [];
         this.searchValue = event.label;
     }

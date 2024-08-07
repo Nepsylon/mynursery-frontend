@@ -25,6 +25,7 @@
             (onClick)="selectResult($event)"
             (onBlur)="hideSearchBar()"
         ></p-dropdown>
-        <p-inputGroupAddon><i class="pi pi-search"></i></p-inputGroupAddon>
+        <!-- <p-inputGroupAddon><i class="pi pi-search"></i></p-inputGroupAddon> -->
+        <a [routerLink]="[searchRepo, searchValue.toString()]" (onClick)="onSearchButton()"><i class="pi pi-search"></i></a>
     </p-inputGroup>
 </div>

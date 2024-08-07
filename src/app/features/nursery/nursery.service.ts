@@ -11,4 +11,8 @@ export class NurseryService extends BaseService<Nursery> {
     constructor(http: HttpClient) {
         super(http);
     }
+
+    updateLogo(id: string, dto: any): Observable<any> {
+        return this.http.post<any>(`${this.baseUrl}/${this.endPoint}/${id}/logo`, dto);
+    }
 }

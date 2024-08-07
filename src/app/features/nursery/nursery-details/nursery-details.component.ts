@@ -126,7 +126,8 @@ export class NurseryDetailsComponent implements OnInit {
         if (this.selectedLogo) {
             formData.append('logo', this.selectedLogo);
         }
-        this.nurseryService.update(nurseryId, formData).subscribe({
+        console.log(this.selectedLogo);
+        this.nurseryService.updateLogo(nurseryId, formData).subscribe({
             next: (res: any) => {
                 this.toastr.success('Image sauvegardée');
             },
