@@ -1,1 +1,19 @@
-<p>child-view works!</p>
+@if (children) {
+<h1 class="text-center justify-content-center">Les Enfants</h1>
+<div class="btn-creation">
+    <p-button icon="pi pi-plus" label="Ajouter un enfant" severity="success" [routerLink]="['./create']" />
+</div>
+<div class="container my-5">
+    <mn-child-list [children]="children"></mn-child-list>
+</div>
+<!-- <div class="row d-flex justify-content-center">
+        <mn-pagination-bar [totalPages]="totalPages"></mn-pagination-bar>
+    </div> -->
+<p-paginator
+    (onPageChange)="onPageChange($any($event))"
+    [first]="first"
+    [rows]="rows"
+    [totalRecords]="totalCount"
+    [rowsPerPageOptions]="[20, 40, 60]"
+/>
+} @else { Pas de résultat }

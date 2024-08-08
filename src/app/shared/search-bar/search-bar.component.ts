@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { SearchBarService } from './search-bar.service';
 import { CommonModule } from '@angular/common';
@@ -32,6 +32,7 @@ type Dictionary = { [index: string]: string };
     styleUrl: './search-bar.component.scss',
 })
 export class SearchBarComponent {
+    @Input() role: string | null;
     @Output() hide = new EventEmitter<void>();
     fields: Dictionary = {
         nurseries: 'name',
@@ -59,24 +60,20 @@ export class SearchBarComponent {
         },
     ];
     searchRepo: string = this.repositories[0].endpoint;
-    searchValue: string = '';
+    searchLabel: string = '';
     results: any[] = [];
     searchBarVisible = false;
 
     constructor(private searchBarService: SearchBarService, private router: Router) {}
 
-    hideSearchBar() {
-        this.hide.emit();
-    }
-
     onSearch() {
-        if (this.searchValue.trim() === '') {
+        if (this.searchLabel === '') {
             this.results = [];
             return;
         }
         const endpoint = this.searchRepo;
         const field = this.fields[this.searchRepo];
-        const value = this.searchValue;
+        const value = this.searchLabel;
 
         this.searchBarService.searchElements(endpoint, field, value).subscribe({
             next: (data: any[]) => {
@@ -86,18 +83,16 @@ export class SearchBarComponent {
     }
 
     onSearchButton() {
-        this.router.navigate([this.searchRepo, this.searchValue]);
+        this.router.navigate([this.role, this.searchRepo, String(this.searchLabel)]);
+        this.refreshSearchLabel();
     }
 
-    refreshSearchValue() {
+    refreshSearchLabel() {
         this.results = [];
-        this.searchValue = '';
+        this.searchLabel = '';
     }
 
     selectResult(event: any) {
-        console.log('Selected result id:', typeof this.searchValue);
-        console.log('Selected result id:', this.searchRepo);
         this.results = [];
-        this.searchValue = event.label;
     }
 }

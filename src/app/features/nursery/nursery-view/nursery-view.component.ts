@@ -22,7 +22,7 @@ export class NurseryViewComponent implements OnInit {
     first: number = 0;
     rows: number = 12;
 
-    constructor(private nurseryService: NurseryService, private route: ActivatedRoute, private router: Router) {}
+    constructor(private nurseryService: NurseryService) {}
 
     ngOnInit(): void {
         this.generatePage(this.first, this.rows);

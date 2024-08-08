@@ -27,8 +27,19 @@ export class NurseryDetailsComponent implements OnInit {
     selectedLogo: File | null;
     listPotentialOwners: User[] = [];
     nursery: Nursery;
-    ActualOwnerId: number | undefined;
     visible: boolean = false;
+    nurseryId: string;
+
+    nurseryForm = new FormGroup({
+        name: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(30)]),
+        location: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(80)]),
+        total_children: new FormControl('', [Validators.required, Validators.min(0)]),
+        owner: new FormControl<number>(0, [Validators.required]),
+    });
+
+    logoForm = new FormGroup({
+        logo: new FormControl(null),
+    });
 
     constructor(
         private nurseryService: NurseryService,
@@ -39,42 +50,38 @@ export class NurseryDetailsComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        const nurseryId = this.route.snapshot.params['id'];
-        this.nurseryService.get(nurseryId).subscribe({
+        this.route.params.subscribe((params) => {
+            this.nurseryId = params['id'];
+            this.getPotentialOwners();
+            this.getNurseryDetails();
+        });
+    }
+
+    getNurseryDetails(): void {
+        this.nurseryService.get(this.nurseryId).subscribe({
             next: (data: Nursery) => {
                 this.nursery = data;
                 this.nurseryForm.patchValue({
                     name: data.name,
                     location: data.location,
                     total_children: data.total_children?.toString(),
-                    owner: data.owner?.name,
+                    owner: data.owner?.id,
                 });
-                this.ActualOwnerId = data.owner?.id;
             },
             error: (error) => {
                 console.error('Une erreur est survenue pendant la requête', error);
                 this.toastr.error('Une erreur est survenue pendant la requête');
             },
         });
+    }
 
+    getPotentialOwners(): void {
         this.userService.getPotentialOwners().subscribe({
             next: (res: User[]) => {
                 this.listPotentialOwners = res;
             },
         });
     }
-
-    nurseryForm = new FormGroup({
-        name: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(30)]),
-        location: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(80)]),
-        total_children: new FormControl('', [Validators.required, Validators.min(0)]),
-
-        owner: new FormControl('', [Validators.required]),
-    });
-
-    logoForm = new FormGroup({
-        logo: new FormControl(null),
-    });
 
     showDialog() {
         this.visible = !this.visible;
@@ -89,8 +96,7 @@ export class NurseryDetailsComponent implements OnInit {
 
     onUpdate(): void {
         this.loading = true;
-        const nurseryId = this.route.snapshot.params['id'];
-        this.nurseryService.update(nurseryId, this.nurseryForm.value).subscribe({
+        this.nurseryService.update(this.nurseryId, this.nurseryForm.value).subscribe({
             next: (res: any) => {
                 this.loading = false;
                 this.toastr.success('Crèche mise à jour');
@@ -114,7 +120,7 @@ export class NurseryDetailsComponent implements OnInit {
             },
             error: (res: any) => {
                 this.loading = false;
-                console.log('error', res);
+                console.error('error', res);
                 this.toastr.error('Une erreur est survenue pendant la suppression');
             },
         });

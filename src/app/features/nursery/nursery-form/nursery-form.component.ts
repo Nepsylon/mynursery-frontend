@@ -24,6 +24,7 @@ export class NurseryFormComponent implements OnInit {
     loading: boolean = false;
     selectedLogo: File | null;
     listPotentialOwners: User[] = [];
+    logoErrorMessage: string;
 
     constructor(
         private nurseryService: NurseryService,

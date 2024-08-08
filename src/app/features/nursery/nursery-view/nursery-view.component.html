@@ -1,7 +1,7 @@
 @if (nurseries) {
 <h1 class="text-center justify-content-center">Les Crèches</h1>
 <div class="btn-creation">
-    <p-button icon="pi pi-plus" label="Créer une nouvelle crèche" [outlined]="true" severity="secondary" [routerLink]="['./create']" />
+    <p-button icon="pi pi-plus" label="Créer une nouvelle crèche" severity="success" [routerLink]="['./create']" />
 </div>
 <div class="container my-5">
     <mn-nursery-list [nurseries]="nurseries"></mn-nursery-list>

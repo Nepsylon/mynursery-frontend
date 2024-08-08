@@ -2,7 +2,7 @@
     <div class="row justify-content-center">
         <div class="col-lg-8">
             <div class="card">
-                <div class="card-header">
+                <div class="card-header mb-3">
                     <h5 class="card-title">Gestion de la crèche</h5>
 
                     <!-- Provoque une erreur en console -->
@@ -10,8 +10,8 @@
                     <img alt="Card" class="logo-nursery" src="{{ nursery.logo }}" />
                     }
                 </div>
-                <form [formGroup]="nurseryForm" (ngSubmit)="onUpdate()" novalidate method="post">
-                    <div class="form-group">
+                <form [formGroup]="nurseryForm" (ngSubmit)="onUpdate()" novalidate method="post" class="mb-3">
+                    <div class="form-group mb-3">
                         <label class="fw-bold">Nom</label>
                         <input type="text" class="form-control" formControlName="name" required />
                         @if (nurseryForm.controls["name"].invalid && nurseryForm.controls["name"].touched) {
@@ -19,7 +19,7 @@
                         }
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group mb-3">
                         <label class="fw-bold">Adresse</label>
                         <input type="text" class="form-control" formControlName="location" required />
                         @if (nurseryForm.controls["location"].invalid && nurseryForm.controls["location"].touched) {
@@ -27,19 +27,19 @@
                         }
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group mb-3">
                         <label class="fw-bold">Capacité de la crèche en nombre d'enfants</label>
                         <input type="number" class="form-control" min="0" formControlName="total_children" required />
                         @if (nurseryForm.controls["total_children"].invalid && nurseryForm.controls["total_children"].touched) {
                         <div class="alert alert-danger">Veuillez introduire un nombre (min 0)</div>
                         }
                     </div>
-                    <div class="form-group">
+                    <div class="form-group mb-3">
                         <label class="fw-bold">Gérant</label>
                         <div>
-                            <select name="select" [(ngModel)]="this.ActualOwnerId" class="form-control" formControlName="owner" required>
+                            <select name="select" class="form-control" formControlName="owner" required>
                                 @for (candidate of listPotentialOwners; track candidate){
-                                <option [defaultSelected]="ActualOwnerId" [value]="candidate.id">
+                                <option [value]="candidate.id">
                                     {{ candidate.name }}
                                 </option>
                                 }
@@ -53,10 +53,10 @@
                     <div class="form-group">
                         <p-button
                             type="submit"
+                            icon="pi pi-save"
                             label="Enregistrer"
-                            [outlined]="true"
                             class="btn-save"
-                            severity="secondary"
+                            severity="primary"
                             [disabled]="!nurseryForm.valid || loading"
                         />
 
@@ -84,7 +84,7 @@
                     </div>
                     <hr />
                     <div class="form-group">
-                        <p-button type="submit" label="Modifier" [outlined]="true" class="btn-save" severity="secondary" />
+                        <p-button type="submit" label="Modifier" class="btn-save" severity="primary" [disabled]="!selectedLogo" />
                     </div>
                 </form>
             </div>

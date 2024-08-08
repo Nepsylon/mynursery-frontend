@@ -31,6 +31,6 @@
         </ng-template>
     </p-menubar>
     <div [@toggleSearch]="showSearchBar ? 'visible' : 'hidden'">
-        <mn-search-bar></mn-search-bar>
+        <mn-search-bar [role]="userRole"></mn-search-bar>
     </div>
 </div>

@@ -2,11 +2,11 @@
     <div class="row justify-content-center">
         <div class="col-lg-8">
             <div class="card">
-                <div class="card-header">
+                <div class="card-header mb-3">
                     <h5 class="card-title">Gestion du profil</h5>
                 </div>
                 <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" novalidate method="post">
-                    <div class="form-group">
+                    <div class="form-group mb-3">
                         <label class="fw-bold">Nom</label>
                         <input type="text" class="form-control" formControlName="surname" required />
                         @if (profileForm.controls["surname"].invalid && profileForm.controls["surname"].touched) {
@@ -14,7 +14,7 @@
                         }
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group mb-3">
                         <label class="fw-bold">Prénom</label>
                         <input type="text" class="form-control" formControlName="name" required />
                         @if (profileForm.controls["name"].invalid && profileForm.controls["name"].touched) {
@@ -22,7 +22,7 @@
                         }
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group mb-3">
                         <label class="fw-bold">Adresse mail</label>
                         <input type="text" class="form-control" formControlName="email" required />
                         @if (profileForm.controls["email"].invalid && profileForm.controls["email"].touched) {
@@ -30,7 +30,7 @@
                         }
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group mb-3">
                         <label class="fw-bold">Nouveau mot de passe</label>
                         <input type="password" class="form-control" formControlName="password" />
                         @if (profileForm.controls["password"].invalid && profileForm.controls["password"].touched) {
@@ -38,7 +38,7 @@
                         }
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group mb-3">
                         <label class="fw-bold">Confirmation du mot de passe</label>
                         <input type="password" class="form-control" formControlName="confirmPassword" />
                         @if (profileForm.errors?.['PasswordNoMatch']) {
@@ -50,10 +50,10 @@
                     <div class="form-group">
                         <p-button
                             type="submit"
+                            icon="pi pi-save"
                             label="Mettre à jour le profil"
-                            [outlined]="true"
                             class="btn-save"
-                            severity="secondary"
+                            severity="primary"
                             [disabled]="!profileForm.valid || loading"
                         />
 

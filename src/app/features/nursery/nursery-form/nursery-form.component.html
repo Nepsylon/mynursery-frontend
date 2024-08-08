@@ -2,35 +2,35 @@
     <div class="row justify-content-center">
         <div class="col-lg-8">
             <div class="card">
-                <div class="card-header">
+                <div class="card-header mb-3">
                     <h5 class="card-title">Création de la crèche</h5>
                 </div>
                 <form [formGroup]="nurseryForm" (ngSubmit)="onSubmit()" novalidate>
-                    <div class="form-group">
-                        <label>Nom</label>
+                    <div class="form-group mb-3">
+                        <label class="fw-bold">Nom</label>
                         <input type="text" class="form-control" formControlName="name" required />
                         @if (nurseryForm.controls["name"].invalid && nurseryForm.controls["name"].touched) {
                         <div class="alert alert-danger">Veuillez introduire un nom d'une taille autorisée (6-30 caractères)</div>
                         }
                     </div>
 
-                    <div class="form-group">
-                        <label>Adresse</label>
+                    <div class="form-group mb-3">
+                        <label class="fw-bold">Adresse</label>
                         <input type="text" class="form-control" formControlName="location" required />
                         @if (nurseryForm.controls["location"].invalid && nurseryForm.controls["location"].touched) {
                         <div class="alert alert-danger">Veuillez introduire une adresse d'une taille autorisée (6-80 caractères)</div>
                         }
                     </div>
 
-                    <div class="form-group">
-                        <label>Capacité de la crèche en nombre d'enfants</label>
+                    <div class="form-group mb-3">
+                        <label class="fw-bold">Capacité de la crèche en nombre d'enfants</label>
                         <input type="number" class="form-control" min="0" formControlName="total_children" required />
                         @if (nurseryForm.controls["total_children"].invalid && nurseryForm.controls["total_children"].touched) {
                         <div class="alert alert-danger">Veuillez introduire un nombre (min 0)</div>
                         }
                     </div>
-                    <div class="form-group">
-                        <label>Gérant</label>
+                    <div class="form-group mb-3">
+                        <label class="fw-bold">Gérant</label>
                         <div>
                             <select name="select" formControlName="owner" class="form-control" required>
                                 @for (owner of listPotentialOwners; track owner){
@@ -45,7 +45,7 @@
                         </div>
                     </div>
                     <div class="mb-3">
-                        <label for="logo" class="form-label">Image de la crèche</label>
+                        <label for="logo" class="form-label fw-bold">Image de la crèche</label>
                         <input
                             type="file"
                             accept="image/png, image/jpeg, image/jpg"
@@ -61,9 +61,8 @@
                         <p-button
                             type="submit"
                             label="Créer"
-                            [outlined]="true"
                             class="btn-save"
-                            severity="secondary"
+                            severity="success"
                             [disabled]="!nurseryForm.valid || loading"
                         />
                     </div>

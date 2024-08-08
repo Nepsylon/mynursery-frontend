@@ -9,23 +9,22 @@
             name="repository"
             placeholder="Select a repository"
             [style]="{ 'border-radius': '0px' }"
-            (onChange)="refreshSearchValue()"
+            (onChange)="refreshSearchLabel()"
         >
         </p-dropdown>
         <p-dropdown
             [options]="results"
             placeholder="Rechercher..."
             [editable]="true"
-            [(ngModel)]="searchValue"
+            [(ngModel)]="searchLabel"
             name="result"
             optionLabel="name"
             optionValue="id"
             [style]="{ 'border-radius': '0px' }"
             (onChange)="onSearch()"
             (onClick)="selectResult($event)"
-            (onBlur)="hideSearchBar()"
         ></p-dropdown>
-        <!-- <p-inputGroupAddon><i class="pi pi-search"></i></p-inputGroupAddon> -->
-        <a [routerLink]="[searchRepo, searchValue.toString()]" (onClick)="onSearchButton()"><i class="pi pi-search"></i></a>
+        <button icon="pi pi-search" class="p-button-warning" pButton [disabled]="!searchLabel" (click)="onSearchButton()"></button>
+        <!-- <p-button [routerLink]="[searchRepo, searchValue.toString()]" (onClick)="onSearchButton()"><i class="pi pi-search"></i></p-button> -->
     </p-inputGroup>
 </div>
