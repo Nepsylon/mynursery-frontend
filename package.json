@@ -27,6 +27,7 @@
     "bootstrap": "^5.3.2",
     "jwt-decode": "^4.0.0",
     "ng-recaptcha": "^13.2.1",
+    "ngx-skeleton-loader": "^9.0.0",
     "ngx-toastr": "^19.0.0",
     "primeicons": "^7.0.0",
     "primeng": "^17.18.5",

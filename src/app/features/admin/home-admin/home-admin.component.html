@@ -1,51 +1,62 @@
+<div class="text-center">
+    <h1>Tableau de bord administrateur</h1>
+</div>
 <div class="container my-5">
     <div class="row row-cols-1 row-cols-md-4 g-4">
-        <div class="col">
+        <div class="col text-center">
             <div class="card h-100">
                 <a routerLink="./nurseries" class="stretched-link">
-                    <img src="https://via.placeholder.com/150" class="card-img-top" alt="Image 1" />
+                    <div class="icon my-5">
+                        <i class="pi pi-star" style="font-size: 7.5rem"></i>
+                    </div>
                     <div class="card-body">
                         <h5 class="card-title">Crèches</h5>
-                        <p class="card-text">Route /nurseries</p>
+                        <p class="card-text">Consulter les crèches</p>
                     </div>
                 </a>
             </div>
         </div>
-        <div class="col">
+
+        <div class="col text-center">
             <div class="card h-100">
-                <a href="#" class="stretched-link">
-                    <img src="https://via.placeholder.com/150" class="card-img-top" alt="Image 2" />
+                <a routerLink="./employees" class="stretched-link">
+                    <div class="icon my-5">
+                        <i class="pi pi-users" style="font-size: 7.5rem"></i>
+                    </div>
                     <div class="card-body">
-                        <h5 class="card-title">Titre de la carte 2</h5>
-                        <p class="card-text">Description de la carte 2.</p>
+                        <h5 class="card-title">Employés</h5>
+                        <p class="card-text">Consulter les employés</p>
                     </div>
                 </a>
             </div>
         </div>
-        <div class="col">
+
+        <div class="col text-center">
             <div class="card h-100">
-                <a href="#" class="stretched-link">
-                    <img src="https://via.placeholder.com/150" class="card-img-top" alt="Image 3" />
+                <a routerLink="./children" class="stretched-link">
+                    <div class="icon my-3">
+                        <fa-icon [icon]="faBaby" style="font-size: 7.5rem"></fa-icon>
+                    </div>
                     <div class="card-body">
-                        <h5 class="card-title">Titre de la carte 3</h5>
-                        <p class="card-text">Description de la carte 3.</p>
+                        <h5 class="card-title">Enfants</h5>
+                        <p class="card-text">Consulter les enfants</p>
                     </div>
                 </a>
             </div>
         </div>
-        <div class="col">
+
+        <div class="col text-center">
             <div class="card h-100">
-                <a href="#" class="stretched-link">
-                    <img src="https://via.placeholder.com/150" class="card-img-top" alt="Image 4" />
+                <a routerLink="./parents" class="stretched-link">
+                    <div class="icon my-5">
+                        <i class="pi pi-user" style="font-size: 7.5rem"></i>
+                    </div>
                     <div class="card-body">
-                        <h5 class="card-title">Titre de la carte 4</h5>
-                        <p class="card-text">Description de la carte 4.</p>
+                        <h5 class="card-title">Parents</h5>
+                        <p class="card-text">Consulter les parents</p>
                     </div>
                 </a>
             </div>
         </div>
     </div>
-</div>
-<div class="text-center">
-    <h1>Ceci est le tableau de bord</h1>
 </div>

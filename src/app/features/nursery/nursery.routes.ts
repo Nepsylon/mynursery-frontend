@@ -16,6 +16,5 @@ export const nurseryRoutes: Routes = [
         path: ':id',
         component: NurseryDetailsComponent,
     },
-    { path: '', redirectTo: '', pathMatch: 'full' },
     { path: '**', redirectTo: '' },
 ];

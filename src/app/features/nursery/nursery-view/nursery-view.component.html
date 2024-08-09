@@ -6,9 +6,7 @@
 <div class="container my-5">
     <mn-nursery-list [nurseries]="nurseries"></mn-nursery-list>
 </div>
-<!-- <div class="row d-flex justify-content-center">
-    <mn-pagination-bar [totalPages]="totalPages"></mn-pagination-bar>
-</div> -->
+
 <p-paginator
     (onPageChange)="onPageChange($any($event))"
     [first]="first"
