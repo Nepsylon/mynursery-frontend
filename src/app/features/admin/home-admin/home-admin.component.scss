@@ -1,9 +1,43 @@
-.card:hover {
-    border-color: blue;
-    box-shadow: 0 0 10px blue;
+// Surbrillance des cartes au survol de la souris
+.card.nursery:hover {
+    border-color: var(--nursery-color);
+    box-shadow: 0 0 10px var(--nursery-color);
 }
-.stretched-link {
+
+.card.child:hover {
+    border-color: var(--child-color);
+    box-shadow: 0 0 10px var(--child-color);
+}
+
+.card.employee:hover {
+    border-color: var(--employee-color);
+    box-shadow: 0 0 10px var(--employee-color);
+}
+
+.card.parent:hover {
+    border-color: var(--parent-color);
+    box-shadow: 0 0 10px var(--parent-color);
+}
+
+// Modification de la couleur du contenu
+.stretched-link.nursery {
     text-decoration: none;
+    color: var(--nursery-color);
+}
+
+.stretched-link.employee {
+    text-decoration: none;
+    color: var(--employee-color);
+}
+
+.stretched-link.child {
+    text-decoration: none;
+    color: var(--child-color);
+}
+
+.stretched-link.parent {
+    text-decoration: none;
+    color: var(--parent-color);
 }
 .stretched-link::after {
     content: '';
@@ -13,4 +47,8 @@
     right: 0;
     bottom: 0;
     z-index: 1;
+}
+
+.stretched-link:hover {
+    filter: brightness(0.8);
 }

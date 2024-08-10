@@ -1,4 +1,4 @@
-@if (nurseries) {
+@defer {@switch (!!nurseries.length) { @case (true) {
 <h1 class="text-center justify-content-center">Les Crèches</h1>
 <div class="btn-creation">
     <p-button icon="pi pi-plus" label="Créer une nouvelle crèche" severity="success" [routerLink]="['./create']" />
@@ -14,4 +14,22 @@
     [totalRecords]="totalCount"
     [rowsPerPageOptions]="[12, 24, 36]"
 />
-} @else { Pas de résultat }
+} @case (false) {
+<mn-empty></mn-empty>
+}} } @placeholder (minimum 500ms) {
+<h1 class="text-center justify-content-center">Les Crèches</h1>
+
+<div class="container my-5">
+    <!-- nursery-list -->
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        @for (number of skeletonNumbers; track number) {
+        <!-- nursery-card -->
+        <div class="col">
+            <div class="card d-flex justify-content-center">
+                <ngx-skeleton-loader count="4" appearance="line"></ngx-skeleton-loader>
+            </div>
+        </div>
+        }
+    </div>
+</div>
+}

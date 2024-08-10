@@ -7,10 +7,12 @@ import { PaginatedItems } from '../../../shared/interfaces/paginated-items.inter
 import { PaginatorModule } from 'primeng/paginator';
 import { PageEvent } from '../../../shared/interfaces/page-event.interface';
 import { ButtonModule } from 'primeng/button';
+import { EmptyComponent } from '../../../shared/empty/empty.component';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 @Component({
     selector: 'mn-nursery-view',
     standalone: true,
-    imports: [NurseryListComponent, PaginatorModule, RouterLink, ButtonModule],
+    imports: [NurseryListComponent, PaginatorModule, RouterLink, ButtonModule, EmptyComponent, NgxSkeletonLoaderModule],
     templateUrl: './nursery-view.component.html',
     styleUrl: './nursery-view.component.scss',
 })
@@ -20,6 +22,7 @@ export class NurseryViewComponent implements OnInit {
     totalCount: number = 0;
     first: number = 0;
     rows: number = 12;
+    skeletonNumbers = Array.from({ length: 12 }, (_, i) => i + 1);
 
     constructor(private nurseryService: NurseryService) {}
 

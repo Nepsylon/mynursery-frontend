@@ -1,4 +1,4 @@
-@if (children) {
+@defer {@if (children.length) {
 <h1 class="text-center justify-content-center">Les Enfants</h1>
 <div class="btn-creation">
     <p-button icon="pi pi-plus" label="Ajouter un enfant" severity="success" [routerLink]="['./create']" />
@@ -13,4 +13,22 @@
     [totalRecords]="totalCount"
     [rowsPerPageOptions]="[20, 40, 60]"
 />
-} @else { Pas de résultat }
+} @else { @if (userRole == 'admin' || userRole == 'owner') {
+<h1 class="text-center justify-content-center">Les Enfants</h1>
+<div class="btn-creation">
+    <p-button icon="pi pi-plus" label="Ajouter un enfant" severity="success" [routerLink]="['./create']" />
+</div>
+}
+<mn-empty></mn-empty>
+}} @placeholder (minimum 1000ms) {
+<h1 class="text-center justify-content-center">Les Enfants</h1>
+<div class="container my-5">
+    <!-- child-list -->
+    <div class="col">
+        @for (number of skeletonNumbers; track number) {
+        <!-- child-card -->
+        <ngx-skeleton-loader count="1" appearance="line"></ngx-skeleton-loader>
+        }
+    </div>
+</div>
+}

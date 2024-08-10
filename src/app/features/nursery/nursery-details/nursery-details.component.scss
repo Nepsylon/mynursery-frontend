@@ -1,1 +1,29 @@
+// .logo-nursery {
+//     max-width: 100%;
+//     max-height: 150px; /* ou toute autre valeur selon la hauteur souhaitée */
+//     object-fit: contain; /* ou 'cover' selon le comportement souhaité */
+//     margin: 0 auto; /* Centrer l'image si elle est plus petite que le conteneur */
+//     display: block;
+// }
 
+// .card {
+//     border-color: gray;
+// }
+
+.card-header {
+    text-align: center;
+}
+
+// input,
+// select {
+//     border-color: grey;
+// }
+
+input:hover {
+    border-color: var(--nursery-color);
+}
+
+// .btn-delete {
+//     position: relative;
+//     float: right;
+// }

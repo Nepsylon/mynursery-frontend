@@ -16,6 +16,5 @@ import { CardModule } from 'primeng/card';
 })
 export class NurseryListComponent {
     @Input() nurseries: Nursery[];
-
     layout: string = 'grid';
 }

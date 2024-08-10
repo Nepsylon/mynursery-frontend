@@ -19,6 +19,7 @@ export class NurseryDetailsComponent implements OnInit {
     nursery: Nursery;
     nurseryId: string;
     error: boolean;
+    skeletonNumbers = Array.from({ length: 5 }, (_, i) => i + 1);
 
     constructor(private nurseryService: NurseryService, private route: ActivatedRoute) {}
 
