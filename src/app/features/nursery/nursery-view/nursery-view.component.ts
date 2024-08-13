@@ -9,6 +9,7 @@ import { PageEvent } from '../../../shared/interfaces/page-event.interface';
 import { ButtonModule } from 'primeng/button';
 import { EmptyComponent } from '../../../shared/empty/empty.component';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import { AuthService } from '../../../core/auth/services/auth.service';
 @Component({
     selector: 'mn-nursery-view',
     standalone: true,
@@ -23,15 +24,17 @@ export class NurseryViewComponent implements OnInit {
     first: number = 0;
     rows: number = 12;
     skeletonNumbers = Array.from({ length: 12 }, (_, i) => i + 1);
+    userRole: string | null;
 
-    constructor(private nurseryService: NurseryService) {}
+    constructor(private nurseryService: NurseryService, private authService: AuthService) {}
 
     ngOnInit(): void {
-        this.generatePage(this.first, this.rows);
+        this.userRole = this.authService.getUserRole();
+        this.generateNurseries(this.first, this.rows);
     }
 
     // Affiche une page sur base de son index
-    generatePage(pageNumber: number, offset: number) {
+    generateNurseries(pageNumber: number, offset: number) {
         this.nurseryService.getPaginatedItems(pageNumber, offset).subscribe({
             next: (data: PaginatedItems) => {
                 this.nurseries = data.items;
@@ -43,6 +46,6 @@ export class NurseryViewComponent implements OnInit {
     onPageChange(event: PageEvent) {
         this.first = event.first;
         this.rows = event.rows;
-        this.generatePage(event.page, this.rows);
+        this.generateNurseries(event.page, this.rows);
     }
 }

@@ -1,34 +1,31 @@
-@defer {@if (children.length) {
 <h1 class="text-center justify-content-center">Les Enfants</h1>
+@defer {@switch (!!children.length) { @case (true) { @if (userRole == 'admin' || userRole == 'owner') {
 <div class="btn-creation">
     <p-button icon="pi pi-plus" label="Ajouter un enfant" severity="success" [routerLink]="['./create']" />
 </div>
-<div class="container my-5">
-    <mn-child-list [children]="children"></mn-child-list>
+}
+<div class="my-5">
+    <mn-child-list [children]="children" (onDelete)="refreshChildren()"></mn-child-list>
 </div>
 <p-paginator
     (onPageChange)="onPageChange($any($event))"
     [first]="first"
     [rows]="rows"
     [totalRecords]="totalCount"
-    [rowsPerPageOptions]="[20, 40, 60]"
+    [rowsPerPageOptions]="[5, 10, 20]"
 />
-} @else { @if (userRole == 'admin' || userRole == 'owner') {
-<h1 class="text-center justify-content-center">Les Enfants</h1>
+} @case (false) { @if (userRole == 'admin' || userRole == 'owner') {
 <div class="btn-creation">
     <p-button icon="pi pi-plus" label="Ajouter un enfant" severity="success" [routerLink]="['./create']" />
 </div>
 }
 <mn-empty></mn-empty>
-}} @placeholder (minimum 1000ms) {
-<h1 class="text-center justify-content-center">Les Enfants</h1>
-<div class="container my-5">
+}}} @placeholder {
+<div class="my-5">
     <!-- child-list -->
-    <div class="col">
-        @for (number of skeletonNumbers; track number) {
+    <div class="card">
         <!-- child-card -->
-        <ngx-skeleton-loader count="1" appearance="line"></ngx-skeleton-loader>
-        }
+        <ngx-skeleton-loader count="6" appearance="line"></ngx-skeleton-loader>
     </div>
 </div>
 }

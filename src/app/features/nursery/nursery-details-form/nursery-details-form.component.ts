@@ -21,7 +21,6 @@ export class NurseryDetailsFormComponent implements OnInit, OnChanges {
     @Input() nurseryId: string;
     @Input() nursery: Nursery;
     loading: boolean = false;
-    visible: boolean = false;
     selectedLogo: File | null;
     listPotentialOwners: User[];
 
@@ -69,10 +68,6 @@ export class NurseryDetailsFormComponent implements OnInit, OnChanges {
                 this.listPotentialOwners = res;
             },
         });
-    }
-
-    showDialog() {
-        this.visible = !this.visible;
     }
 
     public get form() {

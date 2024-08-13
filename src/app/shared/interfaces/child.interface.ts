@@ -5,6 +5,7 @@ export interface Child {
     surname: string;
     name: string;
     age: number;
+    gender: string;
     startDateContract: Date;
     endDateContract: Date;
     parents: Parent[];

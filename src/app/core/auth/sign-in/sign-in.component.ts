@@ -11,6 +11,7 @@ import { User } from '../../../shared/interfaces/user.interface';
 import { LoginDto } from '../interfaces/login-dto.interface';
 import { AccessToken } from '../interfaces/access-token.interface';
 import { RecaptchaV3Module, ReCaptchaV3Service } from 'ng-recaptcha';
+import { confirmPasswordValidator } from '../../../shared/validators/confirm-password.validator';
 
 @Component({
     selector: 'mn-sign-in',
@@ -20,12 +21,16 @@ import { RecaptchaV3Module, ReCaptchaV3Service } from 'ng-recaptcha';
     styleUrl: './sign-in.component.scss',
 })
 export class SignInComponent implements OnInit, OnDestroy {
-    registerForm = new FormGroup({
-        name: new FormControl('', Validators.required),
-        surname: new FormControl('', Validators.required),
-        email: new FormControl('', [Validators.required, Validators.email]),
-        password: new FormControl('', [Validators.required, Validators.minLength(6)]),
-    });
+    registerForm = new FormGroup(
+        {
+            name: new FormControl('', Validators.required),
+            surname: new FormControl('', Validators.required),
+            email: new FormControl('', [Validators.required, Validators.email]),
+            password: new FormControl('', [Validators.required, Validators.minLength(6)]),
+            confirmPassword: new FormControl(''),
+        },
+        { validators: confirmPasswordValidator.bind(this) }
+    );
     faPenToSquare = faPenToSquare;
     loading: boolean = false;
     userDto: createUserDto;

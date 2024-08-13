@@ -1,4 +1,4 @@
-<div class="container mt-5">
+<div class="mt-5">
     <div class="row justify-content-center">
         <div class="col-lg-8">
             <div class="card">
@@ -64,10 +64,9 @@
                         />
 
                         <mn-modal
+                            label="Supprimer"
                             title="Suppression d'une crèche"
                             description="Êtes-vous sûr de vouloir supprimer la crèche ?"
-                            (onClick)="showDialog()"
-                            (onCancel)="showDialog()"
                             (onConfirm)="onDelete()"
                         ></mn-modal>
                     </div>

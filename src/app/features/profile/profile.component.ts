@@ -17,7 +17,6 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class ProfileComponent implements OnInit {
     profile: User;
-    visible: boolean = false;
     loading: boolean = false;
     userId: string | null;
 
@@ -50,10 +49,6 @@ export class ProfileComponent implements OnInit {
                 },
             });
         }
-    }
-
-    showDialog() {
-        this.visible = !this.visible;
     }
 
     removeEmptyFields(): object {

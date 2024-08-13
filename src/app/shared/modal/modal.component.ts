@@ -11,6 +11,7 @@ import { ButtonModule } from 'primeng/button';
 })
 export class ModalComponent {
     visible: boolean;
+    @Input() label: string | undefined;
     @Input() title: string;
     @Input() description?: string;
     @Output() onCancel = new EventEmitter<void>();

@@ -1,9 +1,10 @@
-@defer {@switch (!!nurseries.length) { @case (true) {
 <h1 class="text-center justify-content-center">Les Crèches</h1>
+
+@defer {@switch (!!nurseries.length) { @case (true) {
 <div class="btn-creation">
     <p-button icon="pi pi-plus" label="Créer une nouvelle crèche" severity="success" [routerLink]="['./create']" />
 </div>
-<div class="container my-5">
+<div class="my-5">
     <mn-nursery-list [nurseries]="nurseries"></mn-nursery-list>
 </div>
 
@@ -14,12 +15,14 @@
     [totalRecords]="totalCount"
     [rowsPerPageOptions]="[12, 24, 36]"
 />
-} @case (false) {
+} @case (false) { @if (userRole == 'admin' || userRole == 'owner') {
+<div class="btn-creation">
+    <p-button icon="pi pi-plus" label="Créer une nouvelle crèche" severity="success" [routerLink]="['./create']" />
+</div>
+}
 <mn-empty></mn-empty>
-}} } @placeholder (minimum 500ms) {
-<h1 class="text-center justify-content-center">Les Crèches</h1>
-
-<div class="container my-5">
+}} } @placeholder {
+<div class="my-5">
     <!-- nursery-list -->
     <div class="row row-cols-1 row-cols-md-3 g-4">
         @for (number of skeletonNumbers; track number) {

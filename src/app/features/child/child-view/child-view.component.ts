@@ -20,22 +20,22 @@ import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 })
 export class ChildViewComponent implements OnInit {
     children: Child[] = [];
-    filteredChildren: Child[] = [];
     userRole: string | null;
     totalCount: number = 0;
     first: number = 0;
-    rows: number = 20;
-    skeletonNumbers = Array.from({ length: 12 }, (_, i) => i + 1);
+    rows: number = 5;
+    page: number = 0;
 
     constructor(private childService: ChildService, private authService: AuthService) {}
 
     ngOnInit(): void {
         this.userRole = this.authService.getUserRole();
-        this.generatePage(this.first, this.rows);
+        this.generateChildren(this.first, this.rows);
+        console.log(this.children);
     }
 
     // Affiche une page sur base de son index
-    generatePage(pageNumber: number, offset: number) {
+    generateChildren(pageNumber: number, offset: number) {
         this.childService.getPaginatedItems(pageNumber, offset).subscribe({
             next: (data: PaginatedItems) => {
                 this.children = data.items;
@@ -44,9 +44,17 @@ export class ChildViewComponent implements OnInit {
         });
     }
 
+    refreshChildren() {
+        if (this.children.length === 1) {
+            this.page -= 1;
+        }
+        this.generateChildren(this.page, this.rows);
+    }
+
     onPageChange(event: PageEvent) {
         this.first = event.first;
         this.rows = event.rows;
-        this.generatePage(event.page, this.rows);
+        this.page = event.page;
+        this.generateChildren(this.page, this.rows);
     }
 }
