@@ -1,0 +1,104 @@
+<p-button severity="success" label="Ajouter un enfant" icon="pi pi-plus" class="mr-2" (onClick)="openNew()" />
+<p-dialog [(visible)]="childDialog" [style]="{ width: '450px' }" header="Détails de l'enfant" [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="content">
+        <form [formGroup]="childForm" (ngSubmit)="saveChild()">
+            <div class="row mb-3">
+                <div class="field col">
+                    <label for="name">Prénom</label>
+                    <input type="text" pInputText id="name" formControlName="name" required autofocus />
+                    @if (childForm.controls.name.invalid && childForm.controls.name.touched) {
+                    <small class="p-error"> Un prénom est requis </small>
+                    }
+                </div>
+                <div class="field col">
+                    <label for="surname">Nom de famille</label>
+                    <input type="text" pInputText id="surname" formControlName="surname" required />
+                    @if (childForm.controls.surname.invalid && childForm.controls.surname.touched) {
+                    <small class="p-error"> Un nom est requis </small>
+                    }
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="field col">
+                    <label for="age">Age</label>
+                    <p-inputNumber id="age" formControlName="age" min="0" />
+                    @if (childForm.controls.age.invalid && childForm.controls.age.touched) {
+                    <small class="p-error"> Veuillez préciser l'âge </small>
+                    }
+                </div>
+
+                <div class="field col">
+                    <label>Genre</label>
+                    <div class="field-radiobutton">
+                        <p-radioButton id="male" name="gender" value="male" formControlName="gender" class="me-1" />
+                        <label for="male">Masculin</label>
+                    </div>
+                    <div class="field-radiobutton">
+                        <p-radioButton id="female" name="gender" value="female" formControlName="gender" class="me-1" />
+                        <label for="female">Féminin</label>
+                    </div>
+                </div>
+
+                <!-- <div class="field">
+                    <label for="inventoryStatus">Inventory Status</label>
+                    <p-dropdown [(ngModel)]="product.inventoryStatus" inputId="inventoryStatus" [options]="statuses">
+                        <ng-template pTemplate="selectedItem">
+                            <p-tag
+                                [value]="product.inventoryStatus.toUpperCase()"
+                                [severity]="getSeverity(product.inventoryStatus.toUpperCase())"
+                            />
+                        </ng-template>
+                        <ng-template let-option pTemplate="item">
+                            <p-tag [value]="option.label" [severity]="getSeverity(option.label)" />
+                        </ng-template>
+                    </p-dropdown>
+                </div> -->
+            </div>
+            <div class="field mb-3">
+                <label for="startDateContract">Date de début du contrat</label>
+                <p-calendar
+                    formControlName="startDateContract"
+                    dateFormat="dd.mm.yy"
+                    placeholder="Date de début"
+                    [showIcon]="true"
+                    [iconDisplay]="'input'"
+                    appendTo="body"
+                />
+                @if (childForm.controls.startDateContract.invalid && childForm.controls.startDateContract.touched) {
+                <small class="p-error"> Veuillez sélectionner une date de début </small>
+                }
+            </div>
+
+            <div class="field mb-3">
+                <label for="endDateContract">Date de fin du contrat</label>
+                <p-calendar
+                    formControlName="endDateContract"
+                    dateFormat="dd.mm.yy"
+                    placeholder="Date de fin"
+                    [showIcon]="true"
+                    [iconDisplay]="'input'"
+                    appendTo="body"
+                />
+                @if (childForm.controls.endDateContract.invalid && childForm.controls.endDateContract.touched) {
+                <small class="p-error"> Veuillez sélectionner une date de fin </small>
+                }
+            </div>
+        </form>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <p-button label="Annuler" icon="pi pi-times" [text]="true" (onClick)="hideDialog()" />
+        <p-button
+            type="submit"
+            label="Enregistrer"
+            icon="pi pi-check"
+            [text]="true"
+            severity="success"
+            (onClick)="saveChild()"
+            [disabled]="!childForm.valid"
+        />
+    </ng-template>
+</p-dialog>
+
+<p-confirmDialog [style]="{ width: '450px' }" />

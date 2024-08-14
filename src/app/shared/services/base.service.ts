@@ -31,6 +31,10 @@ export abstract class BaseService<T> {
         return this.http.delete<unknown>(`${this.baseUrl}/${this.endPoint}/${id}`);
     }
 
+    softDeleteMultiple(ids: number[]): Observable<unknown> {
+        return this.http.post<unknown>(`${this.baseUrl}/${this.endPoint}/multiple`, ids);
+    }
+
     getPaginatedItems(pageNumber: number, itemQuantity: number): Observable<PaginatedItems> {
         return this.http.get<PaginatedItems>(`${this.baseUrl}/${this.endPoint}/paginated?page=${pageNumber}&itemQuantity=${itemQuantity}`);
     }

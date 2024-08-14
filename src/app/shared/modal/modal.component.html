@@ -1,4 +1,4 @@
-<p-button icon="pi pi-trash" [label]="label" severity="danger" class="btn-delete" />
+<p-button icon="pi pi-trash" [label]="label" severity="danger" />
 <p-dialog
     header="{{ this.title }}"
     [modal]="true"
@@ -13,7 +13,7 @@
         <span class="p-text-secondary block mb-5">{{ this.description }}</span>
     </div>
     <div class="flex justify-content-end gap-2">
-        <p-button label="Annuler" class="buttons" severity="secondary" (onClick)="cancel()" />
-        <p-button label="Supprimer" class="buttons" severity="danger" (onClick)="confirm()" />
+        <p-button label="Annuler" icon="pi pi-times" [text]="true" class="buttons" severity="secondary" (onClick)="cancel()" />
+        <p-button label="Supprimer" icon="pi pi-check" [text]="true" class="buttons" severity="danger" (onClick)="confirm()" />
     </div>
 </p-dialog>

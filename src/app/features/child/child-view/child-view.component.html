@@ -1,11 +1,13 @@
 <h1 class="text-center justify-content-center">Les Enfants</h1>
-@defer {@switch (!!children.length) { @case (true) { @if (userRole == 'admin' || userRole == 'owner') {
-<div class="btn-creation">
-    <p-button icon="pi pi-plus" label="Ajouter un enfant" severity="success" [routerLink]="['./create']" />
-</div>
-}
+@defer {@switch (!!children.length) { @case (true) {
 <div class="my-5">
-    <mn-child-list [children]="children" (onDelete)="refreshChildren()"></mn-child-list>
+    <mn-child-list
+        [children]="children"
+        [role]="userRole"
+        (onDelete)="refreshChildren()"
+        (onMultipleDelete)="refreshChildren(true)"
+        (onCreate)="refreshChildren()"
+    ></mn-child-list>
 </div>
 <p-paginator
     (onPageChange)="onPageChange($any($event))"
@@ -14,11 +16,7 @@
     [totalRecords]="totalCount"
     [rowsPerPageOptions]="[5, 10, 20]"
 />
-} @case (false) { @if (userRole == 'admin' || userRole == 'owner') {
-<div class="btn-creation">
-    <p-button icon="pi pi-plus" label="Ajouter un enfant" severity="success" [routerLink]="['./create']" />
-</div>
-}
+} @case (false) {
 <mn-empty></mn-empty>
 }}} @placeholder {
 <div class="my-5">

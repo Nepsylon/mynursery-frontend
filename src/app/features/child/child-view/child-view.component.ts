@@ -31,7 +31,6 @@ export class ChildViewComponent implements OnInit {
     ngOnInit(): void {
         this.userRole = this.authService.getUserRole();
         this.generateChildren(this.first, this.rows);
-        console.log(this.children);
     }
 
     // Affiche une page sur base de son index
@@ -44,8 +43,11 @@ export class ChildViewComponent implements OnInit {
         });
     }
 
-    refreshChildren() {
+    refreshChildren(multipleDelete?: boolean) {
         if (this.children.length === 1) {
+            this.page -= 1;
+        }
+        if (multipleDelete) {
             this.page -= 1;
         }
         this.generateChildren(this.page, this.rows);
