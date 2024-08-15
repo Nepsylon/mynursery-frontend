@@ -10,6 +10,7 @@
     ></mn-child-list>
 </div>
 <p-paginator
+    #paginator
     (onPageChange)="onPageChange($any($event))"
     [first]="first"
     [rows]="rows"

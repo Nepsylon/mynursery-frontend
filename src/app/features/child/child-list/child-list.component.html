@@ -10,9 +10,42 @@
                 severity="danger"
                 label="Supprimer la sélection"
                 icon="pi pi-trash"
-                (onClick)="deleteSelectedProducts()"
+                (onClick)="openMultipleDeleteDialog()"
                 [disabled]="!selectedChildren || !selectedChildren.length"
             />
+            <div class="d-flex flex-column align-items-center">
+                <p-dialog
+                    [(visible)]="multipleDeleteDialog"
+                    [modal]="true"
+                    header="Voulez-vous supprimer ces éléments ?"
+                    closable="false"
+                    class="custom-dialog"
+                >
+                    <div class="d-flex gap-3 description-container justify-content-center">
+                        <span class="p-text-secondary block mb-5"
+                            >Vous allez supprimer {{ childrenToDelete.length }} enfants de la base de données</span
+                        >
+                    </div>
+                    <div class="d-flex justify-content-center gap-2">
+                        <p-button
+                            label="Annuler"
+                            icon="pi pi-times"
+                            [text]="true"
+                            class="buttons"
+                            severity="secondary"
+                            (onClick)="hideMultipleDeleteDialog()"
+                        />
+                        <p-button
+                            label="Supprimer"
+                            icon="pi pi-check"
+                            [text]="true"
+                            class="buttons"
+                            severity="danger"
+                            (onClick)="deleteSelectedProducts()"
+                        />
+                    </div>
+                </p-dialog>
+            </div>
         </ng-template>
     </p-toolbar>
     } @switch (role){ @case ('admin' || 'owner') {

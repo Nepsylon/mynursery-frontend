@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Child } from '../../../shared/interfaces/child.interface';
 import { PaginatorModule } from 'primeng/paginator';
 import { ButtonModule } from 'primeng/button';
-import { RouterLink } from '@angular/router';
+import { defaultUrlMatcher, RouterLink } from '@angular/router';
 import { ChildListComponent } from '../child-list/child-list.component';
 import { PageEvent } from '../../../shared/interfaces/page-event.interface';
 import { ChildService } from '../child.service';
@@ -10,6 +10,7 @@ import { PaginatedItems } from '../../../shared/interfaces/paginated-items.inter
 import { EmptyComponent } from '../../../shared/empty/empty.component';
 import { AuthService } from '../../../core/auth/services/auth.service';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import { Paginator } from 'primeng/paginator';
 
 @Component({
     selector: 'mn-child-view',
@@ -19,6 +20,7 @@ import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
     styleUrl: './child-view.component.scss',
 })
 export class ChildViewComponent implements OnInit {
+    @ViewChild('paginator') paginator: Paginator;
     children: Child[] = [];
     userRole: string | null;
     totalCount: number = 0;
@@ -53,7 +55,10 @@ export class ChildViewComponent implements OnInit {
                 this.page -= 1;
                 break;
         }
+        console.log(this.page);
+
         this.generateChildren(this.page, this.rows);
+        this.changePageTo(this.page);
     }
 
     onPageChange(event: PageEvent) {
@@ -61,5 +66,10 @@ export class ChildViewComponent implements OnInit {
         this.rows = event.rows;
         this.page = event.page;
         this.generateChildren(this.page, this.rows);
+    }
+
+    // Change page programmatically to a specific page
+    changePageTo(page: number) {
+        this.paginator.changePage(page); // 'page' is 0-based index, so for page 1, pass 0.
     }
 }

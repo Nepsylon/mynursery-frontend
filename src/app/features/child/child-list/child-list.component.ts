@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { Child } from '../../../shared/interfaces/child.interface';
 import { ButtonModule } from 'primeng/button';
@@ -8,15 +8,16 @@ import { ChildService } from '../child.service';
 import { ToastrService } from 'ngx-toastr';
 import { ToolbarModule } from 'primeng/toolbar';
 import { ChildFormComponent } from '../child-form/child-form.component';
+import { DialogModule } from 'primeng/dialog';
 
 @Component({
     selector: 'mn-child-list',
     standalone: true,
-    imports: [TableModule, ButtonModule, ModalComponent, ToolbarModule, RouterLink, ChildFormComponent],
+    imports: [TableModule, ButtonModule, ModalComponent, ToolbarModule, RouterLink, ChildFormComponent, DialogModule],
     templateUrl: './child-list.component.html',
     styleUrl: './child-list.component.scss',
 })
-export class ChildListComponent {
+export class ChildListComponent implements OnChanges {
     @Input() children: Child[];
     @Input() role: string | null;
     @Output() onDelete = new EventEmitter<void>();
@@ -24,19 +25,40 @@ export class ChildListComponent {
     @Output() onCreate = new EventEmitter<void>();
     selectedChildren: Child[] | null;
     childrenToDelete: number[] = [];
+    multipleDeleteDialog: boolean = false;
 
     constructor(private router: Router, private route: ActivatedRoute, private childService: ChildService, private toastr: ToastrService) {}
+
+    ngOnChanges(changes: SimpleChanges): void {
+        if (changes['children'] && changes['children'].currentValue) {
+            this.selectedChildren = [];
+        }
+    }
 
     refreshChildren() {
         this.onCreate.emit();
     }
 
+    openMultipleDeleteDialog() {
+        this.multipleDeleteDialog = true;
+    }
+
+    hideMultipleDeleteDialog() {
+        this.multipleDeleteDialog = false;
+    }
+
     deleteSelectedProducts() {
+        const deleteLength = this.childrenToDelete.length;
         this.childService.softDeleteMultiple(this.childrenToDelete).subscribe({
             next: (res) => {
                 this.toastr.success('Enfants supprimés avec succès !');
-                this.onMultipleDelete.emit(this.childrenToDelete.length);
+                if (deleteLength > 1) {
+                    this.onMultipleDelete.emit(deleteLength);
+                } else {
+                    this.onDelete.emit();
+                }
                 this.childrenToDelete = [];
+                this.multipleDeleteDialog = false;
             },
             error: (err) => {
                 this.toastr.error('Un problème est survenu pendant la suppression des éléments');
