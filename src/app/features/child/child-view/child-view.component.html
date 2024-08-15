@@ -5,7 +5,7 @@
         [children]="children"
         [role]="userRole"
         (onDelete)="refreshChildren()"
-        (onMultipleDelete)="refreshChildren(true)"
+        (onMultipleDelete)="refreshChildren($event)"
         (onCreate)="refreshChildren()"
     ></mn-child-list>
 </div>

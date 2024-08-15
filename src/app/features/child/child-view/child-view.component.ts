@@ -43,12 +43,15 @@ export class ChildViewComponent implements OnInit {
         });
     }
 
-    refreshChildren(multipleDelete?: boolean) {
-        if (this.children.length === 1) {
-            this.page -= 1;
-        }
-        if (multipleDelete) {
-            this.page -= 1;
+    refreshChildren(numberToDelete?: number) {
+        const childrenLength = this.children.length;
+        switch (childrenLength) {
+            case 1:
+                this.page -= 1;
+                break;
+            case numberToDelete:
+                this.page -= 1;
+                break;
         }
         this.generateChildren(this.page, this.rows);
     }

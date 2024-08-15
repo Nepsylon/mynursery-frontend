@@ -20,7 +20,7 @@ export class ChildListComponent {
     @Input() children: Child[];
     @Input() role: string | null;
     @Output() onDelete = new EventEmitter<void>();
-    @Output() onMultipleDelete = new EventEmitter<void>();
+    @Output() onMultipleDelete = new EventEmitter<number>();
     @Output() onCreate = new EventEmitter<void>();
     selectedChildren: Child[] | null;
     childrenToDelete: number[] = [];
@@ -35,8 +35,8 @@ export class ChildListComponent {
         this.childService.softDeleteMultiple(this.childrenToDelete).subscribe({
             next: (res) => {
                 this.toastr.success('Enfants supprimés avec succès !');
+                this.onMultipleDelete.emit(this.childrenToDelete.length);
                 this.childrenToDelete = [];
-                this.onMultipleDelete.emit();
             },
             error: (err) => {
                 this.toastr.error('Un problème est survenu pendant la suppression des éléments');
