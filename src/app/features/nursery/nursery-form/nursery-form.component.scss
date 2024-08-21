@@ -1,14 +1,5 @@
-.card {
-    border-color: gray;
-}
-
 .card-header {
-    text-align: center;
-}
-
-input,
-select {
-    border-color: grey;
+    background-color: var(--nursery-color);
 }
 
 input:hover {

@@ -6,13 +6,16 @@
 } @defer {@switch (!!children.length) { @case (true) {
 
 <div class="my-5">
-    <mn-child-list
-        [children]="children"
-        [role]="userRole"
-        (onDelete)="refreshChildren()"
-        (onMultipleDelete)="refreshChildren($event)"
-        (onCreate)="refreshChildren()"
-    ></mn-child-list>
+    <div class="card">
+        <mn-child-list
+            [children]="children"
+            [role]="userRole"
+            (onDelete)="refreshChildren()"
+            (onMultipleDelete)="refreshChildren($event)"
+            (onCreate)="refreshChildren()"
+            class="m-3"
+        ></mn-child-list>
+    </div>
 </div>
 <p-paginator
     #paginator

@@ -1,18 +1,21 @@
-.card {
-    border-color: gray;
-}
+// .card {
+//     border-color: gray;
+// }
 
-.card-header {
-    text-align: center;
-}
+// input,
+// select {
+//     border-color: grey;
+// }
 
-input,
-select {
-    border-color: grey;
-}
+// input:hover {
+//     border-color: var(--nursery-color);
+// }
 
-input:hover {
-    border-color: var(--nursery-color);
+.overlay {
+    border: 1px;
+    border-radius: 0.25rem;
+    padding: 1rem;
+    background-color: white;
 }
 
 .btn-delete {

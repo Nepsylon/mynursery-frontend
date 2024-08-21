@@ -1,10 +1,10 @@
-<div class="mt-5">
-    <div class="row justify-content-center">
-        <div class="col-lg-8">
-            <div class="card">
-                <div class="card-header text-center mb-3">
-                    <h5 class="card-title">Gestion d'un enfant</h5>
-                </div>
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card shadow-sm border-0">
+            <div class="card-header text-center text-white">
+                <h5 class="card-title">Gestion d'un enfant</h5>
+            </div>
+            <div class="card-body">
                 <form [formGroup]="childForm" (ngSubmit)="onUpdate()" novalidate class="mb-3">
                     <div class="form-group mb-3">
                         <label>Prénom</label>
@@ -40,22 +40,21 @@
                         </div>
                     </div>
 
-                    <div class="field mb-3">
+                    <div class="form-group mb-3">
                         <label>Date de début du contrat</label>
-                        <input type="date" class="form-control" formControlName="startDateContract" required />
+                        <p-calendar formControlName="startDateContract" dateFormat="dd.mm.yy" [showIcon]="true" [iconDisplay]="'input'" />
                         @if (childForm.controls["startDateContract"].invalid && childForm.controls["startDateContract"].touched) {
-                        <div class="alert alert-danger">Veuillez introduire un nom d'une taille autorisée (6-30 caractères)</div>
+                        <div class="alert alert-danger">Veuillez introduire une date</div>
                         }
                     </div>
 
-                    <div class="field mb-3">
+                    <div class="form-group mb-3">
                         <label>Date de fin du contrat</label>
-                        <input type="date" class="form-control" formControlName="endDateContract" required />
+                        <p-calendar formControlName="endDateContract" dateFormat="dd.mm.yy" [showIcon]="true" [iconDisplay]="'input'" />
                         @if (childForm.controls["endDateContract"].invalid && childForm.controls["endDateContract"].touched) {
-                        <div class="alert alert-danger">Veuillez introduire un nom d'une taille autorisée (6-30 caractères)</div>
+                        <div class="alert alert-danger">Veuillez introduire une date</div>
                         }
                     </div>
-
                     <div class="form-group mb-3">
                         <label class="fw-bold">Parent</label>
                         <div>

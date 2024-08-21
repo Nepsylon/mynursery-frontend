@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Nursery } from '../../../shared/interfaces/nursery.interface';
 import { DropdownModule } from 'primeng/dropdown';
@@ -21,6 +21,7 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 export class NurseryDetailsFormComponent implements OnInit, OnChanges {
     @Input() nurseryId: string;
     @Input() nursery: Nursery;
+    @Output() onChange = new EventEmitter<void>();
     loading: boolean = false;
     selectedLogo: File | null;
     listPotentialOwners: User[];
@@ -85,6 +86,7 @@ export class NurseryDetailsFormComponent implements OnInit, OnChanges {
             next: (res: any) => {
                 this.loading = false;
                 this.toastr.success('Crèche mise à jour');
+                this.onChange.emit();
             },
             error: (res: any) => {
                 this.loading = false;
@@ -115,14 +117,27 @@ export class NurseryDetailsFormComponent implements OnInit, OnChanges {
         if (this.selectedLogo) {
             formData.append('logo', this.selectedLogo);
         }
-        console.log(this.selectedLogo);
         this.nurseryService.updateLogo(this.nurseryId, formData).subscribe({
             next: (res: any) => {
                 this.toastr.success('Image sauvegardée');
+                this.onChange.emit();
             },
             error: (res: any) => {
                 console.log('error', res);
                 this.toastr.error('Une erreur est survenue');
+            },
+        });
+    }
+
+    onDeleteLogo() {
+        this.nurseryService.deleteLogo(this.nurseryId).subscribe({
+            next: (res: any) => {
+                this.toastr.success('Logo supprimé');
+                this.onChange.emit();
+            },
+            error: (res: any) => {
+                console.log('error', res);
+                this.toastr.error('Une erreur est survenue pendant la suppression du logo');
             },
         });
     }

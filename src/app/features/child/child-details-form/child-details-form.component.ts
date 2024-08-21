@@ -12,11 +12,12 @@ import { NurseryService } from '../../nursery/nursery.service';
 import { Router } from '@angular/router';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { parentService } from '../../parent/parent.service';
+import { CalendarModule } from 'primeng/calendar';
 
 @Component({
     selector: 'mn-child-details-form',
     standalone: true,
-    imports: [ReactiveFormsModule, DropdownModule, ButtonModule, ModalComponent, RadioButtonModule],
+    imports: [ReactiveFormsModule, DropdownModule, ButtonModule, ModalComponent, RadioButtonModule, CalendarModule],
     templateUrl: './child-details-form.component.html',
     styleUrl: './child-details-form.component.scss',
 })
@@ -32,8 +33,8 @@ export class ChildDetailsFormComponent implements OnInit, OnChanges {
         surname: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(30)]),
         age: new FormControl('', [Validators.required, Validators.min(0)]),
         gender: new FormControl('male'),
-        startDateContract: new FormControl(),
-        endDateContract: new FormControl(),
+        startDateContract: new FormControl<Date | null>(null),
+        endDateContract: new FormControl<Date | null>(null),
         nursery: new FormControl<number>(0, [Validators.required]),
         parents: new FormControl<number>(0, [Validators.required]),
     });
@@ -66,7 +67,6 @@ export class ChildDetailsFormComponent implements OnInit, OnChanges {
         this.nurseryService.getAll().subscribe({
             next: (res: Nursery[]) => {
                 this.listPotentialNurseries = res;
-                console.log(res);
             },
         });
     }
@@ -75,7 +75,6 @@ export class ChildDetailsFormComponent implements OnInit, OnChanges {
         this.parentService.getAll().subscribe({
             next: (res: Parent[]) => {
                 this.listPotentialParents = res;
-                console.log(res);
             },
         });
     }
@@ -86,12 +85,11 @@ export class ChildDetailsFormComponent implements OnInit, OnChanges {
             surname: child.surname,
             age: child.age.toString(),
             gender: child.gender,
-            startDateContract: child.startDateContract,
-            endDateContract: child.endDateContract,
+            startDateContract: new Date(child.startDateContract),
+            endDateContract: new Date(child.endDateContract),
             parents: child.parents?.id,
             nursery: child.nursery?.id,
         });
-        console.log(this.childForm);
     }
 
     onUpdate(): void {
@@ -101,11 +99,9 @@ export class ChildDetailsFormComponent implements OnInit, OnChanges {
             next: (res: any) => {
                 this.loading = false;
                 this.toastr.success('Enfant mise à jour');
-                console.log(this.childForm);
             },
             error: (res: any) => {
                 this.loading = false;
-                console.log('error', res);
                 this.toastr.error('Une erreur est survenue pendant la mise à jour des informations');
             },
         });

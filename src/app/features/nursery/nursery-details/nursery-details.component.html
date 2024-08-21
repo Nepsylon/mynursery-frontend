@@ -1,5 +1,5 @@
 @defer { @switch(error) {@case(false) {
-<mn-nursery-details-form [nurseryId]="nurseryId" [nursery]="nursery"></mn-nursery-details-form>
+<mn-nursery-details-form [nurseryId]="nurseryId" [nursery]="nursery" (onChange)="getNurseryDetails()"></mn-nursery-details-form>
 } @case(true) {
 <mn-not-found></mn-not-found>
 }} } @placeholder {

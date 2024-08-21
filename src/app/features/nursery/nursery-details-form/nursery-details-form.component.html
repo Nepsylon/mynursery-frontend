@@ -1,41 +1,89 @@
-<div class="mt-5">
-    <div class="row justify-content-center">
-        <div class="col-lg-8">
-            <div class="card">
-                <div class="card-header text-center mb-3">
-                    <h5 class="card-title">Gestion de la crèche</h5>
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card shadow-sm border-0">
+            <div class="card-header text-center text-white">
+                <h5 class="card-title">Gestion de la crèche</h5>
+            </div>
 
-                    <!-- Provoque une erreur en console -->
-                    @if (nursery.logo){
-                    <img alt="Card" class="logo-nursery" src="{{ nursery.logo }}" />
-                    }
+            <div class="card-body p-4">
+                <div>
+                    <div class="row">
+                        <!-- Colonne pour le formulaire de téléchargement -->
+                        <div class="col-md-6 mb-4">
+                            <!-- Formulaire pour sauvegarder une image -->
+                            <form [formGroup]="logoForm" (ngSubmit)="onUpload()" novalidate>
+                                <div class="mb-3">
+                                    <label for="logo" class="form-label fw-bold">Logo de la crèche</label>
+                                    <input
+                                        type="file"
+                                        accept="image/png, image/jpeg, image/jpg"
+                                        id="logo"
+                                        class="form-control"
+                                        formControlName="logo"
+                                        (change)="onFileChange($any($event))"
+                                    />
+                                </div>
+                                <div class="mb-3">
+                                    <p-button
+                                        type="submit"
+                                        label="Modifier"
+                                        class="btn-save"
+                                        severity="primary"
+                                        [disabled]="!selectedLogo"
+                                    ></p-button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- Colonne pour l'affichage du logo actuel -->
+                        <div class="col-md-6 mb-4">
+                            <div class="d-flex flex-column align-items-end">
+                                <!-- Vérification de l'existence du logo -->
+                                @if (nursery.logo) {
+                                <div class="d-flex flex-column align-items-center">
+                                    <img alt="logo" class="img-fluid mb-2" style="width: 150px" src="{{ nursery.logo }}" />
+                                    <p-button
+                                        icon="pi pi-trash"
+                                        label="Supprimer logo"
+                                        severity="danger"
+                                        (click)="onDeleteLogo()"
+                                    ></p-button>
+                                </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
+                <hr />
+
+                <!-- Formulaire de base -->
                 <form [formGroup]="nurseryForm" (ngSubmit)="onUpdate()" novalidate method="post" class="mb-3">
-                    <div class="form-group mb-3">
-                        <label class="fw-bold">Nom</label>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Nom</label>
                         <input type="text" class="form-control" formControlName="name" required />
                         @if (nurseryForm.controls["name"].invalid && nurseryForm.controls["name"].touched) {
                         <div class="alert alert-danger">Veuillez introduire un nom d'une taille autorisée (6-30 caractères)</div>
                         }
                     </div>
 
-                    <div class="form-group mb-3">
-                        <label class="fw-bold">Adresse</label>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Adresse</label>
                         <input type="text" class="form-control" formControlName="location" required />
                         @if (nurseryForm.controls["location"].invalid && nurseryForm.controls["location"].touched) {
                         <div class="alert alert-danger">Veuillez introduire une adresse d'une taille autorisée (6-80 caractères)</div>
                         }
                     </div>
 
-                    <div class="form-group mb-3">
-                        <label class="fw-bold">Capacité de la crèche en nombre d'enfants</label>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Capacité de la crèche en nombre d'enfants</label>
                         <input type="number" class="form-control" min="0" formControlName="total_children" required />
                         @if (nurseryForm.controls["total_children"].invalid && nurseryForm.controls["total_children"].touched) {
                         <div class="alert alert-danger">Veuillez introduire un nombre (min 0)</div>
                         }
                     </div>
-                    <div class="form-group mb-3">
-                        <label class="fw-bold">Gérant</label>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Gérant</label>
                         <div>
                             <p-dropdown
                                 [options]="listPotentialOwners"
@@ -52,7 +100,7 @@
                             }
                         </div>
                     </div>
-                    <hr />
+
                     <div class="d-flex justify-content-between align-items-center">
                         <p-button
                             type="submit"
@@ -71,23 +119,6 @@
                         ></mn-modal>
                     </div>
                     <div class="form-group"></div>
-                </form>
-                <form [formGroup]="logoForm" (ngSubmit)="onUpload()" novalidate>
-                    <div class="mb-3">
-                        <label for="logo" class="fw-bold">Logo de la crèche</label>
-                        <input
-                            type="file"
-                            accept="image/png, image/jpeg, image/jpg"
-                            id="logo"
-                            class="form-control"
-                            formControlName="logo"
-                            (change)="onFileChange($any($event))"
-                        />
-                    </div>
-                    <hr />
-                    <div class="form-group">
-                        <p-button type="submit" label="Modifier" class="btn-save" severity="primary" [disabled]="!selectedLogo" />
-                    </div>
                 </form>
             </div>
         </div>

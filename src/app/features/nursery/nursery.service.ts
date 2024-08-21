@@ -15,4 +15,8 @@ export class NurseryService extends BaseService<Nursery> {
     updateLogo(id: string, dto: any): Observable<any> {
         return this.http.post<any>(`${this.baseUrl}/${this.endPoint}/${id}/logo`, dto);
     }
+
+    deleteLogo(id: string): Observable<Nursery | any> {
+        return this.http.delete<Nursery | any>(`${this.baseUrl}/${this.endPoint}/${id}/logo`);
+    }
 }

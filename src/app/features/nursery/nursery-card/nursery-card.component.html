@@ -1,23 +1,25 @@
 <div class="col">
-    <div class="card d-flex justify-content-center">
-        <a routerLink="./{{ nursery.id }}" class="stretched-link">
-            <p-card [header]="nursery.name" [subheader]="nursery.location">
-                <ng-template pTemplate="header">
-                    @if (nursery.logo){
-                    <img alt="Card" class="logo-nursery" src="{{ nursery.logo }}" />
-                    }
-                </ng-template>
-                @if (nursery.owner?.name) {
-                <p>Gérant : {{ nursery.owner?.name }}</p>
-                }
-                <p>Nombre d'enfants : {{ nursery.total_children }}</p>
-                <ng-template pTemplate="footer">
-                    <div class="flex gap-3 mt-1">
-                        <!-- <p-button label="Cancel" severity="secondary" class="w-full" styleClass="w-full" />
-                        <p-button label="Save" class="w-full" styleClass="w-full" /> -->
+    <a routerLink="./{{ nursery.id }}" class="card-link">
+        <div class="card border-0">
+            <div class="row g-0 flex-row">
+                <!-- Forcer une disposition en ligne -->
+                <div class="col-8 d-flex align-items-center">
+                    <!-- Utilisation de col-8 pour tous les écrans -->
+                    <div class="card-body">
+                        <h5 class="card-title">{{ nursery.name }}</h5>
+                        <p class="card-text">Propriétaire : {{ nursery.owner?.name }}</p>
+                        <p class="card-text">
+                            <small class="text-muted">Adresse : {{ nursery.location }}</small>
+                        </p>
                     </div>
-                </ng-template>
-            </p-card>
-        </a>
-    </div>
+                </div>
+                <div class="col-4 d-flex align-items-center">
+                    <!-- Utilisation de col-4 pour tous les écrans -->
+                    @if (nursery.logo) {
+                    <img src="{{ nursery.logo }}" class="img-fluid rounded" alt="logo" />
+                    }
+                </div>
+            </div>
+        </div>
+    </a>
 </div>
