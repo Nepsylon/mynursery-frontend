@@ -82,7 +82,7 @@ export class NavbarComponent implements OnInit {
             items: [
                 {
                     label: 'Les employés',
-                    id: 'employees',
+                    id: 'employee   ',
                     icon: 'pi pi-users',
                     url: 'employees',
                 },
@@ -131,7 +131,7 @@ export class NavbarComponent implements OnInit {
             items: [
                 {
                     label: 'Les employés',
-                    id: 'employees',
+                    id: 'employee',
                     icon: 'pi pi-users',
                     url: 'employees',
                 },

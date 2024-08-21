@@ -9,11 +9,12 @@ import { NurseryService } from '../nursery.service';
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from '../../user/user.service';
 import { Router } from '@angular/router';
+import { RadioButtonModule } from 'primeng/radiobutton';
 
 @Component({
     selector: 'mn-nursery-details-form',
     standalone: true,
-    imports: [ReactiveFormsModule, DropdownModule, ButtonModule, ModalComponent],
+    imports: [ReactiveFormsModule, DropdownModule, ButtonModule, ModalComponent, RadioButtonModule],
     templateUrl: './nursery-details-form.component.html',
     styleUrl: './nursery-details-form.component.scss',
 })
@@ -73,6 +74,7 @@ export class NurseryDetailsFormComponent implements OnInit, OnChanges {
     public get form() {
         return this.nurseryForm.controls;
     }
+
     onFileChange(event: any): void {
         this.selectedLogo = event.target.files[0];
     }

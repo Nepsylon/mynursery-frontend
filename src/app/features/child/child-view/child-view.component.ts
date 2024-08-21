@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { Child } from '../../../shared/interfaces/child.interface';
 import { PaginatorModule } from 'primeng/paginator';
 import { ButtonModule } from 'primeng/button';
@@ -11,16 +11,18 @@ import { EmptyComponent } from '../../../shared/empty/empty.component';
 import { AuthService } from '../../../core/auth/services/auth.service';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { Paginator } from 'primeng/paginator';
+import { ChildFormComponent } from '../child-form/child-form.component';
 
 @Component({
     selector: 'mn-child-view',
     standalone: true,
-    imports: [PaginatorModule, ButtonModule, RouterLink, ChildListComponent, EmptyComponent, NgxSkeletonLoaderModule],
+    imports: [PaginatorModule, ButtonModule, RouterLink, ChildListComponent, EmptyComponent, NgxSkeletonLoaderModule, ChildFormComponent],
     templateUrl: './child-view.component.html',
     styleUrl: './child-view.component.scss',
 })
 export class ChildViewComponent implements OnInit {
     @ViewChild('paginator') paginator: Paginator;
+    @Output() onCreate = new EventEmitter<void>();
     children: Child[] = [];
     userRole: string | null;
     totalCount: number = 0;
@@ -59,6 +61,12 @@ export class ChildViewComponent implements OnInit {
 
         this.generateChildren(this.page, this.rows);
         this.changePageTo(this.page);
+        this.ngOnInit();
+    }
+
+    onCreateRefresh() {
+        this.onCreate.emit();
+        this.ngOnInit();
     }
 
     onPageChange(event: PageEvent) {

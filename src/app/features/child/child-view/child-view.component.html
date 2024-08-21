@@ -1,5 +1,10 @@
 <h1 class="text-center justify-content-center">Les Enfants</h1>
-@defer {@switch (!!children.length) { @case (true) {
+@if(children.length == 0) {
+<div class="btn-creation">
+    <mn-child-form (onCreate)="onCreateRefresh()"></mn-child-form>
+</div>
+} @defer {@switch (!!children.length) { @case (true) {
+
 <div class="my-5">
     <mn-child-list
         [children]="children"

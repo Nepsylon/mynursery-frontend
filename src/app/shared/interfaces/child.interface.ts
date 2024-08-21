@@ -9,6 +9,6 @@ export interface Child {
     gender: string;
     startDateContract: Date;
     endDateContract: Date;
-    parents: Parent[];
-    nursery: Nursery;
+    parents?: Parent;
+    nursery?: Nursery;
 }
