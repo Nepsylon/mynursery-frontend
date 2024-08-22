@@ -12,6 +12,10 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ChildService } from '../child.service';
 import { ToastrService } from 'ngx-toastr';
 import { CalendarModule } from 'primeng/calendar';
+import { NurseryService } from '../../nursery/nursery.service';
+import { parentService } from '../../parent/parent.service';
+import { Parent } from '../../../shared/interfaces/parent.interface';
+import { Nursery } from '../../../shared/interfaces/nursery.interface';
 
 @Component({
     selector: 'mn-child-form',
@@ -34,6 +38,8 @@ import { CalendarModule } from 'primeng/calendar';
 export class ChildFormComponent {
     @Output() onCreate = new EventEmitter<void>();
     childDialog: boolean = false;
+    listPotentialParents: Parent[];
+    listPotentialNurseries: Nursery[];
 
     childForm = new FormGroup({
         name: new FormControl('', Validators.required),
@@ -42,15 +48,41 @@ export class ChildFormComponent {
         age: new FormControl(null, Validators.required),
         startDateContract: new FormControl(null, Validators.required),
         endDateContract: new FormControl(null, Validators.required),
+        nursery: new FormControl<number>(0, [Validators.required]),
+        parents: new FormControl<number>(0, [Validators.required]),
     });
-    constructor(private confirmationService: ConfirmationService, private childService: ChildService, private toastr: ToastrService) {}
+    constructor(
+        private confirmationService: ConfirmationService,
+        private childService: ChildService,
+        private toastr: ToastrService,
+        private parentService: parentService,
+        private nurseryService: NurseryService
+    ) {}
 
     openNew() {
         this.childDialog = true;
+        this.getPotentialNurseries();
+        this.getPotentialParents();
     }
 
     hideDialog() {
         this.childDialog = false;
+    }
+
+    getPotentialNurseries(): void {
+        this.nurseryService.getAll().subscribe({
+            next: (res: Nursery[]) => {
+                this.listPotentialNurseries = res;
+            },
+        });
+    }
+
+    getPotentialParents(): void {
+        this.parentService.getAll().subscribe({
+            next: (res: Parent[]) => {
+                this.listPotentialParents = res;
+            },
+        });
     }
 
     saveChild() {

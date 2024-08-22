@@ -89,6 +89,8 @@ export class LoginComponent implements OnInit, OnDestroy {
                 if (res.access_token) {
                     //this.authService.redirect();
                     this.router.navigateByUrl('');
+                } else if (res == false) {
+                    this.router.navigateByUrl('awaiting-mail');
                 } else {
                     this.loading = false;
                     this.errorMessage = res.message;

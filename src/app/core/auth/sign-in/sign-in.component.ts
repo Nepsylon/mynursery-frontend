@@ -77,13 +77,8 @@ export class SignInComponent implements OnInit, OnDestroy {
                     next: (res: User | any) => {
                         this.authService.login(this.loginDto).subscribe({
                             next: (res: AccessToken | any) => {
-                                // Redirection si jeton d'accès
-                                if (res.access_token) {
-                                    this.router.navigateByUrl('');
-                                } else {
-                                    this.loading = false;
-                                    this.errorMessage = res.message;
-                                }
+                                // Redirection vers la page d'attente
+                                this.router.navigateByUrl('awaiting-mail');
                             },
                             error: (err: any) => {
                                 this.loading = false;

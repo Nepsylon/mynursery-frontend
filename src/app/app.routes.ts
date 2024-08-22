@@ -5,6 +5,7 @@ import { roleGuard } from './core/auth/guards/role.guard';
 import { Role } from './core/auth/enums/role.enum';
 import { HomeComponent } from './core/home/home.component';
 import { SignInComponent } from './core/auth/sign-in/sign-in.component';
+import { AwaitingEmailVerificationComponent } from './shared/awaiting-email-verification/awaiting-email-verification.component';
 
 export const routes: Routes = [
     {
@@ -18,6 +19,10 @@ export const routes: Routes = [
     {
         path: 'sign-in',
         component: SignInComponent,
+    },
+    {
+        path: 'awaiting-mail',
+        component: AwaitingEmailVerificationComponent,
     },
     {
         path: 'admin',

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Confirmation en attente</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f4f4f4;
+                margin: 0;
+                padding: 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                text-align: center;
+            }
+            .container {
+                background-color: #fff;
+                padding: 20px;
+                border-radius: 8px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            }
+            .spinner {
+                margin: 20px auto;
+                width: 40px;
+                height: 40px;
+                border: 4px solid rgba(0, 0, 0, 0.1);
+                border-radius: 50%;
+                border-top-color: #3498db;
+                animation: spin 1s ease-in-out infinite;
+            }
+            @keyframes spin {
+                to {
+                    transform: rotate(360deg);
+                }
+            }
+            h1 {
+                font-size: 24px;
+                color: #333;
+            }
+            p {
+                font-size: 16px;
+                color: #666;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>Confirmation en attente</h1>
+            <div class="spinner"></div>
+            <p>Merci de vérifier votre boîte mail pour confirmer votre inscription.<br />Cette opération peut prendre quelques minutes.</p>
+            <div class="text-center">Votre compte est vérifié ? <a href="/login">Cliquez ici pour vous connecter </a></div>
+        </div>
+    </body>
+</html>

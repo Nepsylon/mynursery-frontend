@@ -69,6 +69,43 @@
                 <small class="p-error"> Veuillez sélectionner une date de fin </small>
                 }
             </div>
+            <div class="form-group mb-3">
+                <label class="fw-bold">Parent</label>
+                <div>
+                    <p-dropdown
+                        [options]="listPotentialParents"
+                        optionLabel="name"
+                        optionValue="id"
+                        formControlName="parents"
+                        name="parents"
+                        placeholder="Sélectionnez un gérant"
+                        [style]="{ width: '100%' }"
+                    ></p-dropdown>
+
+                    @if (childForm.controls["parents"].invalid && childForm.controls["parents"].touched) {
+                    <div class="alert alert-danger">Veuillez choisir un parent</div>
+                    }
+                </div>
+            </div>
+            <hr />
+            <div class="form-group mb-3">
+                <label class="fw-bold">Crèche</label>
+                <div>
+                    <p-dropdown
+                        [options]="listPotentialNurseries"
+                        optionLabel="name"
+                        optionValue="id"
+                        formControlName="nursery"
+                        name="nursery"
+                        placeholder="Sélectionnez une crèche"
+                        [style]="{ width: '100%' }"
+                    ></p-dropdown>
+
+                    @if (childForm.controls["nursery"].invalid && childForm.controls["nursery"].touched) {
+                    <div class="alert alert-danger">Veuillez choisir une crèche</div>
+                    }
+                </div>
+            </div>
         </form>
     </ng-template>
 

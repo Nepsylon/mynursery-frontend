@@ -58,7 +58,7 @@
                     <div class="form-group mb-3">
                         <label class="fw-bold">Parent</label>
                         <div>
-                            <p-dropdown
+                            <!-- <p-dropdown
                                 [options]="listPotentialParents"
                                 optionLabel="name"
                                 optionValue="id"
@@ -70,7 +70,15 @@
 
                             @if (childForm.controls["parents"].invalid && childForm.controls["parents"].touched) {
                             <div class="alert alert-danger">Veuillez choisir un parent</div>
-                            }
+                            } -->
+                            <div class="card flex justify-content-center">
+                                <p-multiSelect
+                                    [options]="listPotentialParents"
+                                    formControlName="parents"
+                                    optionLabel="name"
+                                    placeholder="Séléctionnez des parents"
+                                />
+                            </div>
                         </div>
                     </div>
                     <hr />

@@ -13,11 +13,12 @@ import { Router } from '@angular/router';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { parentService } from '../../parent/parent.service';
 import { CalendarModule } from 'primeng/calendar';
+import { MultiSelectModule } from 'primeng/multiselect';
 
 @Component({
     selector: 'mn-child-details-form',
     standalone: true,
-    imports: [ReactiveFormsModule, DropdownModule, ButtonModule, ModalComponent, RadioButtonModule, CalendarModule],
+    imports: [ReactiveFormsModule, DropdownModule, ButtonModule, ModalComponent, RadioButtonModule, CalendarModule, MultiSelectModule],
     templateUrl: './child-details-form.component.html',
     styleUrl: './child-details-form.component.scss',
 })
@@ -31,12 +32,12 @@ export class ChildDetailsFormComponent implements OnInit, OnChanges {
     childForm = new FormGroup({
         name: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(30)]),
         surname: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(30)]),
-        age: new FormControl('', [Validators.required, Validators.min(0)]),
+        age: new FormControl(0, [Validators.required, Validators.min(0)]),
         gender: new FormControl('male'),
         startDateContract: new FormControl<Date | null>(null),
         endDateContract: new FormControl<Date | null>(null),
         nursery: new FormControl<number>(0, [Validators.required]),
-        parents: new FormControl<number>(0, [Validators.required]),
+        parents: new FormControl<Parent[] | number[]>([], [Validators.required]),
     });
 
     constructor(
@@ -49,6 +50,7 @@ export class ChildDetailsFormComponent implements OnInit, OnChanges {
 
     ngOnInit(): void {
         this.updateForm(this.child);
+        console.log(this.child);
         this.getPotentialNurseries();
         this.getPotentialParents();
     }
@@ -83,18 +85,22 @@ export class ChildDetailsFormComponent implements OnInit, OnChanges {
         this.childForm.patchValue({
             name: child.name,
             surname: child.surname,
-            age: child.age.toString(),
+            age: child.age,
             gender: child.gender,
             startDateContract: new Date(child.startDateContract),
             endDateContract: new Date(child.endDateContract),
-            parents: child.parents?.id,
+            parents: child?.parents,
             nursery: child.nursery?.id,
         });
     }
 
     onUpdate(): void {
         this.loading = true;
-        console.log(this.childForm.value);
+        console.log('1', this.childForm.value);
+        const parentsIds: number[] = (this.childForm.value.parents as Parent[]).map((parent) => parent.id);
+        console.log(typeof parentsIds);
+        this.childForm.value.parents = parentsIds;
+        console.log('2', this.childForm.value);
         this.childService.update(this.childId, this.childForm.value).subscribe({
             next: (res: any) => {
                 this.loading = false;
