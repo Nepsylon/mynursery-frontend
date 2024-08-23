@@ -8,10 +8,10 @@ export const childRoutes: Routes = [
         path: '',
         component: ChildViewComponent,
     },
-    {
-        path: 'create',
-        component: ChildFormComponent,
-    },
+    // {
+    //     path: 'create',
+    //     component: ChildFormComponent,
+    // },
     {
         path: ':id',
         component: ChildDetailsComponent,

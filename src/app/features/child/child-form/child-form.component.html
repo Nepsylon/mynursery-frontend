@@ -72,18 +72,17 @@
             <div class="form-group mb-3">
                 <label class="fw-bold">Parent</label>
                 <div>
-                    <p-dropdown
+                    <p-multiSelect
                         [options]="listPotentialParents"
-                        optionLabel="name"
-                        optionValue="id"
                         formControlName="parents"
-                        name="parents"
-                        placeholder="Sélectionnez un gérant"
+                        optionLabel="name"
+                        placeholder="Séléctionnez un ou plusieurs parent(s)"
                         [style]="{ width: '100%' }"
-                    ></p-dropdown>
+                        appendTo="body"
+                    />
 
                     @if (childForm.controls["parents"].invalid && childForm.controls["parents"].touched) {
-                    <div class="alert alert-danger">Veuillez choisir un parent</div>
+                    <small class="p-error">Veuillez choisir un parent minimum</small>
                     }
                 </div>
             </div>
@@ -99,10 +98,11 @@
                         name="nursery"
                         placeholder="Sélectionnez une crèche"
                         [style]="{ width: '100%' }"
+                        appendTo="body"
                     ></p-dropdown>
 
                     @if (childForm.controls["nursery"].invalid && childForm.controls["nursery"].touched) {
-                    <div class="alert alert-danger">Veuillez choisir une crèche</div>
+                    <small class="p-error">Veuillez choisir une crèche</small>
                     }
                 </div>
             </div>

@@ -1,0 +1,84 @@
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card shadow-sm border-0">
+            <div class="card-header text-center text-white">
+                <h5 class="card-title">Gestion d'un parent</h5>
+            </div>
+            <div class="card-body">
+                <form [formGroup]="parentForm" (ngSubmit)="onUpdate()" novalidate class="mb-3">
+                    <div class="form-group mb-3">
+                        <label>Prénom</label>
+                        <input type="text" class="form-control" formControlName="name" required />
+                        <!-- @if (parentForm.controls["name"].invalid && parentForm.controls["name"].touched) {
+                        <small class="p-error">Veuillez introduire un prénom d'une taille autorisée (6-30 caractères)</small>
+                        } -->
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="surname">Nom de famille</label>
+                        <input type="text" class="form-control" formControlName="surname" required />
+                        <!-- @if (parentForm.controls["surname"].invalid && parentForm.controls["surname"].touched) {
+                        <small class="p-error">Veuillez introduire un nom d'une taille autorisée (6-30 caractères)</small>
+                        } -->
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="phone">Numéro de téléphone</label>
+                        <p-inputMask
+                            mask="+32 999 99 99 99"
+                            formControlName="phone"
+                            placeholder="+32 ___ __ __ __"
+                            [style]="{ width: '100%' }"
+                        >
+                        </p-inputMask>
+                        @if (parentForm.controls.phone.invalid && parentForm.controls.phone.touched) {
+                        <small class="p-error"> Un numéro de téléphone est requis </small>
+                        }
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="email">Email</label>
+                        <input type="text" pInputText class="form-control" id="email" formControlName="email" /> @if
+                        (parentForm.get('email')?.invalid && parentForm.get('email')?.dirty) {
+                        <small class="p-error">
+                            @if (parentForm.get('email')?.errors?.required) { Une adresse mail est requise } @if
+                            (parentForm.get('email')?.errors?.email) { Format de mail incorrect }
+                        </small>
+                        }
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label class="fw-bold">Enfants</label>
+                        <div>
+                            <p-multiSelect
+                                [options]="listPotentialChildren"
+                                formControlName="children"
+                                optionLabel="name"
+                                placeholder="Sélectionnez un ou plusieurs enfant(s)"
+                                [style]="{ width: '100%' }"
+                            />
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-between align-items-center">
+                        <p-button
+                            type="submit"
+                            icon="pi pi-save"
+                            label="Enregistrer"
+                            class="btn-save"
+                            severity="primary"
+                            [disabled]="!parentForm.valid || loading"
+                        />
+
+                        <mn-modal
+                            label="Supprimer"
+                            title="Suppression d'un parent"
+                            description="Êtes-vous sûr de vouloir supprimer le parent ?"
+                            (onConfirm)="onDelete()"
+                        ></mn-modal>
+                    </div>
+                    <div class="form-group"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

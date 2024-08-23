@@ -1,0 +1,39 @@
+<h1 class="text-center justify-content-center">Les Parents</h1>
+@if(parents.length == 0 && (userRole == 'admin' || userRole == 'owner' )) {
+<div class="btn-creation">
+    <!-- <mn-child-form (onCreate)="onCreateRefresh()"></mn-child-form> -->
+</div>
+} @defer {@switch (!!parents.length) { @case (true) {
+
+<div class="my-5">
+    <div class="card">
+        <mn-parent-list
+            [parents]="parents"
+            [role]="userRole"
+            (onDelete)="refreshParents()"
+            (onMultipleDelete)="refreshParents($event)"
+            (onCreate)="refreshParents()"
+            class="m-3"
+        ></mn-parent-list>
+    </div>
+</div>
+<p-paginator
+    #paginator
+    (onPageChange)="onPageChange($any($event))"
+    [first]="first"
+    [rows]="rows"
+    [totalRecords]="totalCount"
+    [rowsPerPageOptions]="[5, 10, 20]"
+/>
+} @case (false) {
+<mn-empty></mn-empty>
+}}} @placeholder{
+<div class="my-5">
+    <div class="card">
+        <!-- child-list -->
+        <div class="p-3">
+            <ngx-skeleton-loader count="6" [theme]="{ height: '4rem' }"></ngx-skeleton-loader>
+        </div>
+    </div>
+</div>
+}

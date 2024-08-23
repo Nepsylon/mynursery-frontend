@@ -19,7 +19,7 @@
                     <label for="name" class="form-label">Prénom</label>
                     <input id="name" class="form-control" formControlName="name" />
                     @if (registerForm.get('name')?.invalid && registerForm.get('name')?.touched) {
-                    <div class="alert alert-danger">Veuillez entrer votre prénom</div>
+                    <small class="p-error">Veuillez entrer votre prénom</small>
                     }
                 </div>
 
@@ -27,7 +27,7 @@
                     <label for="surname" class="form-label">Nom</label>
                     <input id="surname" class="form-control" formControlName="surname" />
                     @if (registerForm.get('surname')?.invalid && registerForm.get('surname')?.touched) {
-                    <div class="alert alert-danger">Veuillez entrer votre nom</div>
+                    <small class="p-error">Veuillez entrer votre nom</small>
                     }
                 </div>
 
@@ -35,13 +35,10 @@
                     <label for="email" class="form-label">Email</label>
                     <input id="email" class="form-control" formControlName="email" />
                     @if (registerForm.get('email')?.invalid && registerForm.get('email')?.touched) {
-                    <div class="alert alert-danger">
-                        @if (registerForm.get('email')?.errors?.required) {
-                        <div>Une adresse mail est requise</div>
-                        } @if (registerForm.get('email')?.errors?.email) {
-                        <div>Format de mail incorrect</div>
-                        }
-                    </div>
+                    <small class="p-error">
+                        @if (registerForm.get('email')?.errors?.required) { >Une adresse mail est requise } @if
+                        (registerForm.get('email')?.errors?.email) { Format de mail incorrect }
+                    </small>
                     }
                 </div>
 
@@ -51,9 +48,9 @@
                     @if (registerForm.get('password')?.invalid && registerForm.get('password')?.touched) {
                     <div class="alert alert-danger">
                         @if (registerForm.get('password')?.errors?.required) {
-                        <div>Un mot de passe est requis</div>
+                        <small class="p-error">Un mot de passe est requis</small>
                         } @if (registerForm.get('password')?.errors?.minlength) {
-                        <div>Minimum 6 caractères requis</div>
+                        <small class="p-error">Minimum 6 caractères requis</small>
                         }
                     </div>
                     }
@@ -63,7 +60,7 @@
                     <label>Confirmation du mot de passe</label>
                     <input type="password" class="form-control" formControlName="confirmPassword" />
                     @if (registerForm.errors?.['PasswordNoMatch']) {
-                    <div class="alert alert-danger">Les mots de passe doivent être identiques</div>
+                    <small class="p-error">Les mots de passe doivent être identiques</small>
                     }
                 </div>
 

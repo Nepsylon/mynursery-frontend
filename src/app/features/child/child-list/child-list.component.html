@@ -63,7 +63,7 @@
             <th pSortableColumn="name" style="width: 25%">Prénom <p-sortIcon field="name"></p-sortIcon></th>
             <th pSortableColumn="surname" style="width: 25%">Nom <p-sortIcon field="surname"></p-sortIcon></th>
             <th pSortableColumn="age" style="width: 25%">Age <p-sortIcon field="age"></p-sortIcon></th>
-            <th pSortableColumn="gender" style="width: 25%">Genre <p-sortIcon field="gender"></p-sortIcon></th>
+            <th pSortableColumn="endDateContract" style="width: 25%">Fin du contrat <p-sortIcon field="endDateContract"></p-sortIcon></th>
             <th></th>
         </tr>
     </ng-template>
@@ -75,7 +75,7 @@
             <td>{{ child.name }}</td>
             <td>{{ child.surname }}</td>
             <td>{{ child.age }}</td>
-            <td>{{ child.gender }}</td>
+            <td>{{ child.endDateContract | date : 'dd/MM/yyyy' }}</td>
             <td>
                 <mn-modal
                     title="Supprimer l'enfant"

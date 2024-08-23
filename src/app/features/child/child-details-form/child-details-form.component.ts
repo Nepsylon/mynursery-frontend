@@ -50,7 +50,6 @@ export class ChildDetailsFormComponent implements OnInit, OnChanges {
 
     ngOnInit(): void {
         this.updateForm(this.child);
-        console.log(this.child);
         this.getPotentialNurseries();
         this.getPotentialParents();
     }
@@ -96,15 +95,14 @@ export class ChildDetailsFormComponent implements OnInit, OnChanges {
 
     onUpdate(): void {
         this.loading = true;
-        console.log('1', this.childForm.value);
         const parentsIds: number[] = (this.childForm.value.parents as Parent[]).map((parent) => parent.id);
-        console.log(typeof parentsIds);
         this.childForm.value.parents = parentsIds;
-        console.log('2', this.childForm.value);
         this.childService.update(this.childId, this.childForm.value).subscribe({
             next: (res: any) => {
-                this.loading = false;
-                this.toastr.success('Enfant mise à jour');
+                if (res.affected > 0) {
+                    this.loading = false;
+                    this.toastr.success('Enfant mis à jour');
+                }
             },
             error: (res: any) => {
                 this.loading = false;

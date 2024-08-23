@@ -7,9 +7,13 @@
                     <!-- Utilisation de col-8 pour tous les écrans -->
                     <div class="card-body">
                         <h5 class="card-title">{{ nursery.name }}</h5>
-                        <p class="card-text">Propriétaire : {{ nursery.owner?.name }}</p>
+                        <p class="card-text">
+                            Propriétaire : <i>{{ nursery.owner?.name || 'non défini' }}</i>
+                        </p>
                         <p class="card-text">
                             <small class="text-muted">Adresse : {{ nursery.location }}</small>
+                            <br />
+                            <small class="text-muted">Nombre de places maximum : {{ nursery.total_children }}</small>
                         </p>
                     </div>
                 </div>

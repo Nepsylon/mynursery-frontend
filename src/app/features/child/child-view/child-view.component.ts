@@ -12,11 +12,21 @@ import { AuthService } from '../../../core/auth/services/auth.service';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { Paginator } from 'primeng/paginator';
 import { ChildFormComponent } from '../child-form/child-form.component';
+import { TableModule } from 'primeng/table';
 
 @Component({
     selector: 'mn-child-view',
     standalone: true,
-    imports: [PaginatorModule, ButtonModule, RouterLink, ChildListComponent, EmptyComponent, NgxSkeletonLoaderModule, ChildFormComponent],
+    imports: [
+        PaginatorModule,
+        ButtonModule,
+        RouterLink,
+        ChildListComponent,
+        EmptyComponent,
+        NgxSkeletonLoaderModule,
+        ChildFormComponent,
+        TableModule,
+    ],
     templateUrl: './child-view.component.html',
     styleUrl: './child-view.component.scss',
 })
@@ -29,6 +39,7 @@ export class ChildViewComponent implements OnInit {
     first: number = 0;
     rows: number = 5;
     page: number = 0;
+    skeletonNumbers = Array.from({ length: 5 }, (_, i) => i + 1);
 
     constructor(private childService: ChildService, private authService: AuthService) {}
 
@@ -57,8 +68,6 @@ export class ChildViewComponent implements OnInit {
                 this.page -= 1;
                 break;
         }
-        console.log(this.page);
-
         this.generateChildren(this.page, this.rows);
         this.changePageTo(this.page);
         this.ngOnInit();

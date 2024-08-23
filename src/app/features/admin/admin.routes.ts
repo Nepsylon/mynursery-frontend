@@ -21,6 +21,10 @@ export const adminRoutes: Routes = [
                 loadChildren: () => import('../nursery/nursery.routes').then((m) => m.nurseryRoutes),
             },
             {
+                path: 'parents',
+                loadChildren: () => import('../parent/parent.routes').then((m) => m.parentRoutes),
+            },
+            {
                 path: 'profile',
                 component: ProfileComponent,
             },

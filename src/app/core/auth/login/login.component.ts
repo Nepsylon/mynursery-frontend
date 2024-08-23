@@ -87,8 +87,8 @@ export class LoginComponent implements OnInit, OnDestroy {
             next: (res: AccessToken | any) => {
                 // Redirection si jeton d'accès
                 if (res.access_token) {
-                    //this.authService.redirect();
-                    this.router.navigateByUrl('');
+                    this.authService.redirect();
+                    //this.router.navigateByUrl('');
                 } else if (res == false) {
                     this.router.navigateByUrl('awaiting-mail');
                 } else {

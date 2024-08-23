@@ -9,11 +9,12 @@ import { ToastrService } from 'ngx-toastr';
 import { ToolbarModule } from 'primeng/toolbar';
 import { ChildFormComponent } from '../child-form/child-form.component';
 import { DialogModule } from 'primeng/dialog';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'mn-child-list',
     standalone: true,
-    imports: [TableModule, ButtonModule, ModalComponent, ToolbarModule, RouterLink, ChildFormComponent, DialogModule],
+    imports: [TableModule, ButtonModule, ModalComponent, ToolbarModule, RouterLink, ChildFormComponent, DialogModule, CommonModule],
     templateUrl: './child-list.component.html',
     styleUrl: './child-list.component.scss',
 })

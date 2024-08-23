@@ -10,21 +10,21 @@
                         <label>Prénom</label>
                         <input type="text" class="form-control" formControlName="name" required />
                         @if (childForm.controls["name"].invalid && childForm.controls["name"].touched) {
-                        <div class="alert alert-danger">Veuillez introduire un prénom d'une taille autorisée (6-30 caractères)</div>
+                        <small class="p-error">Veuillez introduire un prénom d'une taille autorisée (6-30 caractères)</small>
                         }
                     </div>
                     <div class="form-group mb-3">
                         <label for="surname">Nom de famille</label>
                         <input type="text" class="form-control" formControlName="surname" required />
                         @if (childForm.controls["surname"].invalid && childForm.controls["surname"].touched) {
-                        <div class="alert alert-danger">Veuillez introduire un nom d'une taille autorisée (6-30 caractères)</div>
+                        <small class="p-error">Veuillez introduire un nom d'une taille autorisée (6-30 caractères)</small>
                         }
                     </div>
                     <div class="form-group mb-3">
                         <label>Age</label>
                         <input type="number" class="form-control" min="0" formControlName="age" required />
                         @if (childForm.controls["age"].invalid && childForm.controls["age"].touched) {
-                        <div class="alert alert-danger">Veuillez introduire un nombre (min 0)</div>
+                        <small class="p-error">Veuillez introduire un nombre (min 0)</small>
                         }
                     </div>
 
@@ -40,45 +40,53 @@
                         </div>
                     </div>
 
-                    <div class="form-group mb-3">
-                        <label>Date de début du contrat</label>
-                        <p-calendar formControlName="startDateContract" dateFormat="dd.mm.yy" [showIcon]="true" [iconDisplay]="'input'" />
-                        @if (childForm.controls["startDateContract"].invalid && childForm.controls["startDateContract"].touched) {
-                        <div class="alert alert-danger">Veuillez introduire une date</div>
-                        }
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label>Date de début du contrat</label>
+                                <p-calendar
+                                    formControlName="startDateContract"
+                                    dateFormat="dd.mm.yy"
+                                    [showIcon]="true"
+                                    [iconDisplay]="'input'"
+                                    [style]="{ width: '100%' }"
+                                />
+                                @if (childForm.controls["startDateContract"].invalid && childForm.controls["startDateContract"].touched) {
+                                <small class="p-error">Veuillez introduire une date</small>
+                                }
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label>Date de fin du contrat</label>
+                                <p-calendar
+                                    formControlName="endDateContract"
+                                    dateFormat="dd.mm.yy"
+                                    [showIcon]="true"
+                                    [iconDisplay]="'input'"
+                                    [style]="{ width: '100%' }"
+                                />
+                                @if (childForm.controls["endDateContract"].invalid && childForm.controls["endDateContract"].touched) {
+                                <small class="p-error">Veuillez introduire une date</small>
+                                }
+                            </div>
+                        </div>
                     </div>
 
                     <div class="form-group mb-3">
-                        <label>Date de fin du contrat</label>
-                        <p-calendar formControlName="endDateContract" dateFormat="dd.mm.yy" [showIcon]="true" [iconDisplay]="'input'" />
-                        @if (childForm.controls["endDateContract"].invalid && childForm.controls["endDateContract"].touched) {
-                        <div class="alert alert-danger">Veuillez introduire une date</div>
-                        }
-                    </div>
-                    <div class="form-group mb-3">
-                        <label class="fw-bold">Parent</label>
+                        <label class="fw-bold">Parents</label>
                         <div>
-                            <!-- <p-dropdown
+                            <p-multiSelect
                                 [options]="listPotentialParents"
-                                optionLabel="name"
-                                optionValue="id"
                                 formControlName="parents"
-                                name="parents"
-                                placeholder="Sélectionnez un gérant"
+                                optionLabel="name"
+                                placeholder="Séléctionnez un ou plusieurs parent(s)"
                                 [style]="{ width: '100%' }"
-                            ></p-dropdown>
+                            />
 
                             @if (childForm.controls["parents"].invalid && childForm.controls["parents"].touched) {
-                            <div class="alert alert-danger">Veuillez choisir un parent</div>
-                            } -->
-                            <div class="card flex justify-content-center">
-                                <p-multiSelect
-                                    [options]="listPotentialParents"
-                                    formControlName="parents"
-                                    optionLabel="name"
-                                    placeholder="Séléctionnez des parents"
-                                />
-                            </div>
+                            <small class="p-error">Veuillez choisir un parent minimum</small>
+                            }
                         </div>
                     </div>
                     <hr />
@@ -96,7 +104,7 @@
                             ></p-dropdown>
 
                             @if (childForm.controls["nursery"].invalid && childForm.controls["nursery"].touched) {
-                            <div class="alert alert-danger">Veuillez choisir une crèche</div>
+                            <small class="p-error">Veuillez choisir une crèche</small>
                             }
                         </div>
                     </div>
@@ -112,8 +120,8 @@
 
                         <mn-modal
                             label="Supprimer"
-                            title="Suppression d'une crèche"
-                            description="Êtes-vous sûr de vouloir supprimer la crèche ?"
+                            title="Suppression d'un enfant"
+                            description="Êtes-vous sûr de vouloir supprimer l'enfant ?"
                             (onConfirm)="onDelete()"
                         ></mn-modal>
                     </div>

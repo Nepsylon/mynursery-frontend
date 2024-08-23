@@ -1,5 +1,5 @@
 <h1 class="text-center justify-content-center">Les Enfants</h1>
-@if(children.length == 0) {
+@if(children.length == 0 && (userRole == 'admin' || userRole == 'owner' )) {
 <div class="btn-creation">
     <mn-child-form (onCreate)="onCreateRefresh()"></mn-child-form>
 </div>
@@ -27,12 +27,13 @@
 />
 } @case (false) {
 <mn-empty></mn-empty>
-}}} @placeholder {
+}}} @placeholder{
 <div class="my-5">
-    <!-- child-list -->
     <div class="card">
-        <!-- child-card -->
-        <ngx-skeleton-loader count="6" appearance="line"></ngx-skeleton-loader>
+        <!-- child-list -->
+        <div class="p-3">
+            <ngx-skeleton-loader count="6" [theme]="{ height: '4rem' }"></ngx-skeleton-loader>
+        </div>
     </div>
 </div>
 }

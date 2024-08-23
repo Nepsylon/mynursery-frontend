@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-describe('NurseryListComponent', () => {
+describe('ParentListComponent', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [],

@@ -16,6 +16,7 @@ import { NurseryService } from '../../nursery/nursery.service';
 import { parentService } from '../../parent/parent.service';
 import { Parent } from '../../../shared/interfaces/parent.interface';
 import { Nursery } from '../../../shared/interfaces/nursery.interface';
+import { MultiSelectModule } from 'primeng/multiselect';
 
 @Component({
     selector: 'mn-child-form',
@@ -30,6 +31,7 @@ import { Nursery } from '../../../shared/interfaces/nursery.interface';
         ReactiveFormsModule,
         InputTextModule,
         CalendarModule,
+        MultiSelectModule,
     ],
     templateUrl: './child-form.component.html',
     styleUrl: './child-form.component.scss',
@@ -48,8 +50,8 @@ export class ChildFormComponent {
         age: new FormControl(null, Validators.required),
         startDateContract: new FormControl(null, Validators.required),
         endDateContract: new FormControl(null, Validators.required),
-        nursery: new FormControl<number>(0, [Validators.required]),
-        parents: new FormControl<number>(0, [Validators.required]),
+        nursery: new FormControl<number>(0, [Validators.required, Validators.min(1)]),
+        parents: new FormControl<number[]>([], Validators.required),
     });
     constructor(
         private confirmationService: ConfirmationService,

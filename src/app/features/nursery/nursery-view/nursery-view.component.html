@@ -1,9 +1,10 @@
 <h1 class="text-center justify-content-center">Les Crèches</h1>
 
-@defer {@switch (!!nurseries.length) { @case (true) {
+@if (userRole == 'admin' || userRole == 'owner') {
 <div class="btn-creation">
     <p-button icon="pi pi-plus" label="Créer une nouvelle crèche" severity="success" [routerLink]="['./create']" />
 </div>
+} @defer {@switch (!!nurseries.length) { @case (true) {
 <div class="my-5">
     <mn-nursery-list [nurseries]="nurseries"></mn-nursery-list>
 </div>
@@ -15,11 +16,7 @@
     [totalRecords]="totalCount"
     [rowsPerPageOptions]="[12, 24, 36]"
 />
-} @case (false) { @if (userRole == 'admin' || userRole == 'owner') {
-<div class="btn-creation">
-    <p-button icon="pi pi-plus" label="Créer une nouvelle crèche" severity="success" [routerLink]="['./create']" />
-</div>
-}
+} @case (false) {
 <mn-empty></mn-empty>
 }} } @placeholder {
 <div class="my-5">
@@ -28,8 +25,21 @@
         @for (number of skeletonNumbers; track number) {
         <!-- nursery-card -->
         <div class="col">
-            <div class="card d-flex justify-content-center">
-                <ngx-skeleton-loader count="4" appearance="line"></ngx-skeleton-loader>
+            <div class="card border-0">
+                <div class="row g-0 flex-row">
+                    <!-- Forcer une disposition en ligne -->
+                    <div class="col-8 d-flex align-items-center">
+                        <!-- Utilisation de col-8 pour tous les écrans -->
+                        <div class="card-body">
+                            <h5 class="card-title"><ngx-skeleton-loader></ngx-skeleton-loader></h5>
+                            <p class="card-text"><ngx-skeleton-loader count="3"></ngx-skeleton-loader></p>
+                        </div>
+                    </div>
+                    <div class="col-4 d-flex align-items-center">
+                        <!-- Utilisation de col-4 pour tous les écrans -->
+                        <ngx-skeleton-loader appearance="circle" [theme]="{ height: '7rem', width: '7rem' }"></ngx-skeleton-loader>
+                    </div>
+                </div>
             </div>
         </div>
         }

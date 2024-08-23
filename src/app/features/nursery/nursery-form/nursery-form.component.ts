@@ -11,11 +11,12 @@ import { CommonModule } from '@angular/common';
 import { UserService } from '../../user/user.service';
 import { User } from '../../../shared/interfaces/user.interface';
 import { ToastrService } from 'ngx-toastr';
+import { DropdownModule } from 'primeng/dropdown';
 
 @Component({
     selector: 'mn-nursery-form',
     standalone: true,
-    imports: [ButtonModule, FileUploadModule, ToastModule, ReactiveFormsModule, FormsModule, CommonModule],
+    imports: [ButtonModule, FileUploadModule, ToastModule, ReactiveFormsModule, FormsModule, CommonModule, DropdownModule],
     providers: [NurseryService],
     templateUrl: './nursery-form.component.html',
     styleUrl: './nursery-form.component.scss',
