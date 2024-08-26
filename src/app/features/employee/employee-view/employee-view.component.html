@@ -1,20 +1,20 @@
-<h1 class="text-center justify-content-center">Les Parents</h1>
-@if(parents.length == 0 && (userRole == 'admin' || userRole == 'owner' )) {
+<h1 class="text-center justify-content-center">Les Employés</h1>
+@if(employees.length == 0 && (userRole == 'admin' || userRole == 'owner' )) {
 <div class="btn-creation">
-    <mn-parent-form (onCreate)="onCreateRefresh()"></mn-parent-form>
+    <mn-employee-form (onCreate)="onCreateRefresh()"></mn-employee-form>
 </div>
-} @defer {@switch (!!parents.length) { @case (true) {
+} @defer {@switch (!!employees.length) { @case (true) {
 
 <div class="my-5">
     <div class="card">
-        <mn-parent-list
-            [parents]="parents"
+        <mn-employee-list
+            [employees]="employees"
             [role]="userRole"
-            (onDelete)="refreshParents()"
-            (onMultipleDelete)="refreshParents($event)"
-            (onCreate)="refreshParents()"
+            (onDelete)="refreshEmployees()"
+            (onMultipleDelete)="refreshEmployees($event)"
+            (onCreate)="refreshEmployees()"
             class="m-3"
-        ></mn-parent-list>
+        ></mn-employee-list>
     </div>
 </div>
 <p-paginator

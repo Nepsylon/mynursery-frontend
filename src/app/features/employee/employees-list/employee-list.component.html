@@ -1,0 +1,116 @@
+@if (role == 'admin' || role == 'owner') {
+<p-toolbar styleClass="mb-4 gap-2">
+    <ng-template pTemplate="left">
+        <mn-employee-form (onCreate)="refreshEmployees()"></mn-employee-form>
+    </ng-template>
+
+    <ng-template pTemplate="right">
+        <p-button
+            severity="danger"
+            label="Supprimer la sélection"
+            icon="pi pi-trash"
+            (onClick)="openMultipleDeleteDialog()"
+            [disabled]="!selectedEmployees || !selectedEmployees.length"
+        />
+        <div class="d-flex flex-column align-items-center">
+            <p-dialog
+                [(visible)]="multipleDeleteDialog"
+                [modal]="true"
+                header="Voulez-vous supprimer ces éléments ?"
+                closable="false"
+                class="custom-dialog"
+            >
+                <div class="d-flex gap-3 description-container justify-content-center">
+                    <span class="p-text-secondary block mb-5"
+                        >Vous allez supprimer {{ employeesToDelete.length }} employés de la base de données</span
+                    >
+                </div>
+                <div class="d-flex justify-content-center gap-2">
+                    <p-button
+                        label="Annuler"
+                        icon="pi pi-times"
+                        [text]="true"
+                        class="buttons"
+                        severity="secondary"
+                        (onClick)="hideMultipleDeleteDialog()"
+                    />
+                    <p-button
+                        label="Supprimer"
+                        icon="pi pi-check"
+                        [text]="true"
+                        class="buttons"
+                        severity="danger"
+                        (onClick)="deleteSelectedProducts()"
+                    />
+                </div>
+            </p-dialog>
+        </div>
+    </ng-template>
+</p-toolbar>
+<!-- } @switch (role){ @case ('admin' || 'owner') { -->
+<p-table
+    [value]="employees"
+    [tableStyle]="{ 'min-width': '50rem' }"
+    [(selection)]="selectedEmployees"
+    selectionMode="multiple"
+    [rowHover]="true"
+    dataKey="id"
+    (onHeaderCheckboxToggle)="onHeaderCheckboxClick($any($event.checked))"
+>
+    <ng-template pTemplate="header">
+        <tr>
+            <th style="width: 4rem"><p-tableHeaderCheckbox /></th>
+            <th pSortableColumn="surname" style="width: 25%">Nom <p-sortIcon field="surname"></p-sortIcon></th>
+            <th pSortableColumn="name" style="width: 25%">Prénom <p-sortIcon field="name"></p-sortIcon></th>
+            <th pSortableColumn="email" style="width: 25%">Email <p-sortIcon field="email"></p-sortIcon></th>
+            <th></th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-employee>
+        <tr (click)="seeDetails(employee.id)" [pSelectableRow]="employee">
+            <td>
+                <p-tableCheckbox [value]="employee" (click)="onCheckboxClick($event, employee)"></p-tableCheckbox>
+            </td>
+            <td>{{ employee.surname }}</td>
+            <td>{{ employee.name }}</td>
+            <td>{{ employee.email }}</td>
+            <td>
+                <mn-modal
+                    title="Supprimer l'employé"
+                    description="Voulez-vous supprimer l'employé ?"
+                    (click)="$event.stopPropagation()"
+                    (onConfirm)="deleteEmployee(employee.id)"
+                ></mn-modal>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
+}
+
+<!-- } @case ('user') {
+    <p-table
+        [value]="employees"
+        [tableStyle]="{ 'min-width': '50rem' }"
+        [(selection)]="selectedEmployees"
+        selectionMode="single"
+        [rowHover]="true"
+        dataKey="id"
+    >
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="name" style="width: 25%">Prénom <p-sortIcon field="name"></p-sortIcon></th>
+                <th pSortableColumn="surname" style="width: 25%">Nom <p-sortIcon field="surname"></p-sortIcon></th>
+                <th pSortableColumn="age" style="width: 25%">Age <p-sortIcon field="age"></p-sortIcon></th>
+                <th pSortableColumn="gender" style="width: 25%">Genre <p-sortIcon field="gender"></p-sortIcon></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-child>
+            <tr (click)="seeDetails(child.id)" [pSelectableRow]="child">
+                <td>{{ child.name }}</td>
+                <td>{{ child.surname }}</td>
+                <td>{{ child.age }}</td>
+                <td>{{ child.gender }}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+    } } -->

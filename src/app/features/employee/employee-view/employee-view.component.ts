@@ -1,27 +1,36 @@
 import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { PaginatedItems } from '../../../shared/interfaces/paginated-items.interface';
-import { Paginator, PaginatorModule } from 'primeng/paginator';
-import { PageEvent } from '../../../shared/interfaces/page-event.interface';
+import { RouterLink } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { EmptyComponent } from '../../../shared/empty/empty.component';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import { Paginator, PaginatorModule } from 'primeng/paginator';
+import { EmployeeService } from '../employee.service';
 import { AuthService } from '../../../core/auth/services/auth.service';
-import { parentService } from '../parent.service';
-import { Parent } from '../../../shared/interfaces/parent.interface';
-import { ParentListComponent } from '../parent-list/parent-list.component';
-import { ParentFormComponent } from '../parent-form/parent-form.component';
+import { PaginatedItems } from '../../../shared/interfaces/paginated-items.interface';
+import { PageEvent } from '../../../shared/interfaces/page-event.interface';
+import { Employee } from '../../../shared/interfaces/employee.interface';
+import { EmployeeListComponent } from '../employees-list/employee-list.component';
+import { EmployeeFormComponent } from '../employee-form/employee-form.component';
+
 @Component({
-    selector: 'mn-parent-view',
+    selector: 'mn-employee-view',
     standalone: true,
-    imports: [PaginatorModule, RouterLink, ButtonModule, EmptyComponent, NgxSkeletonLoaderModule, ParentListComponent, ParentFormComponent],
-    templateUrl: './parent-view.component.html',
-    styleUrl: './parent-view.component.scss',
+    imports: [
+        PaginatorModule,
+        RouterLink,
+        ButtonModule,
+        EmptyComponent,
+        NgxSkeletonLoaderModule,
+        EmployeeListComponent,
+        EmployeeFormComponent,
+    ],
+    templateUrl: './employee-view.component.html',
+    styleUrl: './employee-view.component.scss',
 })
-export class ParentViewComponent implements OnInit {
+export class EmployeeViewComponent implements OnInit {
     @ViewChild('paginator') paginator: Paginator;
     @Output() onCreate = new EventEmitter<void>();
-    parents: Parent[] = [];
+    employees: Employee[] = [];
     userRole: string | null;
     totalCount: number = 0;
     first: number = 0;
@@ -29,25 +38,25 @@ export class ParentViewComponent implements OnInit {
     page: number = 0;
     skeletonNumbers = Array.from({ length: 5 }, (_, i) => i + 1);
 
-    constructor(private parentService: parentService, private authService: AuthService) {}
+    constructor(private employeeService: EmployeeService, private authService: AuthService) {}
 
     ngOnInit(): void {
         this.userRole = this.authService.getUserRole();
-        this.generateParents(this.first, this.rows);
+        this.generateEmployees(this.first, this.rows);
     }
 
     // Affiche une page sur base de son index
-    generateParents(pageNumber: number, offset: number) {
-        this.parentService.getPaginatedItems(pageNumber, offset).subscribe({
+    generateEmployees(pageNumber: number, offset: number) {
+        this.employeeService.getPaginatedItems(pageNumber, offset).subscribe({
             next: (data: PaginatedItems) => {
-                this.parents = data.items;
+                this.employees = data.items;
                 this.totalCount = data.totalCount;
             },
         });
     }
 
-    refreshParents(numberToDelete?: number) {
-        const parentsLength = this.parents.length;
+    refreshEmployees(numberToDelete?: number) {
+        const parentsLength = this.employees.length;
         switch (parentsLength) {
             case 1:
                 this.page -= 1;
@@ -56,7 +65,7 @@ export class ParentViewComponent implements OnInit {
                 this.page -= 1;
                 break;
         }
-        this.generateParents(this.page, this.rows);
+        this.generateEmployees(this.page, this.rows);
         this.changePageTo(this.page);
         this.ngOnInit();
     }
@@ -70,7 +79,7 @@ export class ParentViewComponent implements OnInit {
         this.first = event.first;
         this.rows = event.rows;
         this.page = event.page;
-        this.generateParents(this.page, this.rows);
+        this.generateEmployees(this.page, this.rows);
     }
 
     // Change page programmatically to a specific page

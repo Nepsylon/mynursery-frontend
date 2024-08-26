@@ -1,0 +1,87 @@
+<p-button severity="success" label="Ajouter un employé" icon="pi pi-plus" class="mr-2" (onClick)="openNew()" />
+<p-dialog [(visible)]="employeeDialog" [style]="{ width: '450px' }" header="Détails de l'employé" [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="content">
+        <form [formGroup]="employeeForm" (ngSubmit)="saveEmployee()">
+            <div class="row mb-3">
+                <div class="field col">
+                    <label for="name">Prénom</label>
+                    <input type="text" pInputText id="name" formControlName="name" autofocus />
+                    @if (employeeForm.controls.name.invalid && employeeForm.controls.name.touched) {
+                    <small class="p-error"> Un prénom est requis </small>
+                    }
+                </div>
+                <div class="field col">
+                    <label for="surname">Nom de famille</label>
+                    <input type="text" pInputText id="surname" formControlName="surname" />
+                    @if (employeeForm.controls.surname.invalid && employeeForm.controls.surname.touched) {
+                    <small class="p-error"> Un nom est requis </small>
+                    }
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="text" pInputText id="email" formControlName="email" />
+                @if (employeeForm.get('email')?.invalid && employeeForm.get('email')?.touched) {
+                <small class="p-error">
+                    @if (employeeForm.get('email')?.errors?.required) { Une adresse mail est requise } @if
+                    (employeeForm.get('email')?.errors?.email) { Format de mail incorrect }
+                </small>
+                }
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Mot de passe</label>
+                <input id="password" class="form-control" type="password" formControlName="password" />
+                @if (employeeForm.get('password')?.invalid && employeeForm.get('password')?.touched) { @if
+                (employeeForm.get('password')?.errors?.required) {
+                <small class="p-error">Un mot de passe est requis</small>
+                } @if (employeeForm.get('password')?.errors?.minlength) {
+                <small class="p-error">Minimum 6 caractères requis</small>
+                } }
+            </div>
+
+            <div class="mb-3">
+                <label>Confirmation du mot de passe</label>
+                <input type="password" class="form-control" formControlName="confirmPassword" />
+                @if (employeeForm.errors?.['PasswordNoMatch']) {
+                <small class="p-error">Les mots de passe doivent être identiques</small>
+                }
+            </div>
+
+            <!-- <div class="form-group mb-3">
+                <label class="fw-bold">Crèche</label>
+                <div>
+                    <p-dropdown
+                        [options]="listPotentialNurseries"
+                        optionLabel="name"
+                        optionValue="id"
+                        formControlName="nursery"
+                        name="nursery"
+                        placeholder="Sélectionnez une crèche"
+                        [style]="{ width: '100%' }"
+                        appendTo="body"
+                    ></p-dropdown>
+
+                    @if (employeeForm.controls["nursery"].invalid && employeeForm.controls["nursery"].touched) {
+                    <small class="p-error">Veuillez choisir une crèche</small>
+                    }
+                </div>
+            </div> -->
+        </form>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <p-button label="Annuler" icon="pi pi-times" [text]="true" (onClick)="hideDialog()" />
+        <p-button
+            type="submit"
+            label="Enregistrer"
+            icon="pi pi-check"
+            [text]="true"
+            severity="success"
+            (onClick)="saveEmployee()"
+            [disabled]="!employeeForm.valid"
+        />
+    </ng-template>
+</p-dialog>
+
+<p-confirmDialog [style]="{ width: '450px' }" />

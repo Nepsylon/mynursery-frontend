@@ -1,0 +1,25 @@
+@defer { @switch(error) {@case(false) {
+<mn-employee-details-form [employeeId]="employeeId" [employee]="employee"></mn-employee-details-form>
+} @case(true) {
+<mn-not-found></mn-not-found>
+}} } @placeholder {
+
+<div class="mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-header mb-3">
+                    <h5 class="card-title">Gestion d'un employé</h5>
+                </div>
+                @for (number of skeletonNumbers; track number) {
+                <div class="mb-3">
+                    <div class="form-group">
+                        <ngx-skeleton-loader count="2" appearance="line"></ngx-skeleton-loader>
+                    </div>
+                </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+}

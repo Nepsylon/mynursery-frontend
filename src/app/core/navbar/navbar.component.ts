@@ -82,7 +82,7 @@ export class NavbarComponent implements OnInit {
             items: [
                 {
                     label: 'Les employés',
-                    id: 'employee   ',
+                    id: 'employee',
                     icon: 'pi pi-users',
                     url: 'employees',
                 },

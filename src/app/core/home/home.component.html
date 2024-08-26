@@ -36,12 +36,9 @@
             <div class="border-1 surface-border border-round m-2 p-3">
                 <div class="mb-3">
                     <div class="relative mx-auto">
-                        <img
-                            src="https://medias.cerveauetpsycho.fr/api/v1/images/view/5bb61ade8fe56f686f3da610/wide_1300/image.jpg"
-                            alt="nursery"
-                            class="w-full border-round"
-                            width="400px"
-                        />
+                        @if (items.image != ''){
+                        <img src="{{ items.image }}" alt="nursery" class="w-full border-round" width="400px" />
+                        }
                     </div>
                 </div>
                 <div class="mb-3 font-medium titles">

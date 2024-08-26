@@ -36,7 +36,7 @@
                     <input id="email" class="form-control" formControlName="email" />
                     @if (registerForm.get('email')?.invalid && registerForm.get('email')?.touched) {
                     <small class="p-error">
-                        @if (registerForm.get('email')?.errors?.required) { >Une adresse mail est requise } @if
+                        @if (registerForm.get('email')?.errors?.required) { Une adresse mail est requise } @if
                         (registerForm.get('email')?.errors?.email) { Format de mail incorrect }
                     </small>
                     }

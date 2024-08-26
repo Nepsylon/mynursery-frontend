@@ -1,0 +1,22 @@
+.p-highlight {
+    color: var(--employee-color);
+    background-color: #f1f1f1;
+}
+
+:host::ng-deep {
+    .p-checkbox .p-checkbox-box {
+        border-color: var(--employee-color); /* Couleur de la bordure de la case */
+    }
+
+    .p-checkbox .p-checkbox-box.p-highlight {
+        background-color: var(--employee-color); /* Couleur de fond lorsque la case est cochée */
+        border-color: var(--employee-color);
+    }
+
+    .p-checkbox .p-checkbox-check {
+        color: white; /* Couleur de la coche */
+    }
+    .p-sortable-column.p-highlight .p-sortable-column-icon {
+        color: var(--employee-color);
+    }
+}
