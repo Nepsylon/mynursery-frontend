@@ -47,7 +47,7 @@ export class EmployeeViewComponent implements OnInit {
 
     // Affiche une page sur base de son index
     generateEmployees(pageNumber: number, offset: number) {
-        this.employeeService.getPaginatedItems(pageNumber, offset).subscribe({
+        this.employeeService.getEmployeesPaginated(pageNumber, offset).subscribe({
             next: (data: PaginatedItems) => {
                 this.employees = data.items;
                 this.totalCount = data.totalCount;

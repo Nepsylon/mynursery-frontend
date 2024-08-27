@@ -1,9 +1,5 @@
 <h1 class="text-center justify-content-center">Les Employés</h1>
-@if(employees.length == 0 && (userRole == 'admin' || userRole == 'owner' )) {
-<div class="btn-creation">
-    <mn-employee-form (onCreate)="onCreateRefresh()"></mn-employee-form>
-</div>
-} @defer {@switch (!!employees.length) { @case (true) {
+@defer {@switch (!!employees.length) { @case (true) {
 
 <div class="my-5">
     <div class="card">
@@ -26,11 +22,14 @@
     [rowsPerPageOptions]="[5, 10, 20]"
 />
 } @case (false) {
+<div class="btn-creation">
+    <mn-employee-form (onCreate)="onCreateRefresh()"></mn-employee-form>
+</div>
 <mn-empty></mn-empty>
 }}} @placeholder{
 <div class="my-5">
     <div class="card">
-        <!-- child-list -->
+        <!-- employee-list -->
         <div class="p-3">
             <ngx-skeleton-loader count="6" [theme]="{ height: '4rem' }"></ngx-skeleton-loader>
         </div>

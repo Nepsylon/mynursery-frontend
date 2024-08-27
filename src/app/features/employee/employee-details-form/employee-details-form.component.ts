@@ -11,6 +11,9 @@ import { ButtonModule } from 'primeng/button';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { CalendarModule } from 'primeng/calendar';
 import { MultiSelectModule } from 'primeng/multiselect';
+import { Nursery } from '../../../shared/interfaces/nursery.interface';
+import { AuthService } from '../../../core/auth/services/auth.service';
+import { NurseryService } from '../../nursery/nursery.service';
 
 @Component({
     selector: 'mn-employee-details-form',
@@ -23,24 +26,35 @@ export class EmployeeDetailsFormComponent {
     @Input() employee: Employee;
     @Input() employeeId: string;
     loading: boolean = false;
+    userRole: string | null;
+    userId: string | null;
+    listWorkplaces: Nursery[];
 
     employeeForm = new FormGroup(
         {
             name: new FormControl('', Validators.required),
             surname: new FormControl('', Validators.required),
             email: new FormControl('', [Validators.required, Validators.email]),
-            // password: new FormControl('', [Validators.required, Validators.minLength(6)]),
-            // confirmPassword: new FormControl(''),
-            // //nursery: new FormControl<number>(0, [Validators.required, Validators.min(1)]),
-            // role: new FormControl('user'),
+            password: new FormControl('', [Validators.minLength(6)]),
+            confirmPassword: new FormControl(''),
+            workplaces: new FormControl<Nursery[] | number[]>([], Validators.required),
         },
         { validators: confirmPasswordValidator.bind(this) }
     );
 
-    constructor(private employeeService: EmployeeService, private toastr: ToastrService, private router: Router) {}
+    constructor(
+        private employeeService: EmployeeService,
+        private authService: AuthService,
+        private nurseryService: NurseryService,
+        private toastr: ToastrService,
+        private router: Router
+    ) {}
 
     ngOnInit(): void {
+        this.userRole = this.authService.getUserRole();
+        this.userId = this.authService.getUserId();
         this.updateForm(this.employee);
+        this.getNurseriesList();
     }
 
     ngOnChanges(changes: SimpleChanges): void {
@@ -58,12 +72,37 @@ export class EmployeeDetailsFormComponent {
             name: employee.name,
             surname: employee.surname,
             email: employee.email,
+            workplaces: employee?.workplaces,
         });
+    }
+
+    getNurseriesList() {
+        switch (this.userRole) {
+            case 'admin':
+                this.nurseryService.getAll().subscribe({
+                    next: (res: Nursery[]) => {
+                        this.listWorkplaces = res;
+                    },
+                });
+                break;
+            case 'owner':
+                this.userId = this.authService.getUserId();
+                if (this.userId) {
+                    this.nurseryService.getNurseriesByOwner(this.userId).subscribe({
+                        next: (res: Nursery[]) => {
+                            this.listWorkplaces = res;
+                        },
+                    });
+                }
+                break;
+        }
     }
 
     onUpdate(): void {
         this.loading = true;
-
+        delete this.employeeForm.value.confirmPassword;
+        const workplacesIds: number[] = (this.employeeForm.value.workplaces as Nursery[]).map((workplace) => workplace.id);
+        this.employeeForm.value.workplaces = workplacesIds;
         this.employeeService.update(this.employeeId, this.employeeForm.value).subscribe({
             next: (res: any) => {
                 if (res.affected > 0) {

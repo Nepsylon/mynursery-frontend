@@ -46,13 +46,10 @@
                     <label for="password" class="form-label">Mot de passe</label>
                     <input id="password" class="form-control" type="password" formControlName="password" />
                     @if (registerForm.get('password')?.invalid && registerForm.get('password')?.touched) {
-                    <div class="alert alert-danger">
-                        @if (registerForm.get('password')?.errors?.required) {
-                        <small class="p-error">Un mot de passe est requis</small>
-                        } @if (registerForm.get('password')?.errors?.minlength) {
-                        <small class="p-error">Minimum 6 caractères requis</small>
-                        }
-                    </div>
+                    <small class="p-error">
+                        @if (registerForm.get('password')?.errors?.required) { Un mot de passe est requis } @if
+                        (registerForm.get('password')?.errors?.minlength) { Minimum 6 caractères requis }
+                    </small>
                     }
                 </div>
 
@@ -81,9 +78,9 @@
                 }
             </form>
             @if (errorMessage) {
-            <div class="alert alert-danger text-center">
+            <small class="p-error text-center">
                 {{ errorMessage }}
-            </div>
+            </small>
             }
             <div class="text-center">Vous possédez un compte ? <a [routerLink]="['/login']">Cliquez ici pour vous connecter</a></div>
         </div>

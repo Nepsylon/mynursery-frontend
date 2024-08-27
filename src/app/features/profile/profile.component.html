@@ -10,7 +10,7 @@
                         <label class="fw-bold">Nom</label>
                         <input type="text" class="form-control" formControlName="surname" required />
                         @if (profileForm.controls["surname"].invalid && profileForm.controls["surname"].touched) {
-                        <div class="alert alert-danger">Veuillez introduire un nom d'une taille autorisée (6-30 caractères)</div>
+                        <small class="p-error">Veuillez introduire un nom d'une taille autorisée (6-30 caractères)</small>
                         }
                     </div>
 
@@ -18,7 +18,7 @@
                         <label class="fw-bold">Prénom</label>
                         <input type="text" class="form-control" formControlName="name" required />
                         @if (profileForm.controls["name"].invalid && profileForm.controls["name"].touched) {
-                        <div class="alert alert-danger">Veuillez introduire un nom d'une taille autorisée (6-30 caractères)</div>
+                        <small class="p-error">Veuillez introduire un nom d'une taille autorisée (6-30 caractères)</small>
                         }
                     </div>
 
@@ -26,7 +26,7 @@
                         <label class="fw-bold">Adresse mail</label>
                         <input type="text" class="form-control" formControlName="email" required />
                         @if (profileForm.controls["email"].invalid && profileForm.controls["email"].touched) {
-                        <div class="alert alert-danger">Veuillez introduire un nom d'une taille autorisée (6-30 caractères)</div>
+                        <small class="p-error">Veuillez introduire un nom d'une taille autorisée (6-30 caractères)</small>
                         }
                     </div>
 
@@ -34,7 +34,7 @@
                         <label class="fw-bold">Nouveau mot de passe</label>
                         <input type="password" class="form-control" formControlName="password" />
                         @if (profileForm.controls["password"].invalid && profileForm.controls["password"].touched) {
-                        <div class="alert alert-danger">Veuillez introduire un nom d'une taille autorisée (6-30 caractères)</div>
+                        <small class="p-error">Veuillez introduire un mot de passe d'une taille autorisée (6-30 caractères)</small>
                         }
                     </div>
 
@@ -42,7 +42,7 @@
                         <label class="fw-bold">Confirmation du mot de passe</label>
                         <input type="password" class="form-control" formControlName="confirmPassword" />
                         @if (profileForm.errors?.['PasswordNoMatch']) {
-                        <div class="alert alert-danger">Les mots de passe doivent être identiques</div>
+                        <small class="p-error">Les mots de passe doivent être identiques</small>
                         }
                     </div>
 

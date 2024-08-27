@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { DialogModule } from 'primeng/dialog';
@@ -19,6 +19,7 @@ import { confirmPasswordValidator } from '../../../shared/validators/confirm-pas
 import { NurseryService } from '../../nursery/nursery.service';
 import { createUserDto } from '../../../core/auth/interfaces/create-user.dto';
 import { Role } from '../../../core/auth/enums/role.enum';
+import { AuthService } from '../../../core/auth/services/auth.service';
 
 @Component({
     selector: 'mn-employee-form',
@@ -39,11 +40,13 @@ import { Role } from '../../../core/auth/enums/role.enum';
     styleUrl: './employee-form.component.scss',
     providers: [ConfirmationService],
 })
-export class EmployeeFormComponent {
+export class EmployeeFormComponent implements OnInit {
     @Output() onCreate = new EventEmitter<void>();
     employeeDialog: boolean = false;
-    listPotentialNurseries: Nursery[];
-    userDto: createUserDto;
+    listPotentialNurseries: Nursery[] = [];
+    listPotentialOwnerNurseries: Nursery[] = [];
+    userRole: string | null;
+    userId: string | null;
 
     employeeForm = new FormGroup(
         {
@@ -52,7 +55,7 @@ export class EmployeeFormComponent {
             email: new FormControl('', [Validators.required, Validators.email]),
             password: new FormControl('', [Validators.required, Validators.minLength(6)]),
             confirmPassword: new FormControl(''),
-            //nursery: new FormControl<number>(0, [Validators.required, Validators.min(1)]),
+            nurseries: new FormControl<number[]>([], Validators.required),
             role: new FormControl('user'),
         },
         { validators: confirmPasswordValidator.bind(this) }
@@ -61,9 +64,14 @@ export class EmployeeFormComponent {
     constructor(
         private confirmationService: ConfirmationService,
         private employeeService: EmployeeService,
+        private authService: AuthService,
         private toastr: ToastrService,
         private nurseryService: NurseryService
     ) {}
+
+    ngOnInit(): void {
+        this.userRole = this.authService.getUserRole();
+    }
 
     openNew() {
         this.employeeDialog = true;
@@ -75,18 +83,29 @@ export class EmployeeFormComponent {
     }
 
     getPotentialNurseries(): void {
-        this.nurseryService.getAll().subscribe({
-            next: (res: Nursery[]) => {
-                this.listPotentialNurseries = res;
-            },
-        });
+        switch (this.userRole) {
+            case 'admin':
+                this.nurseryService.getAll().subscribe({
+                    next: (res: Nursery[]) => {
+                        this.listPotentialNurseries = res;
+                    },
+                });
+                break;
+            case 'owner':
+                this.userId = this.authService.getUserId();
+                if (this.userId) {
+                    this.nurseryService.getNurseriesByOwner(this.userId).subscribe({
+                        next: (res: Nursery[]) => {
+                            this.listPotentialOwnerNurseries = res;
+                        },
+                    });
+                }
+                break;
+        }
     }
 
     saveEmployee() {
-        const { name, surname, email, password, role } = this.employeeForm.value;
-        this.userDto = { name: name!, surname: surname!, email: email!, password: password!, role: role! };
-        console.log(this.userDto);
-        this.employeeService.create(this.userDto).subscribe({
+        this.employeeService.create(this.employeeForm.value).subscribe({
             next: (res: Employee) => {
                 this.toastr.success('Employé ajouté avec succès !');
                 this.employeeDialog = false;

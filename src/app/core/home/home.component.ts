@@ -80,15 +80,8 @@ export class HomeComponent implements OnInit {
             id: 'employees',
             title: 'Les employés',
             description:
-                "Le gestionnaire de crèche a la possiblité de créer des profils utilisateurs pour ses employés. Il devra renseigner une adresse mail de son choix, un mot de passe générique. Il est primmordial d'avoir accès à ce mail.",
+                "Le gestionnaire de crèche a la possibilité de créer des profils utilisateurs pour ses employés. Il devra renseigner une adresse mail de son choix, un mot de passe générique. Il est primmordial d'avoir accès à ce mail.",
             image: 'https://firebasestorage.googleapis.com/v0/b/my-nursery-73d6f.appspot.com/o/pexels-fauxels-3182773.jpg?alt=media&token=d9032d6c-5ea3-4bb7-a625-2293ef28b8c8',
-        },
-
-        {
-            id: '',
-            title: '',
-            description: '',
-            image: '',
         },
     ];
 

@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { EmployeeService } from '../employee.service';
 import { Employee } from '../../../shared/interfaces/employee.interface';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import { AuthService } from '../../../core/auth/services/auth.service';
 
 @Component({
     selector: 'mn-employee-details',

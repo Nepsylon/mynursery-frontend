@@ -17,7 +17,7 @@
                         <label for="surname">Nom de famille</label>
                         <input type="text" class="form-control" formControlName="surname" required />
                         @if (childForm.controls["surname"].invalid && childForm.controls["surname"].touched) {
-                        <small class="p-error">Veuillez introduire un nom d'une taille autorisée (6-30 caractères)</small>
+                        <small class="p-error">Veuillez introduire un nom</small>
                         }
                     </div>
                     <div class="form-group mb-3">
@@ -80,7 +80,8 @@
                                 [options]="listPotentialParents"
                                 formControlName="parents"
                                 optionLabel="name"
-                                placeholder="Séléctionnez un ou plusieurs parent(s)"
+                                placeholder="Sélectionnez un ou plusieurs parent(s)"
+                                selectedItemsLabel="{parents.length} parents sélectionnés"
                                 [style]="{ width: '100%' }"
                             />
 
@@ -97,6 +98,8 @@
                                 [options]="listPotentialNurseries"
                                 optionLabel="name"
                                 optionValue="id"
+                                [filter]="true"
+                                filterBy="name"
                                 formControlName="nursery"
                                 name="nursery"
                                 placeholder="Sélectionnez une crèche"

@@ -30,14 +30,14 @@ export class ChildDetailsFormComponent implements OnInit, OnChanges {
     listPotentialNurseries: Nursery[];
 
     childForm = new FormGroup({
-        name: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(30)]),
-        surname: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(30)]),
+        name: new FormControl('', [Validators.required, Validators.maxLength(30)]),
+        surname: new FormControl('', [Validators.required, Validators.maxLength(30)]),
         age: new FormControl(0, [Validators.required, Validators.min(0)]),
         gender: new FormControl('male'),
         startDateContract: new FormControl<Date | null>(null),
         endDateContract: new FormControl<Date | null>(null),
         nursery: new FormControl<number>(0, [Validators.required]),
-        parents: new FormControl<Parent[] | number[]>([], [Validators.required]),
+        parents: new FormControl<Parent[] | number[]>([], Validators.required),
     });
 
     constructor(

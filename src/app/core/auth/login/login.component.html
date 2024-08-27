@@ -19,7 +19,7 @@
                     <label for="email" class="form-label">Adresse email</label>
                     <input type="email" class="form-control" id="email" formControlName="email" required />
                     @if(email?.invalid && email?.touched){
-                    <div class="alert alert-danger">Veuillez vérifier l'adresse introduite</div>
+                    <small class="p-error">Veuillez vérifier l'adresse introduite</small>
                     }
                 </div>
 
@@ -39,9 +39,9 @@
                     />
                 </div>
                 @if (errorMessage) {
-                <div class="alert alert-danger text-center">
+                <small class="p-error text-center">
                     {{ errorMessage }}
-                </div>
+                </small>
                 }
                 <div class="text-center">Pas encore inscrit ? <a [routerLink]="['/sign-in']">Cliquez ici pour créer un compte</a></div>
                 @if (loading){

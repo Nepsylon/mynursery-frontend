@@ -38,4 +38,10 @@ export abstract class BaseService<T> {
     getPaginatedItems(pageNumber: number, itemQuantity: number): Observable<PaginatedItems> {
         return this.http.get<PaginatedItems>(`${this.baseUrl}/${this.endPoint}/paginated?page=${pageNumber}&itemQuantity=${itemQuantity}`);
     }
+
+    getPaginatedItemsWhere(pageNumber: number, itemQuantity: number): Observable<PaginatedItems> {
+        return this.http.get<PaginatedItems>(
+            `${this.baseUrl}/${this.endPoint}/paginatedWhere?page=${pageNumber}&itemQuantity=${itemQuantity}`
+        );
+    }
 }

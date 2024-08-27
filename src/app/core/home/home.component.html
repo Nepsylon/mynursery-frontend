@@ -24,33 +24,35 @@
         Cette application innovante conçue pour simplifier et optimiser la gestion des crèches. Cette solution intégrée propose divers
         modules pour gérer efficacement les crèches, les enfants, les parents et les employés, garantissant une organisation fluide.
     </p>
-    <p-carousel
-        [value]="items"
-        [numVisible]="3"
-        [numScroll]="1"
-        [circular]="true"
-        [responsiveOptions]="responsiveOptions"
-        autoplayInterval="3000"
-    >
-        <ng-template let-items pTemplate="item">
-            <div class="border-1 surface-border border-round m-2 p-3">
-                <div class="mb-3">
-                    <div class="relative mx-auto">
-                        @if (items.image != ''){
-                        <img src="{{ items.image }}" alt="nursery" class="w-full border-round" width="400px" />
-                        }
+    <div class="card">
+        <p-carousel
+            [value]="items"
+            [numVisible]="3"
+            [numScroll]="1"
+            [circular]="true"
+            [responsiveOptions]="responsiveOptions"
+            autoplayInterval="3000"
+        >
+            <ng-template let-items pTemplate="item">
+                <div class="border-1 surface-border border-round m-2 p-3">
+                    <div class="mb-3">
+                        <div class="relative mx-auto">
+                            @if (items.image != ''){
+                            <img src="{{ items.image }}" alt="nursery" class="img-fluid rounded" />
+                            }
+                        </div>
+                    </div>
+                    <div class="mb-3 font-medium titles">
+                        {{ items.title }}
+                    </div>
+                    <div class="flex justify-content-between align-items-center">
+                        <div class="mt-0 font-semibold text-xl">
+                            {{ items.description }}
+                        </div>
                     </div>
                 </div>
-                <div class="mb-3 font-medium titles">
-                    {{ items.title }}
-                </div>
-                <div class="flex justify-content-between align-items-center">
-                    <div class="mt-0 font-semibold text-xl">
-                        {{ items.description }}
-                    </div>
-                </div>
-            </div>
-        </ng-template>
-    </p-carousel>
+            </ng-template>
+        </p-carousel>
+    </div>
 </div>
 <mn-footer></mn-footer>
