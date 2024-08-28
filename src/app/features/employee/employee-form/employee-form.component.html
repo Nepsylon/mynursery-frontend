@@ -49,29 +49,29 @@
             </div>
 
             <div class="form-group mb-3">
-                <label class="fw-bold">Lieu(x) de travail</label>
+                <label class="fw-bold">Lieux de travail</label>
                 @switch (userRole) { @case ('admin') {
                 <p-multiSelect
-                    [options]="listPotentialNurseries"
-                    formControlName="nurseries"
+                    [options]="listPotentialWorkplaces"
+                    formControlName="workplaces"
                     optionLabel="name"
-                    placeholder="Sélectionnez une ou plusieurs crèche(s)"
-                    selectedItemsLabel="{nurseries.length} crèches sélectionnées"
+                    placeholder="Sélectionnez un ou plusieurs lieu(x)"
+                    selectedItemsLabel="{workplaces.length} lieux sélectionnés"
                     [style]="{ width: '100%' }"
                     appendTo="body"
                 />
                 }@case ('owner') {
                 <p-multiSelect
-                    [options]="listPotentialOwnerNurseries"
-                    formControlName="nurseries"
+                    [options]="listPotentialOwnerWorkplaces"
+                    formControlName="workplaces"
                     optionLabel="name"
-                    placeholder="Sélectionnez une ou plusieurs crèche(s)"
-                    selectedItemsLabel="{nurseries.length} crèches sélectionnées"
+                    placeholder="Sélectionnez un ou plusieurs lieu(x)"
+                    selectedItemsLabel="{workplaces.length} lieux sélectionnés"
                     [style]="{ width: '100%' }"
                     appendTo="body"
                 />
-                } } @if (employeeForm.controls["nurseries"].invalid && employeeForm.controls["nurseries"].touched) {
-                <small class="p-error">Veuillez choisir une crèche</small>
+                } } @if (employeeForm.controls["workplaces"].invalid && employeeForm.controls["workplaces"].touched) {
+                <small class="p-error">Veuillez choisir un lieu au minimum</small>
                 }
             </div>
         </form>

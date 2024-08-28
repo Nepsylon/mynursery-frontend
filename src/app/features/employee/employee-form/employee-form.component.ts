@@ -43,8 +43,8 @@ import { AuthService } from '../../../core/auth/services/auth.service';
 export class EmployeeFormComponent implements OnInit {
     @Output() onCreate = new EventEmitter<void>();
     employeeDialog: boolean = false;
-    listPotentialNurseries: Nursery[] = [];
-    listPotentialOwnerNurseries: Nursery[] = [];
+    listPotentialWorkplaces: Nursery[] = [];
+    listPotentialOwnerWorkplaces: Nursery[] = [];
     userRole: string | null;
     userId: string | null;
 
@@ -55,7 +55,7 @@ export class EmployeeFormComponent implements OnInit {
             email: new FormControl('', [Validators.required, Validators.email]),
             password: new FormControl('', [Validators.required, Validators.minLength(6)]),
             confirmPassword: new FormControl(''),
-            nurseries: new FormControl<number[]>([], Validators.required),
+            workplaces: new FormControl<number[]>([], Validators.required),
             role: new FormControl('user'),
         },
         { validators: confirmPasswordValidator.bind(this) }
@@ -87,7 +87,7 @@ export class EmployeeFormComponent implements OnInit {
             case 'admin':
                 this.nurseryService.getAll().subscribe({
                     next: (res: Nursery[]) => {
-                        this.listPotentialNurseries = res;
+                        this.listPotentialWorkplaces = res;
                     },
                 });
                 break;
@@ -96,7 +96,7 @@ export class EmployeeFormComponent implements OnInit {
                 if (this.userId) {
                     this.nurseryService.getNurseriesByOwner(this.userId).subscribe({
                         next: (res: Nursery[]) => {
-                            this.listPotentialOwnerNurseries = res;
+                            this.listPotentialOwnerWorkplaces = res;
                         },
                     });
                 }
@@ -105,6 +105,8 @@ export class EmployeeFormComponent implements OnInit {
     }
 
     saveEmployee() {
+        console.log(this.employeeForm.value);
+
         this.employeeService.create(this.employeeForm.value).subscribe({
             next: (res: Employee) => {
                 this.toastr.success('Employé ajouté avec succès !');
