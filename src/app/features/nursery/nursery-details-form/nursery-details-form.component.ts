@@ -98,7 +98,7 @@ export class NurseryDetailsFormComponent implements OnInit, OnChanges {
 
     onDelete(): void {
         this.loading = true;
-        this.nurseryService.delete(this.nurseryId).subscribe({
+        this.nurseryService.softDelete(this.nurseryId).subscribe({
             next: (res: any) => {
                 this.loading = false;
                 this.toastr.success('Crèche supprimée');

@@ -2,7 +2,7 @@ import { Role } from '../../core/auth/enums/role.enum';
 import { Nursery } from './nursery.interface';
 
 export interface Employee {
-    id?: number;
+    id: number;
     surname: string;
     name: string;
     email: string;

@@ -27,12 +27,28 @@ export abstract class BaseService<T> {
         return this.http.put<unknown>(`${this.baseUrl}/${this.endPoint}/${id}`, dto);
     }
 
-    delete(id: string): Observable<unknown> {
+    restore(id: number): Observable<T> {
+        return this.http.get<T>(`${this.baseUrl}/${this.endPoint}/${id}/restore`);
+    }
+
+    multipleRestore(ids: number[]): Observable<T[]> {
+        return this.http.post<T[]>(`${this.baseUrl}/${this.endPoint}/multiple/restore`, ids);
+    }
+
+    softDelete(id: string): Observable<unknown> {
         return this.http.delete<unknown>(`${this.baseUrl}/${this.endPoint}/${id}`);
+    }
+
+    delete(id: number): Observable<unknown> {
+        return this.http.delete<unknown>(`${this.baseUrl}/${this.endPoint}/${id}/definitive`);
     }
 
     softDeleteMultiple(ids: number[]): Observable<unknown> {
         return this.http.post<unknown>(`${this.baseUrl}/${this.endPoint}/multiple`, ids);
+    }
+
+    deleteMultiple(ids: number[]): Observable<unknown> {
+        return this.http.post<unknown>(`${this.baseUrl}/${this.endPoint}/multiple/definitive`, ids);
     }
 
     getPaginatedItems(pageNumber: number, itemQuantity: number): Observable<PaginatedItems> {

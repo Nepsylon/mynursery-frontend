@@ -100,7 +100,7 @@ export class ChildListComponent implements OnChanges {
 
     deleteChild(id: number) {
         // appel au service pour supprimer l'élément
-        this.childService.delete(id.toString()).subscribe({
+        this.childService.softDelete(id.toString()).subscribe({
             next: (res: any) => {
                 this.toastr.success('Enfant supprimé');
                 this.onDelete.emit();

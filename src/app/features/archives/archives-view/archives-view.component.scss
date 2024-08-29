@@ -1,0 +1,19 @@
+.users.active,
+.users:hover {
+    color: var(--employee-color);
+}
+
+.children.active,
+.children:hover {
+    color: var(--child-color);
+}
+
+.parents.active,
+.parents:hover {
+    color: var(--parent-color);
+}
+
+.nurseries.active,
+.nurseries:hover {
+    color: var(--nursery-color);
+}

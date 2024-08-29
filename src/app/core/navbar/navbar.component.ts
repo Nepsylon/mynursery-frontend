@@ -110,6 +110,12 @@ export class NavbarComponent implements OnInit {
                 },
             ],
         },
+        {
+            label: 'Archives',
+            id: 'archives',
+            icon: 'pi pi-folder',
+            url: 'archives',
+        },
     ];
     ownerItems: MenuItem[] = [
         {

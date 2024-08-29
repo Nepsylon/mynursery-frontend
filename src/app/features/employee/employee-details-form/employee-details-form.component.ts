@@ -119,7 +119,7 @@ export class EmployeeDetailsFormComponent {
 
     onDelete(): void {
         this.loading = true;
-        this.employeeService.delete(this.employeeId).subscribe({
+        this.employeeService.softDelete(this.employeeId).subscribe({
             next: (res: any) => {
                 this.loading = false;
                 this.toastr.success('Employé mis à jour');

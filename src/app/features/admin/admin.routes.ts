@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { BoardAdminComponent } from './board-admin/board-admin.component';
 import { HomeAdminComponent } from './home-admin/home-admin.component';
 import { ProfileComponent } from '../profile/profile.component';
+import { ArchivesViewComponent } from '../archives/archives-view/archives-view.component';
 
 export const adminRoutes: Routes = [
     {
@@ -11,6 +12,10 @@ export const adminRoutes: Routes = [
             {
                 path: '',
                 component: HomeAdminComponent,
+            },
+            {
+                path: 'archives',
+                component: ArchivesViewComponent,
             },
             {
                 path: 'children',

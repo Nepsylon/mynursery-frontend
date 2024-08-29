@@ -1,0 +1,153 @@
+<p-toolbar styleClass="mb-4 gap-2">
+    <ng-template pTemplate="left">
+        <p-button
+            severity="success"
+            label="Restaurer la sélection"
+            icon="pi pi-undo"
+            (onClick)="openMultipleRestoreDialog()"
+            [disabled]="!selectedItems || !selectedItems.length"
+        />
+        <div class="d-flex flex-column align-items-center">
+            <p-dialog
+                [(visible)]="multipleRestoreDialog"
+                [modal]="true"
+                header="Voulez-vous restaurer ces éléments ?"
+                closable="false"
+                class="custom-dialog"
+            >
+                <div class="d-flex gap-3 description-container justify-content-center">
+                    <span class="p-text-secondary block mb-5"
+                        >Vous allez restaurer {{ selectedItems.length }} éléments de la base de données</span
+                    >
+                </div>
+                <div class="d-flex justify-content-center gap-2">
+                    <p-button
+                        label="Annuler"
+                        icon="pi pi-times"
+                        [text]="true"
+                        class="buttons"
+                        severity="secondary"
+                        (onClick)="hideMultipleRestoreDialog()"
+                    />
+                    <p-button
+                        label="Restaurer"
+                        icon="pi pi-check"
+                        [text]="true"
+                        class="buttons"
+                        severity="success"
+                        (onClick)="restoreSelectedItems(selectedItems)"
+                    />
+                </div>
+            </p-dialog>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="right">
+        <p-button
+            severity="danger"
+            label="Supprimer la sélection"
+            icon="pi pi-trash"
+            (onClick)="openMultipleDeleteDialog()"
+            [disabled]="!selectedItems || !selectedItems.length"
+        />
+        <div class="d-flex flex-column align-items-center">
+            <p-dialog
+                [(visible)]="multipleDeleteDialog"
+                [modal]="true"
+                header="Voulez-vous supprimer ces éléments ?"
+                closable="false"
+                class="custom-dialog"
+            >
+                <div class="d-flex gap-3 description-container justify-content-center">
+                    <span class="p-text-secondary block mb-5"
+                        >Vous allez supprimer {{ selectedItems.length }} éléments de la base de données</span
+                    >
+                </div>
+                <div class="d-flex justify-content-center gap-2">
+                    <p-button
+                        label="Annuler"
+                        icon="pi pi-times"
+                        [text]="true"
+                        class="buttons"
+                        severity="secondary"
+                        (onClick)="hideMultipleDeleteDialog()"
+                    />
+                    <p-button
+                        label="Supprimer"
+                        icon="pi pi-check"
+                        [text]="true"
+                        class="buttons"
+                        severity="danger"
+                        (onClick)="deleteSelectedItems(selectedItems)"
+                    />
+                </div>
+            </p-dialog>
+        </div>
+    </ng-template>
+</p-toolbar>
+
+<p-table
+    #archives
+    [value]="dataList"
+    [(selection)]="selectedItems"
+    selectionMode="multiple"
+    dataKey="id"
+    [rowHover]="true"
+    [scrollable]="true"
+    scrollHeight="400px"
+    [tableStyle]="{ 'min-width': '50rem' }"
+    [globalFilterFields]="['name', 'surname', 'email']"
+>
+    <ng-template pTemplate="caption">
+        <div class="d-flex justify-content-between align-items-center">
+            <p-button label="Effacer" [outlined]="true" icon="pi pi-filter-slash" (onClick)="clear(archives)" />
+            <span class="p-input-icon-left ml-auto">
+                <i class="pi pi-search"></i>
+                <input
+                    pInputText
+                    type="text"
+                    [(ngModel)]="searchValue"
+                    (input)="archives.filterGlobal($any($event).target.value, 'contains')"
+                    placeholder="Rechercher avec un mot-clé"
+                />
+            </span>
+        </div>
+    </ng-template>
+
+    <ng-template pTemplate="header">
+        <tr>
+            <th><p-tableHeaderCheckbox /></th>
+
+            <th *ngFor="let col of columns">
+                {{ col | titlecase }}
+            </th>
+            <th></th>
+            <th></th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-item>
+        <tr [pSelectableRow]="item">
+            <td>
+                <p-tableCheckbox [value]="item"></p-tableCheckbox>
+            </td>
+            <td *ngFor="let col of columns">
+                <!-- Vérification si le champ est une date -->
+                <ng-container *ngIf="isDate(item[col]); else nonDate">
+                    {{ item[col] | date : 'dd/MM/yyyy' }}
+                </ng-container>
+                <ng-template #nonDate>
+                    {{ item[col] }}
+                </ng-template>
+            </td>
+            <td>
+                <p-button icon="pi pi-undo" title="Restaurer" severity="success" (click)="restoreSelected(item.id)" />
+            </td>
+            <td>
+                <mn-modal
+                    title="Supprimer"
+                    description="Voulez-vous supprimer définitivement cet enregistrement ?"
+                    (onConfirm)="deleteSelected(item.id)"
+                ></mn-modal>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>

@@ -91,7 +91,7 @@ export class ProfileComponent implements OnInit {
 
     onDelete(): void {
         if (this.userId) {
-            this.userService.delete(this.userId).subscribe({
+            this.userService.softDelete(this.userId).subscribe({
                 next: (res: any) => {
                     this.loading = false;
                     this.authService.logout();

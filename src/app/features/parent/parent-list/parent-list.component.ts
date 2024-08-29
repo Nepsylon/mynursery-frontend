@@ -105,7 +105,7 @@ export class ParentListComponent implements OnChanges {
 
     deleteParent(id: number) {
         // appel au service pour supprimer l'élément
-        this.parentService.delete(id.toString()).subscribe({
+        this.parentService.softDelete(id.toString()).subscribe({
             next: (res: any) => {
                 this.toastr.success('Enfant supprimé');
                 this.onDelete.emit();

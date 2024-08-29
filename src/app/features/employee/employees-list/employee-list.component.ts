@@ -74,14 +74,14 @@ export class EmployeeListComponent implements OnChanges {
     }
 
     onHeaderCheckboxClick(checked: boolean) {
-        // switch (checked) {
-        //     case true:
-        //         this.employeesToDelete = this.employees.map((employee) => this.employee.id);
-        //         break;
-        //     case false:
-        //         this.employeesToDelete = [];
-        //         break;
-        // }
+        switch (checked) {
+            case true:
+                this.employeesToDelete = this.employees.map((employee) => employee.id);
+                break;
+            case false:
+                this.employeesToDelete = [];
+                break;
+        }
     }
 
     seeDetails(id: number) {
@@ -93,22 +93,22 @@ export class EmployeeListComponent implements OnChanges {
         event.stopPropagation(); // Empêche la redirection lorsque le checkbox est cliqué
         // Ajouter ou supprimer l'employé dans le tableau de sélection
         const id = employee.id;
-        // if (this.employeesToDelete.includes(id)) {
-        //     const index = this.employeesToDelete.indexOf(id);
+        if (this.employeesToDelete.includes(id)) {
+            const index = this.employeesToDelete.indexOf(id);
 
-        //     if (index !== -1) {
-        //         this.employeesToDelete.splice(index, 1);
-        //     }
-        // } else {
-        //     this.employeesToDelete.push(id);
-        // }
+            if (index !== -1) {
+                this.employeesToDelete.splice(index, 1);
+            }
+        } else {
+            this.employeesToDelete.push(id);
+        }
     }
 
     deleteEmployee(id: number) {
         // appel au service pour supprimer l'élément
-        this.employeeService.delete(id.toString()).subscribe({
+        this.employeeService.softDelete(id.toString()).subscribe({
             next: (res: any) => {
-                this.toastr.success('Enfant supprimé');
+                this.toastr.success('employé supprimé');
                 this.onDelete.emit();
             },
             error: (err) => {

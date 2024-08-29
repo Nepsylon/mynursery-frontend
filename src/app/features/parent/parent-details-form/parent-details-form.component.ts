@@ -88,7 +88,7 @@ export class ParentDetailsFormComponent {
     }
     onDelete(): void {
         this.loading = true;
-        this.parentService.delete(this.parentId).subscribe({
+        this.parentService.softDelete(this.parentId).subscribe({
             next: (res: any) => {
                 this.loading = false;
                 this.toastr.success('Parent supprimé');

@@ -112,7 +112,7 @@ export class ChildDetailsFormComponent implements OnInit, OnChanges {
     }
     onDelete(): void {
         this.loading = true;
-        this.childService.delete(this.childId).subscribe({
+        this.childService.softDelete(this.childId).subscribe({
             next: (res: any) => {
                 this.loading = false;
                 this.toastr.success('Enfant supprimé');

@@ -44,7 +44,6 @@ export class EmployeeFormComponent implements OnInit {
     @Output() onCreate = new EventEmitter<void>();
     employeeDialog: boolean = false;
     listPotentialWorkplaces: Nursery[] = [];
-    listPotentialOwnerWorkplaces: Nursery[] = [];
     userRole: string | null;
     userId: string | null;
 
@@ -96,7 +95,7 @@ export class EmployeeFormComponent implements OnInit {
                 if (this.userId) {
                     this.nurseryService.getNurseriesByOwner(this.userId).subscribe({
                         next: (res: Nursery[]) => {
-                            this.listPotentialOwnerWorkplaces = res;
+                            this.listPotentialWorkplaces = res;
                         },
                     });
                 }
@@ -105,8 +104,6 @@ export class EmployeeFormComponent implements OnInit {
     }
 
     saveEmployee() {
-        console.log(this.employeeForm.value);
-
         this.employeeService.create(this.employeeForm.value).subscribe({
             next: (res: Employee) => {
                 this.toastr.success('Employé ajouté avec succès !');

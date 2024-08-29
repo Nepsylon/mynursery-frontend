@@ -50,7 +50,6 @@
 
             <div class="form-group mb-3">
                 <label class="fw-bold">Lieux de travail</label>
-                @switch (userRole) { @case ('admin') {
                 <p-multiSelect
                     [options]="listPotentialWorkplaces"
                     formControlName="workplaces"
@@ -60,17 +59,7 @@
                     [style]="{ width: '100%' }"
                     appendTo="body"
                 />
-                }@case ('owner') {
-                <p-multiSelect
-                    [options]="listPotentialOwnerWorkplaces"
-                    formControlName="workplaces"
-                    optionLabel="name"
-                    placeholder="Sélectionnez un ou plusieurs lieu(x)"
-                    selectedItemsLabel="{workplaces.length} lieux sélectionnés"
-                    [style]="{ width: '100%' }"
-                    appendTo="body"
-                />
-                } } @if (employeeForm.controls["workplaces"].invalid && employeeForm.controls["workplaces"].touched) {
+                @if (employeeForm.controls["workplaces"].invalid && employeeForm.controls["workplaces"].touched) {
                 <small class="p-error">Veuillez choisir un lieu au minimum</small>
                 }
             </div>
