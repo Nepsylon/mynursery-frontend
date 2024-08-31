@@ -1,8 +1,8 @@
 import { Routes } from '@angular/router';
 import { BoardAdminComponent } from './board-admin/board-admin.component';
-import { HomeAdminComponent } from './home-admin/home-admin.component';
 import { ProfileComponent } from '../profile/profile.component';
 import { ArchivesViewComponent } from '../archives/archives-view/archives-view.component';
+import { DashboardComponent } from '../../shared/dashboard/dashboard.component';
 
 export const adminRoutes: Routes = [
     {
@@ -11,7 +11,7 @@ export const adminRoutes: Routes = [
         children: [
             {
                 path: '',
-                component: HomeAdminComponent,
+                component: DashboardComponent,
             },
             {
                 path: 'archives',

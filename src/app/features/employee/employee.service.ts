@@ -18,4 +18,10 @@ export class EmployeeService extends BaseService<Employee> {
             `${this.baseUrl}/${this.endPoint}/employees/paginated?page=${pageNumber}&itemQuantity=${itemQuantity}`
         );
     }
+
+    getPaginatedEmployeesByOwnerId(ownerId: string, pageNumber: number, itemQuantity: number): Observable<PaginatedItems> {
+        return this.http.get<PaginatedItems>(
+            `${this.baseUrl}/${this.endPoint}/employeesByOwnerIdPaginated/${ownerId}?page=${pageNumber}&itemQuantity=${itemQuantity}`
+        );
+    }
 }

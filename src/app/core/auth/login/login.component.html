@@ -39,9 +39,12 @@
                     />
                 </div>
                 @if (errorMessage) {
-                <small class="p-error text-center">
-                    {{ errorMessage }}
-                </small>
+                <div class="text-center">
+                    <small class="p-error">
+                        {{ errorMessage }}
+                    </small>
+                </div>
+
                 }
                 <div class="text-center">Pas encore inscrit ? <a [routerLink]="['/sign-in']">Cliquez ici pour créer un compte</a></div>
                 @if (loading){

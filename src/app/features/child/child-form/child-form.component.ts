@@ -17,6 +17,8 @@ import { parentService } from '../../parent/parent.service';
 import { Parent } from '../../../shared/interfaces/parent.interface';
 import { Nursery } from '../../../shared/interfaces/nursery.interface';
 import { MultiSelectModule } from 'primeng/multiselect';
+import { AuthService } from '../../../core/auth/services/auth.service';
+import { UserService } from '../../user/user.service';
 
 @Component({
     selector: 'mn-child-form',
@@ -42,6 +44,8 @@ export class ChildFormComponent {
     childDialog: boolean = false;
     listPotentialParents: Parent[];
     listPotentialNurseries: Nursery[];
+    userId: string | null;
+    userRole: string | null;
 
     childForm = new FormGroup({
         name: new FormControl('', Validators.required),
@@ -51,17 +55,21 @@ export class ChildFormComponent {
         startDateContract: new FormControl(null, Validators.required),
         endDateContract: new FormControl(null, Validators.required),
         nursery: new FormControl<number>(0, [Validators.required, Validators.min(1)]),
-        parents: new FormControl<number[]>([], Validators.required),
+        // parents: new FormControl<number[]>([], Validators.required),
     });
     constructor(
         private confirmationService: ConfirmationService,
         private childService: ChildService,
         private toastr: ToastrService,
         private parentService: parentService,
-        private nurseryService: NurseryService
+        private nurseryService: NurseryService,
+        private authService: AuthService,
+        private userService: UserService
     ) {}
 
     openNew() {
+        this.userId = this.authService.getUserId();
+        this.userRole = this.authService.getUserRole();
         this.childDialog = true;
         this.getPotentialNurseries();
         this.getPotentialParents();
@@ -72,11 +80,25 @@ export class ChildFormComponent {
     }
 
     getPotentialNurseries(): void {
-        this.nurseryService.getAll().subscribe({
-            next: (res: Nursery[]) => {
-                this.listPotentialNurseries = res;
-            },
-        });
+        switch (this.userRole) {
+            case 'admin':
+                this.nurseryService.getAll().subscribe({
+                    next: (res: Nursery[]) => {
+                        this.listPotentialNurseries = res;
+                    },
+                });
+                break;
+            case 'owner':
+                this.userId = this.authService.getUserId() || '0';
+                if (this.userId) {
+                    this.userService.getNurseriesByOwner(this.userId).subscribe({
+                        next: (res: Nursery[]) => {
+                            this.listPotentialNurseries = res;
+                        },
+                    });
+                }
+                break;
+        }
     }
 
     getPotentialParents(): void {

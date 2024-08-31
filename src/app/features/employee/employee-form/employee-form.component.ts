@@ -20,6 +20,7 @@ import { NurseryService } from '../../nursery/nursery.service';
 import { createUserDto } from '../../../core/auth/interfaces/create-user.dto';
 import { Role } from '../../../core/auth/enums/role.enum';
 import { AuthService } from '../../../core/auth/services/auth.service';
+import { UserService } from '../../user/user.service';
 
 @Component({
     selector: 'mn-employee-form',
@@ -43,7 +44,8 @@ import { AuthService } from '../../../core/auth/services/auth.service';
 export class EmployeeFormComponent implements OnInit {
     @Output() onCreate = new EventEmitter<void>();
     employeeDialog: boolean = false;
-    listPotentialWorkplaces: Nursery[] = [];
+    listWorkplaces: Nursery[] = [];
+    listPotentialOwnerWorkplaces: Nursery[] = [];
     userRole: string | null;
     userId: string | null;
 
@@ -64,6 +66,7 @@ export class EmployeeFormComponent implements OnInit {
         private confirmationService: ConfirmationService,
         private employeeService: EmployeeService,
         private authService: AuthService,
+        private userService: UserService,
         private toastr: ToastrService,
         private nurseryService: NurseryService
     ) {}
@@ -86,16 +89,16 @@ export class EmployeeFormComponent implements OnInit {
             case 'admin':
                 this.nurseryService.getAll().subscribe({
                     next: (res: Nursery[]) => {
-                        this.listPotentialWorkplaces = res;
+                        this.listWorkplaces = res;
                     },
                 });
                 break;
             case 'owner':
-                this.userId = this.authService.getUserId();
+                this.userId = this.authService.getUserId() || '0';
                 if (this.userId) {
-                    this.nurseryService.getNurseriesByOwner(this.userId).subscribe({
+                    this.userService.getNurseriesByOwner(this.userId).subscribe({
                         next: (res: Nursery[]) => {
-                            this.listPotentialWorkplaces = res;
+                            this.listWorkplaces = res;
                         },
                     });
                 }

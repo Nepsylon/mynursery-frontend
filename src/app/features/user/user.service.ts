@@ -3,6 +3,7 @@ import { User } from '../../shared/interfaces/user.interface';
 import { BaseService } from '../../shared/services/base.service';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Nursery } from '../../shared/interfaces/nursery.interface';
 
 @Injectable({
     providedIn: 'root',
@@ -12,6 +13,10 @@ export class UserService extends BaseService<User> {
 
     constructor(http: HttpClient) {
         super(http);
+    }
+
+    getNurseriesByOwner(id: string): Observable<Nursery[]> {
+        return this.http.get<Nursery[]>(`${this.baseUrl}/${this.endPoint}/nurseriesByOwner/${id}`);
     }
 
     getPotentialOwners(): Observable<User[]> {

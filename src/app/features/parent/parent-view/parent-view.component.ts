@@ -23,6 +23,7 @@ export class ParentViewComponent implements OnInit {
     @Output() onCreate = new EventEmitter<void>();
     parents: Parent[] = [];
     userRole: string | null;
+    userId: string | null;
     totalCount: number = 0;
     first: number = 0;
     rows: number = 5;
@@ -33,17 +34,34 @@ export class ParentViewComponent implements OnInit {
 
     ngOnInit(): void {
         this.userRole = this.authService.getUserRole();
+        this.userId = this.authService.getUserId();
         this.generateParents(this.first, this.rows);
     }
 
     // Affiche une page sur base de son index
     generateParents(pageNumber: number, offset: number) {
-        this.parentService.getPaginatedItems(pageNumber, offset).subscribe({
-            next: (data: PaginatedItems) => {
-                this.parents = data.items;
-                this.totalCount = data.totalCount;
-            },
-        });
+        switch (this.userRole) {
+            case 'admin':
+                this.parentService.getPaginatedItems(pageNumber, offset).subscribe({
+                    next: (data: PaginatedItems) => {
+                        this.parents = data.items;
+                        this.totalCount = data.totalCount;
+                    },
+                });
+
+                break;
+            case 'owner':
+                this.userId = this.authService.getUserId();
+                if (this.userId) {
+                    this.parentService.getPaginatedParentsByOwnerId(this.userId, pageNumber, offset).subscribe({
+                        next: (data: PaginatedItems) => {
+                            this.parents = data.items;
+                            this.totalCount = data.totalCount;
+                        },
+                    });
+                }
+                break;
+        }
     }
 
     refreshParents(numberToDelete?: number) {

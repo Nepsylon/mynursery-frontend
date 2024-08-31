@@ -11,6 +11,7 @@ import { ButtonModule } from 'primeng/button';
 import { ModalComponent } from '../../../shared/modal/modal.component';
 import { InputMaskModule } from 'primeng/inputmask';
 import { InputTextModule } from 'primeng/inputtext';
+import { AuthService } from '../../../core/auth/services/auth.service';
 
 @Component({
     selector: 'mn-parent-details-form',
@@ -24,6 +25,8 @@ export class ParentDetailsFormComponent {
     @Input() parentId: string;
     loading: boolean = false;
     listPotentialChildren: Child[];
+    userId: string | null;
+    userRole: string | null;
 
     parentForm = new FormGroup({
         name: new FormControl('', Validators.required),
@@ -36,11 +39,14 @@ export class ParentDetailsFormComponent {
     constructor(
         private childService: ChildService,
         private parentService: parentService,
+        private authService: AuthService,
         private toastr: ToastrService,
         private router: Router
     ) {}
 
     ngOnInit(): void {
+        this.userId = this.authService.getUserId();
+        this.userRole = this.authService.getUserRole();
         this.updateForm(this.parent);
         this.getPotentialChildren();
     }
@@ -52,11 +58,25 @@ export class ParentDetailsFormComponent {
     }
 
     getPotentialChildren(): void {
-        this.childService.getAll().subscribe({
-            next: (res: Child[]) => {
-                this.listPotentialChildren = res;
-            },
-        });
+        switch (this.userRole) {
+            case 'admin':
+                this.childService.getAll().subscribe({
+                    next: (res: Child[]) => {
+                        this.listPotentialChildren = res;
+                    },
+                });
+                break;
+            case 'owner':
+                this.userId = this.authService.getUserId() || '0';
+                if (this.userId) {
+                    this.parentService.getChildrenByOwner(this.userId).subscribe({
+                        next: (res: Child[]) => {
+                            this.listPotentialChildren = res;
+                        },
+                    });
+                }
+                break;
+        }
     }
 
     updateForm(parent: Parent): void {

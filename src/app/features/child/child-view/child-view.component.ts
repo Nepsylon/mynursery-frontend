@@ -35,6 +35,7 @@ export class ChildViewComponent implements OnInit {
     @Output() onCreate = new EventEmitter<void>();
     children: Child[] = [];
     userRole: string | null;
+    userId: string | null;
     totalCount: number = 0;
     first: number = 0;
     rows: number = 5;
@@ -45,17 +46,33 @@ export class ChildViewComponent implements OnInit {
 
     ngOnInit(): void {
         this.userRole = this.authService.getUserRole();
+        this.userId = this.authService.getUserId();
         this.generateChildren(this.first, this.rows);
     }
 
     // Affiche une page sur base de son index
     generateChildren(pageNumber: number, offset: number) {
-        this.childService.getPaginatedItems(pageNumber, offset).subscribe({
-            next: (data: PaginatedItems) => {
-                this.children = data.items;
-                this.totalCount = data.totalCount;
-            },
-        });
+        switch (this.userRole) {
+            case 'admin':
+                this.childService.getPaginatedItems(pageNumber, offset).subscribe({
+                    next: (data: PaginatedItems) => {
+                        this.children = data.items;
+                        this.totalCount = data.totalCount;
+                    },
+                });
+                break;
+            case 'owner':
+                this.userId = this.authService.getUserId();
+                if (this.userId) {
+                    this.childService.getPaginatedChildrenByOwnerId(this.userId, pageNumber, offset).subscribe({
+                        next: (data: PaginatedItems) => {
+                            this.children = data.items;
+                            this.totalCount = data.totalCount;
+                        },
+                    });
+                }
+                break;
+        }
     }
 
     refreshChildren(numberToDelete?: number) {

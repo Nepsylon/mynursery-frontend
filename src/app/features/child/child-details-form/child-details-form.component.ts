@@ -14,6 +14,8 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { parentService } from '../../parent/parent.service';
 import { CalendarModule } from 'primeng/calendar';
 import { MultiSelectModule } from 'primeng/multiselect';
+import { AuthService } from '../../../core/auth/services/auth.service';
+import { UserService } from '../../user/user.service';
 
 @Component({
     selector: 'mn-child-details-form',
@@ -28,6 +30,8 @@ export class ChildDetailsFormComponent implements OnInit, OnChanges {
     loading: boolean = false;
     listPotentialParents: Parent[];
     listPotentialNurseries: Nursery[];
+    userRole: string | null;
+    userId: string | null;
 
     childForm = new FormGroup({
         name: new FormControl('', [Validators.required, Validators.maxLength(30)]),
@@ -37,7 +41,7 @@ export class ChildDetailsFormComponent implements OnInit, OnChanges {
         startDateContract: new FormControl<Date | null>(null),
         endDateContract: new FormControl<Date | null>(null),
         nursery: new FormControl<number>(0, [Validators.required]),
-        parents: new FormControl<Parent[] | number[]>([], Validators.required),
+        // parents: new FormControl<Parent[] | number[]>([], Validators.required),
     });
 
     constructor(
@@ -45,10 +49,13 @@ export class ChildDetailsFormComponent implements OnInit, OnChanges {
         private parentService: parentService,
         private nurseryService: NurseryService,
         private toastr: ToastrService,
-        private router: Router
+        private userService: UserService,
+        private router: Router,
+        private authService: AuthService
     ) {}
 
     ngOnInit(): void {
+        this.userRole = this.authService.getUserRole();
         this.updateForm(this.child);
         this.getPotentialNurseries();
         this.getPotentialParents();
@@ -65,11 +72,25 @@ export class ChildDetailsFormComponent implements OnInit, OnChanges {
     }
 
     getPotentialNurseries(): void {
-        this.nurseryService.getAll().subscribe({
-            next: (res: Nursery[]) => {
-                this.listPotentialNurseries = res;
-            },
-        });
+        switch (this.userRole) {
+            case 'admin':
+                this.nurseryService.getAll().subscribe({
+                    next: (res: Nursery[]) => {
+                        this.listPotentialNurseries = res;
+                    },
+                });
+                break;
+            case 'owner':
+                this.userId = this.authService.getUserId() || '0';
+                if (this.userId) {
+                    this.userService.getNurseriesByOwner(this.userId).subscribe({
+                        next: (res: Nursery[]) => {
+                            this.listPotentialNurseries = res;
+                        },
+                    });
+                }
+                break;
+        }
     }
 
     getPotentialParents(): void {
@@ -88,15 +109,15 @@ export class ChildDetailsFormComponent implements OnInit, OnChanges {
             gender: child.gender,
             startDateContract: new Date(child.startDateContract),
             endDateContract: new Date(child.endDateContract),
-            parents: child?.parents,
+            // parents: child?.parents,
             nursery: child.nursery?.id,
         });
     }
 
     onUpdate(): void {
         this.loading = true;
-        const parentsIds: number[] = (this.childForm.value.parents as Parent[]).map((parent) => parent.id);
-        this.childForm.value.parents = parentsIds;
+        // const parentsIds: number[] = (this.childForm.value.parents as Parent[]).map((parent) => parent.id);
+        // this.childForm.value.parents = parentsIds;
         this.childService.update(this.childId, this.childForm.value).subscribe({
             next: (res: any) => {
                 if (res.affected > 0) {

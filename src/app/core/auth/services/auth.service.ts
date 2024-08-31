@@ -121,9 +121,6 @@ export class AuthService extends BaseService<any> {
             case Role.User:
                 this.router.navigate(['/user']);
                 break;
-            default:
-                this.router.navigate(['']);
-                break;
         }
     }
 }

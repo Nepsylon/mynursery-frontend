@@ -1,4 +1,3 @@
-@if (role == 'admin' || role == 'owner') {
 <p-toolbar styleClass="mb-4 gap-2">
     <ng-template pTemplate="left">
         <mn-child-form (onCreate)="refreshChildren()"></mn-child-form>
@@ -47,7 +46,6 @@
         </div>
     </ng-template>
 </p-toolbar>
-} @switch (role){ @case ('admin' || 'owner') {
 <p-table
     [value]="children"
     [tableStyle]="{ 'min-width': '50rem' }"
@@ -87,31 +85,3 @@
         </tr>
     </ng-template>
 </p-table>
-
-} @case ('user') {
-<p-table
-    [value]="children"
-    [tableStyle]="{ 'min-width': '50rem' }"
-    [(selection)]="selectedChildren"
-    selectionMode="single"
-    [rowHover]="true"
-    dataKey="id"
->
-    <ng-template pTemplate="header">
-        <tr>
-            <th pSortableColumn="name" style="width: 25%">Prénom <p-sortIcon field="name"></p-sortIcon></th>
-            <th pSortableColumn="surname" style="width: 25%">Nom <p-sortIcon field="surname"></p-sortIcon></th>
-            <th pSortableColumn="age" style="width: 25%">Age <p-sortIcon field="age"></p-sortIcon></th>
-            <th pSortableColumn="gender" style="width: 25%">Genre <p-sortIcon field="gender"></p-sortIcon></th>
-        </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-child>
-        <tr (click)="seeDetails(child.id)" [pSelectableRow]="child">
-            <td>{{ child.name }}</td>
-            <td>{{ child.surname }}</td>
-            <td>{{ child.age }}</td>
-            <td>{{ child.gender }}</td>
-        </tr>
-    </ng-template>
-</p-table>
-} }

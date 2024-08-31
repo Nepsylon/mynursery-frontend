@@ -10,6 +10,7 @@ import { ToastrService } from 'ngx-toastr';
 import { UserService } from '../../user/user.service';
 import { Router } from '@angular/router';
 import { RadioButtonModule } from 'primeng/radiobutton';
+import { AuthService } from '../../../core/auth/services/auth.service';
 
 @Component({
     selector: 'mn-nursery-details-form',
@@ -25,11 +26,12 @@ export class NurseryDetailsFormComponent implements OnInit, OnChanges {
     loading: boolean = false;
     selectedLogo: File | null;
     listPotentialOwners: User[];
+    userRole: string | null;
 
     nurseryForm = new FormGroup({
-        name: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(30)]),
-        location: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(80)]),
-        total_children: new FormControl('', [Validators.required, Validators.min(0)]),
+        name: new FormControl<string>('', [Validators.required, Validators.minLength(6), Validators.maxLength(30)]),
+        location: new FormControl<string>('', [Validators.required, Validators.minLength(6), Validators.maxLength(80)]),
+        total_children: new FormControl<string>('', [Validators.required, Validators.min(0)]),
         owner: new FormControl<number>(0, [Validators.required]),
     });
 
@@ -41,10 +43,12 @@ export class NurseryDetailsFormComponent implements OnInit, OnChanges {
         private nurseryService: NurseryService,
         private userService: UserService,
         private toastr: ToastrService,
-        private router: Router
+        private router: Router,
+        private authService: AuthService
     ) {}
 
     ngOnInit(): void {
+        this.userRole = this.authService.getUserRole();
         this.updateForm(this.nursery);
         this.getPotentialOwners();
     }

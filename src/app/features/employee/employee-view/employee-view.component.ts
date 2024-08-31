@@ -32,6 +32,7 @@ export class EmployeeViewComponent implements OnInit {
     @Output() onCreate = new EventEmitter<void>();
     employees: Employee[] = [];
     userRole: string | null;
+    userId: string | null;
     totalCount: number = 0;
     first: number = 0;
     rows: number = 5;
@@ -42,17 +43,34 @@ export class EmployeeViewComponent implements OnInit {
 
     ngOnInit(): void {
         this.userRole = this.authService.getUserRole();
+        this.userId = this.authService.getUserId();
         this.generateEmployees(this.first, this.rows);
     }
 
     // Affiche une page sur base de son index
     generateEmployees(pageNumber: number, offset: number) {
-        this.employeeService.getEmployeesPaginated(pageNumber, offset).subscribe({
-            next: (data: PaginatedItems) => {
-                this.employees = data.items;
-                this.totalCount = data.totalCount;
-            },
-        });
+        switch (this.userRole) {
+            case 'admin':
+                this.employeeService.getEmployeesPaginated(pageNumber, offset).subscribe({
+                    next: (data: PaginatedItems) => {
+                        this.employees = data.items;
+                        this.totalCount = data.totalCount;
+                    },
+                });
+
+                break;
+            case 'owner':
+                this.userId = this.authService.getUserId();
+                if (this.userId) {
+                    this.employeeService.getPaginatedEmployeesByOwnerId(this.userId, pageNumber, offset).subscribe({
+                        next: (data: PaginatedItems) => {
+                            this.employees = data.items;
+                            this.totalCount = data.totalCount;
+                        },
+                    });
+                }
+                break;
+        }
     }
 
     refreshEmployees(numberToDelete?: number) {

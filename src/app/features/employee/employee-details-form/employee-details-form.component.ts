@@ -14,6 +14,7 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { Nursery } from '../../../shared/interfaces/nursery.interface';
 import { AuthService } from '../../../core/auth/services/auth.service';
 import { NurseryService } from '../../nursery/nursery.service';
+import { UserService } from '../../user/user.service';
 
 @Component({
     selector: 'mn-employee-details-form',
@@ -45,6 +46,7 @@ export class EmployeeDetailsFormComponent {
     constructor(
         private employeeService: EmployeeService,
         private authService: AuthService,
+        private userService: UserService,
         private nurseryService: NurseryService,
         private toastr: ToastrService,
         private router: Router
@@ -86,9 +88,9 @@ export class EmployeeDetailsFormComponent {
                 });
                 break;
             case 'owner':
-                this.userId = this.authService.getUserId();
+                this.userId = this.authService.getUserId() || '0';
                 if (this.userId) {
-                    this.nurseryService.getNurseriesByOwner(this.userId).subscribe({
+                    this.userService.getNurseriesByOwner(this.userId).subscribe({
                         next: (res: Nursery[]) => {
                             this.listWorkplaces = res;
                         },

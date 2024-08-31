@@ -29,6 +29,7 @@
                         <small class="p-error">Veuillez introduire un nombre (min 0)</small>
                         }
                     </div>
+                    @if(userRole == "admin"){
                     <div class="mb-3">
                         <label class="form-label fw-bold">Gérant</label>
                         <div>
@@ -46,6 +47,8 @@
                             }
                         </div>
                     </div>
+                    }
+
                     <div class="mb-3">
                         <label for="logo" class="form-label fw-bold">Logo de la crèche</label>
                         <input

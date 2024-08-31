@@ -25,6 +25,7 @@ export class NurseryViewComponent implements OnInit {
     rows: number = 12;
     skeletonNumbers = Array.from({ length: 12 }, (_, i) => i + 1);
     userRole: string | null;
+    userId: string | null;
 
     constructor(private nurseryService: NurseryService, private authService: AuthService) {}
 
@@ -35,12 +36,26 @@ export class NurseryViewComponent implements OnInit {
 
     // Affiche une page sur base de son index
     generateNurseries(pageNumber: number, offset: number) {
-        this.nurseryService.getPaginatedItems(pageNumber, offset).subscribe({
-            next: (data: PaginatedItems) => {
-                this.nurseries = data.items;
-                this.totalCount = data.totalCount;
-            },
-        });
+        switch (this.userRole) {
+            case 'admin':
+                this.nurseryService.getPaginatedItems(pageNumber, offset).subscribe({
+                    next: (data: PaginatedItems) => {
+                        this.nurseries = data.items;
+                        this.totalCount = data.totalCount;
+                    },
+                });
+                break;
+            case 'owner':
+                this.userId = this.authService.getUserId();
+                if (this.userId) {
+                    this.nurseryService.getPaginatedOwnerNurseries(this.userId, pageNumber, offset).subscribe({
+                        next: (data: PaginatedItems) => {
+                            this.nurseries = data.items;
+                            this.totalCount = data.totalCount;
+                        },
+                    });
+                }
+        }
     }
 
     onPageChange(event: PageEvent) {

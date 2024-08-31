@@ -53,35 +53,35 @@ export class HomeComponent implements OnInit {
             title: 'Les crèches',
             description:
                 "Gestion des établissements : Ajout, modification et suppression des crèches, avec des informations détaillées telles que l'adresse, le nombre de places disponibles.",
-            image: 'https://firebasestorage.googleapis.com/v0/b/my-nursery-73d6f.appspot.com/o/pexels-wildlittlethingsphoto-27176373.jpg?alt=media&token=cec87823-9bd8-46ea-ad09-aed575f09391',
+            image: 'https://firebasestorage.googleapis.com/v0/b/my-nursery-73d6f.appspot.com/o/home%2Fbirth-7653040_1920.png?alt=media&token=3de6ebe5-d1e9-4b01-bdc1-3c96bf2dca18',
         },
         {
             id: 'children',
             title: 'Les enfants',
             description:
                 "Ce module comprend des fonctionnalités pour enregistrer les données personnelles de l'enfant (nom, prénom, date de naissance, contact des parents).",
-            image: 'https://firebasestorage.googleapis.com/v0/b/my-nursery-73d6f.appspot.com/o/pexels-hannah-barata-776560167-27787983.jpg?alt=media&token=58e0926a-a8d6-457c-9583-ada3771c7aa4',
+            image: 'https://firebasestorage.googleapis.com/v0/b/my-nursery-73d6f.appspot.com/o/home%2Fbaby-592595_1920.png?alt=media&token=a5213933-8d88-4b2e-b916-3f61f5e89100',
         },
         {
             id: 'parents',
             title: 'Les parents',
             description:
                 'Dans ce module on retrouve des formulaires pour compléter les informations de contact des parents. Les parents pourront être directement lié aux enfants.',
-            image: 'https://firebasestorage.googleapis.com/v0/b/my-nursery-73d6f.appspot.com/o/pexels-vidalbalielojrfotografia-1682497.jpg?alt=media&token=0e60871b-59af-4c98-a1fd-d3ea1730c78b',
+            image: 'https://firebasestorage.googleapis.com/v0/b/my-nursery-73d6f.appspot.com/o/home%2Ffamily-7610392_1920.png?alt=media&token=99db51e2-0f34-4f3b-a72b-fba31b323e18',
         },
         {
             id: 'activities',
             title: 'Les activités',
             description:
                 "Concernant les activités, il est possible de créer plusieurs types d'activés pour les enfants : arrivée, départ, manger, boire, couche, soins.",
-            image: 'https://firebasestorage.googleapis.com/v0/b/my-nursery-73d6f.appspot.com/o/pexels-markusspiske-234137.jpg?alt=media&token=d051a9cc-4956-4435-8ddb-0de3ef085d1f',
+            image: 'https://firebasestorage.googleapis.com/v0/b/my-nursery-73d6f.appspot.com/o/home%2Fboy-7653058_1920.png?alt=media&token=294f2ebd-64fa-440d-945d-e7c2c2381c8b',
         },
         {
             id: 'employees',
             title: 'Les employés',
             description:
                 "Le gestionnaire de crèche a la possibilité de créer des profils utilisateurs pour ses employés. Il devra renseigner une adresse mail de son choix, un mot de passe générique. Il est primmordial d'avoir accès à ce mail.",
-            image: 'https://firebasestorage.googleapis.com/v0/b/my-nursery-73d6f.appspot.com/o/pexels-fauxels-3182773.jpg?alt=media&token=d9032d6c-5ea3-4bb7-a625-2293ef28b8c8',
+            image: 'https://firebasestorage.googleapis.com/v0/b/my-nursery-73d6f.appspot.com/o/home%2Fbio-6956069_1920.png?alt=media&token=f27dfadc-f8d2-441c-8907-05054ec7fe40',
         },
     ];
 

@@ -59,10 +59,11 @@
     <ng-template pTemplate="header">
         <tr>
             <th style="width: 4rem"><p-tableHeaderCheckbox /></th>
+            <th pSortableColumn="id" style="width: 25%">Identifiant <p-sortIcon field="id"></p-sortIcon></th>
             <th pSortableColumn="surname" style="width: 25%">Nom <p-sortIcon field="surname"></p-sortIcon></th>
             <th pSortableColumn="name" style="width: 25%">Prénom <p-sortIcon field="name"></p-sortIcon></th>
             <th pSortableColumn="email" style="width: 25%">Email <p-sortIcon field="email"></p-sortIcon></th>
-            <th pSortableColumn="workplaces" style="width: 25%">Lieux de travail <p-sortIcon field="workplaces"></p-sortIcon></th>
+
             <th></th>
         </tr>
     </ng-template>
@@ -71,10 +72,11 @@
             <td>
                 <p-tableCheckbox [value]="employee" (click)="onCheckboxClick($event, employee)"></p-tableCheckbox>
             </td>
+            <td>{{ employee.id }}</td>
             <td>{{ employee.surname }}</td>
             <td>{{ employee.name }}</td>
             <td>{{ employee.email }}</td>
-            <td>{{ employee.workplaces.length }}</td>
+
             <td>
                 <mn-modal
                     title="Supprimer l'employé"

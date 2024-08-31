@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Nursery } from '../../shared/interfaces/nursery.interface';
 import { BaseService } from '../../shared/services/base.service';
+import { PaginatedItems } from '../../shared/interfaces/paginated-items.interface';
 
 @Injectable({ providedIn: 'root' })
 export class NurseryService extends BaseService<Nursery> {
@@ -12,8 +13,10 @@ export class NurseryService extends BaseService<Nursery> {
         super(http);
     }
 
-    getNurseriesByOwner(id: string): Observable<Nursery[]> {
-        return this.http.get<Nursery[]>(`${this.baseUrl}/${this.endPoint}/nurseriesByOwner=${id}`);
+    getPaginatedOwnerNurseries(id: string, pageNumber: number, itemQuantity: number): Observable<PaginatedItems> {
+        return this.http.get<PaginatedItems>(
+            `${this.baseUrl}/${this.endPoint}/paginatedForOwner?owner=${id}&page=${pageNumber}&itemQuantity=${itemQuantity}`
+        );
     }
 
     updateLogo(id: string, dto: any): Observable<any> {

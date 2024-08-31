@@ -12,6 +12,7 @@ import { UserService } from '../../user/user.service';
 import { User } from '../../../shared/interfaces/user.interface';
 import { ToastrService } from 'ngx-toastr';
 import { DropdownModule } from 'primeng/dropdown';
+import { AuthService } from '../../../core/auth/services/auth.service';
 
 @Component({
     selector: 'mn-nursery-form',
@@ -26,20 +27,36 @@ export class NurseryFormComponent implements OnInit {
     selectedLogo: File | null;
     listPotentialOwners: User[] = [];
     logoErrorMessage: string;
-
+    userRole: string | null;
+    userId: string | null;
+    owner: User;
     constructor(
         private nurseryService: NurseryService,
         private router: Router,
         private userService: UserService,
-        private toastr: ToastrService
+        private toastr: ToastrService,
+        private authService: AuthService
     ) {}
 
     ngOnInit() {
+        this.userRole = this.authService.getUserRole();
+        this.userId = this.authService.getUserId();
+        console.log(this.userId);
         this.userService.getPotentialOwners().subscribe({
             next: (res: User[]) => {
                 this.listPotentialOwners = res;
             },
         });
+        if (this.userId !== null) {
+            this.userService.get(this.userId).subscribe({
+                next: (res: User) => {
+                    this.owner = res;
+                },
+                error: (err) => {
+                    console.error("Erreur lors de la récupération de l'utilisateur:", err);
+                },
+            });
+        }
     }
 
     nurseryForm = new FormGroup({
@@ -47,7 +64,7 @@ export class NurseryFormComponent implements OnInit {
         location: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(80)]),
         total_children: new FormControl('', [Validators.required, Validators.min(0)]),
         logo: new FormControl(null),
-        owner: new FormControl('', [Validators.required]),
+        owner: new FormControl(''),
     });
 
     public get form() {
@@ -75,7 +92,11 @@ export class NurseryFormComponent implements OnInit {
             formData.append('name', formControls.name.value);
             formData.append('location', formControls.location.value);
             formData.append('total_children', formControls.total_children.value);
-            formData.append('owner', formControls.owner.value);
+            if (this.userRole == 'owner' && this.owner.id) {
+                formData.append('owner', this.owner.id.toString());
+            } else {
+                formData.append('owner', formControls.owner.value);
+            }
 
             this.nurseryService.create(formData).subscribe({
                 next: (res: Nursery) => {

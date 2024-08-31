@@ -82,6 +82,7 @@
                         <small class="p-error">Veuillez introduire un nombre (min 0)</small>
                         }
                     </div>
+                    @if(userRole == 'admin'){
                     <div class="mb-3">
                         <label class="form-label fw-bold">Gérant</label>
                         <div>
@@ -100,6 +101,28 @@
                             }
                         </div>
                     </div>
+                    }
+                    <!-- @if(userRole == 'owner'){
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Gérant</label>
+                        <div>
+                            <p-dropdown
+                                [options]="listPotentialOwners"
+                                optionLabel="name"
+                                optionValue="id"
+                                formControlName="owner"
+                                name="owner"
+                                placeholder="Sélectionnez un gérant"
+                                [style]="{ width: '100%' }"
+                                readonly=""
+                            ></p-dropdown>
+
+                            @if (nurseryForm.controls["owner"].invalid && nurseryForm.controls["owner"].touched) {
+                            <small class="p-error">Veuillez choisir un gérant</small>
+                            }
+                        </div>
+                    </div>
+                    } -->
 
                     <div class="d-flex justify-content-between align-items-center">
                         <p-button
