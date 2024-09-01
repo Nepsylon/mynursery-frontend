@@ -20,7 +20,17 @@ export class parentService extends BaseService<Parent> {
         );
     }
 
+    getPaginatedParentsByEmployee(userId: string, pageNumber: number, itemQuantity: number): Observable<PaginatedItems> {
+        return this.http.get<PaginatedItems>(
+            `${this.baseUrl}/${this.endPoint}/parentsByEmployeePaginated/${userId}?page=${pageNumber}&itemQuantity=${itemQuantity}`
+        );
+    }
+
     getChildrenByOwner(id: string): Observable<Child[]> {
         return this.http.get<Child[]>(`${this.baseUrl}/nurseries/childrenByOwner/${id}`);
+    }
+
+    getChildrenByEmployee(id: string): Observable<Child[]> {
+        return this.http.get<Child[]>(`${this.baseUrl}/children/childrenByEmployee/${id}`);
     }
 }

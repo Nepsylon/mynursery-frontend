@@ -17,12 +17,18 @@ export class DashboardComponent implements OnInit {
     userRoleFr: string | null;
 
     constructor(private authService: AuthService) {}
-
     ngOnInit(): void {
-        if (this.authService.getUserRole() == 'owner') {
-            this.userRole = 'Gérant';
-        } else {
-            this.userRole = 'Administrateur';
+        this.userRole = this.authService.getUserRole();
+        switch (this.userRole) {
+            case 'admin':
+                this.userRoleFr = 'Administrateur';
+                break;
+            case 'owner':
+                this.userRoleFr = 'Gérant';
+                break;
+            case 'user':
+                this.userRoleFr = 'Employé';
+                break;
         }
     }
 }

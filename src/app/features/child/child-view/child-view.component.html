@@ -1,5 +1,5 @@
 <h1 class="text-center justify-content-center">Les Enfants</h1>
-@if(children.length == 0 && (userRole == 'admin' || userRole == 'owner' )) {
+@if(children.length == 0) {
 <div class="btn-creation">
     <mn-child-form (onCreate)="onCreateRefresh()"></mn-child-form>
 </div>

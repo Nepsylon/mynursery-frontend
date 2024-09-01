@@ -19,6 +19,14 @@ export class NurseryService extends BaseService<Nursery> {
         );
     }
 
+    getNurseriesByOwner(id: string): Observable<Nursery[]> {
+        return this.http.get<Nursery[]>(`${this.baseUrl}/${this.endPoint}/nurseriesByOwner/${id}`);
+    }
+
+    getWorkplacesByUser(id: string): Observable<Nursery[]> {
+        return this.http.get<Nursery[]>(`${this.baseUrl}/${this.endPoint}/workplacesByUser/${id}`);
+    }
+
     updateLogo(id: string, dto: any): Observable<any> {
         return this.http.post<any>(`${this.baseUrl}/${this.endPoint}/${id}/logo`, dto);
     }

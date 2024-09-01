@@ -72,6 +72,18 @@ export class ChildViewComponent implements OnInit {
                     });
                 }
                 break;
+
+            case 'user':
+                this.userId = this.authService.getUserId();
+                if (this.userId) {
+                    this.childService.getPaginatedChildrenByUserId(this.userId, pageNumber, offset).subscribe({
+                        next: (data: PaginatedItems) => {
+                            this.children = data.items;
+                            this.totalCount = data.totalCount;
+                        },
+                    });
+                }
+                break;
         }
     }
 

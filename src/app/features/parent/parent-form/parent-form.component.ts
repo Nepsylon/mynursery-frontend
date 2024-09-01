@@ -86,6 +86,15 @@ export class ParentFormComponent {
                     });
                 }
                 break;
+            case 'user':
+                this.userId = this.authService.getUserId() || '0';
+                if (this.userId) {
+                    this.parentService.getChildrenByEmployee(this.userId).subscribe({
+                        next: (res: Child[]) => {
+                            this.listPotentialChildren = res;
+                        },
+                    });
+                }
         }
     }
 

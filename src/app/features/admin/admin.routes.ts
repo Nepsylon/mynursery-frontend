@@ -3,6 +3,7 @@ import { BoardAdminComponent } from './board-admin/board-admin.component';
 import { ProfileComponent } from '../profile/profile.component';
 import { ArchivesViewComponent } from '../archives/archives-view/archives-view.component';
 import { DashboardComponent } from '../../shared/dashboard/dashboard.component';
+import { ActivityComponent } from '../activity/activity.component';
 
 export const adminRoutes: Routes = [
     {
@@ -36,6 +37,10 @@ export const adminRoutes: Routes = [
             {
                 path: 'profile',
                 component: ProfileComponent,
+            },
+            {
+                path: 'activities',
+                component: ActivityComponent,
             },
         ],
     },

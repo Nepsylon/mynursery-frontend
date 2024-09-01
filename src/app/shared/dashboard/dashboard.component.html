@@ -1,9 +1,10 @@
 <div class="text-center">
-    <h1>Tableau de bord {{ userRole }}</h1>
+    <h1>Tableau de bord {{ userRoleFr }}</h1>
 </div>
 <div class="my-5">
-    <div class="row row-cols-1 row-cols-md-4 g-4">
-        <div class="col text-center">
+    <div class="d-flex">
+        @if (userRole == 'admin' || userRole == 'owner'){
+        <div class="col text-center p-3">
             <div class="card h-100 nursery">
                 <a routerLink="./nurseries" class="stretched-link nursery">
                     <div class="icon my-5">
@@ -17,7 +18,7 @@
             </div>
         </div>
 
-        <div class="col text-center">
+        <div class="col text-center p-3">
             <div class="card h-100 employee">
                 <a routerLink="./employees" class="stretched-link employee">
                     <div class="icon my-5">
@@ -31,7 +32,9 @@
             </div>
         </div>
 
-        <div class="col text-center">
+        }
+
+        <div class="col text-center p-3">
             <div class="card h-100 child">
                 <a routerLink="./children" class="stretched-link child">
                     <div class="icon my-3">
@@ -45,7 +48,7 @@
             </div>
         </div>
 
-        <div class="col text-center">
+        <div class="col text-center p-3">
             <div class="card h-100 parent">
                 <a routerLink="./parents" class="stretched-link parent">
                     <div class="icon my-5">
@@ -54,6 +57,19 @@
                     <div class="card-body">
                         <h5 class="card-title">Parents</h5>
                         <p class="card-text">Consulter les parents</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col text-center p-3">
+            <div class="card h-100 activity">
+                <a routerLink="./activities" class="stretched-link activity">
+                    <div class="icon my-5">
+                        <i class="pi pi-book" style="font-size: 7.5rem"></i>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Activités</h5>
+                        <p class="card-text">Consulter les activités</p>
                     </div>
                 </a>
             </div>

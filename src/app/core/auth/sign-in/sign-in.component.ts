@@ -28,6 +28,7 @@ export class SignInComponent implements OnInit, OnDestroy {
             email: new FormControl('', [Validators.required, Validators.email]),
             password: new FormControl('', [Validators.required, Validators.minLength(6)]),
             confirmPassword: new FormControl(''),
+            condition: new FormControl(false, [Validators.required, Validators.requiredTrue]),
         },
         { validators: confirmPasswordValidator.bind(this) }
     );

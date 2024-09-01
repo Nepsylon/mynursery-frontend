@@ -19,6 +19,11 @@
     box-shadow: 0 0 10px var(--parent-color);
 }
 
+.card.activity:hover {
+    border-color: var(--activity-color);
+    box-shadow: 0 0 10px var(--activity-color);
+}
+
 // Modification de la couleur du contenu
 .stretched-link.nursery {
     text-decoration: none;
@@ -38,6 +43,11 @@
 .stretched-link.parent {
     text-decoration: none;
     color: var(--parent-color);
+}
+
+.stretched-link.activity {
+    text-decoration: none;
+    color: var(--activity-color);
 }
 .stretched-link::after {
     content: '';

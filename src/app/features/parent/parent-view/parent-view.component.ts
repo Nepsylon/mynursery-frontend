@@ -61,6 +61,16 @@ export class ParentViewComponent implements OnInit {
                     });
                 }
                 break;
+            case 'user':
+                this.userId = this.authService.getUserId();
+                if (this.userId) {
+                    this.parentService.getPaginatedParentsByEmployee(this.userId, pageNumber, offset).subscribe({
+                        next: (data: PaginatedItems) => {
+                            this.parents = data.items;
+                            this.totalCount = data.totalCount;
+                        },
+                    });
+                }
         }
     }
 

@@ -6,6 +6,8 @@ import { Role } from './core/auth/enums/role.enum';
 import { HomeComponent } from './core/home/home.component';
 import { SignInComponent } from './core/auth/sign-in/sign-in.component';
 import { AwaitingEmailVerificationComponent } from './shared/awaiting-email-verification/awaiting-email-verification.component';
+import { ConditionComponent } from './features/condition-terms/condition-terms.component';
+import { PrivacyPolicyComponent } from './features/privacy-policy/privacy-policy.component';
 
 export const routes: Routes = [
     {
@@ -23,6 +25,15 @@ export const routes: Routes = [
     {
         path: 'awaiting-mail',
         component: AwaitingEmailVerificationComponent,
+    },
+
+    {
+        path: 'conditions',
+        component: ConditionComponent,
+    },
+    {
+        path: 'privacy-policy',
+        component: PrivacyPolicyComponent,
     },
     {
         path: 'admin',

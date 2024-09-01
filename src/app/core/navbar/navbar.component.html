@@ -16,9 +16,11 @@
         </ng-template>
         <ng-template pTemplate="end">
             <div class="d-flex align-items-center gap-2">
+                @if (userRole == 'admin') {
                 <a pRipple class="pRipple d-flex align-items-center p-menuitem-link params" (click)="toggleSearchBar()"
                     ><span class="pi pi-search"></span> <span class="ml-2" id="search">Recherche</span></a
                 >
+                }
 
                 <a pRipple class="pRipple align-items-center p-menuitem-link params" [routerLink]="['./profile']"
                     ><span class="pi pi-cog"></span><span class="ml-2" id="profile">Profil</span></a

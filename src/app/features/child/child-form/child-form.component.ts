@@ -91,7 +91,18 @@ export class ChildFormComponent {
             case 'owner':
                 this.userId = this.authService.getUserId() || '0';
                 if (this.userId) {
-                    this.userService.getNurseriesByOwner(this.userId).subscribe({
+                    this.nurseryService.getNurseriesByOwner(this.userId).subscribe({
+                        next: (res: Nursery[]) => {
+                            this.listPotentialNurseries = res;
+                        },
+                    });
+                }
+                break;
+
+            case 'user':
+                this.userId = this.authService.getUserId() || '0';
+                if (this.userId) {
+                    this.nurseryService.getWorkplacesByUser(this.userId).subscribe({
                         next: (res: Nursery[]) => {
                             this.listPotentialNurseries = res;
                         },

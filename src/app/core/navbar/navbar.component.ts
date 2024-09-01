@@ -168,21 +168,29 @@ export class NavbarComponent implements OnInit {
     ];
     userItems: MenuItem[] = [
         {
+            label: 'Tableau de bord',
+            id: 'dashboard',
+            icon: 'pi pi-home',
+        },
+        {
             label: 'Les enfants',
             id: 'children',
             faIcon: faBaby,
+            url: 'children',
         },
 
         {
             label: 'Les parents',
             id: 'parents',
             icon: 'pi pi-users',
+            url: 'parents',
         },
 
         {
             label: 'Les activités',
             id: 'activities',
             icon: 'pi pi-book',
+            url: 'activities',
         },
     ];
     faBaby = faBaby;

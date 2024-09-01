@@ -15,10 +15,6 @@ export class UserService extends BaseService<User> {
         super(http);
     }
 
-    getNurseriesByOwner(id: string): Observable<Nursery[]> {
-        return this.http.get<Nursery[]>(`${this.baseUrl}/${this.endPoint}/nurseriesByOwner/${id}`);
-    }
-
     getPotentialOwners(): Observable<User[]> {
         return this.http.get<User[]>(`${this.baseUrl}/${this.endPoint}/potentialOwners`);
     }

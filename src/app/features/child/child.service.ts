@@ -18,4 +18,10 @@ export class ChildService extends BaseService<Child> {
             `${this.baseUrl}/${this.endPoint}/childrenByOwnerIdPaginated/${ownerId}?page=${pageNumber}&itemQuantity=${itemQuantity}`
         );
     }
+
+    getPaginatedChildrenByUserId(userId: string, pageNumber: number, itemQuantity: number): Observable<PaginatedItems> {
+        return this.http.get<PaginatedItems>(
+            `${this.baseUrl}/${this.endPoint}/childrenByUserIdPaginated/${userId}?page=${pageNumber}&itemQuantity=${itemQuantity}`
+        );
+    }
 }

@@ -90,7 +90,7 @@ export class EmployeeDetailsFormComponent {
             case 'owner':
                 this.userId = this.authService.getUserId() || '0';
                 if (this.userId) {
-                    this.userService.getNurseriesByOwner(this.userId).subscribe({
+                    this.nurseryService.getNurseriesByOwner(this.userId).subscribe({
                         next: (res: Nursery[]) => {
                             this.listWorkplaces = res;
                         },

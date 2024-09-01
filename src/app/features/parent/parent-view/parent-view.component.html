@@ -1,5 +1,5 @@
 <h1 class="text-center justify-content-center">Les Parents</h1>
-@if(parents.length == 0 && (userRole == 'admin' || userRole == 'owner' )) {
+@if(parents.length == 0) {
 <div class="btn-creation">
     <mn-parent-form (onCreate)="onCreateRefresh()"></mn-parent-form>
 </div>
