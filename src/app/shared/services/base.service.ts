@@ -1,13 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 // import { environment } from '../../environments/environment';
-// import { environment } from '../../environments/environment.prod';
+import { environment } from '../../environments/environment.prod';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { PaginatedItems } from '../interfaces/paginated-items.interface';
 
 @Injectable()
 export abstract class BaseService<T> {
-    baseUrl: string = process.env.URL as string;
+    baseUrl: string = environment.URL as string;
     abstract endPoint: string;
 
     constructor(public http: HttpClient) {}
