@@ -12,7 +12,6 @@ import { LoginDto } from '../interfaces/login-dto.interface';
 import { AccessToken } from '../interfaces/access-token.interface';
 import { RecaptchaV3Module, ReCaptchaV3Service } from 'ng-recaptcha';
 import { confirmPasswordValidator } from '../../../shared/validators/confirm-password.validator';
-
 @Component({
     selector: 'mn-sign-in',
     standalone: true,
@@ -28,7 +27,7 @@ export class SignInComponent implements OnInit, OnDestroy {
             email: new FormControl('', [Validators.required, Validators.email]),
             password: new FormControl('', [Validators.required, Validators.minLength(6)]),
             confirmPassword: new FormControl(''),
-            condition: new FormControl(false, [Validators.required, Validators.requiredTrue]),
+            condition: new FormControl(Boolean, [Validators.required, Validators.requiredTrue]),
         },
         { validators: confirmPasswordValidator.bind(this) }
     );
@@ -74,22 +73,30 @@ export class SignInComponent implements OnInit, OnDestroy {
 
         this.recaptchaV3Service.execute('register').subscribe({
             next: (token: string) => {
-                this.signInService.register(this.userDto).subscribe({
-                    next: (res: User | any) => {
-                        this.authService.login(this.loginDto).subscribe({
-                            next: (res: AccessToken | any) => {
-                                // Redirection vers la page d'attente
-                                this.router.navigateByUrl('awaiting-mail');
-                            },
-                            error: (err: any) => {
-                                this.loading = false;
-                                this.errorMessage = err.error.errors[0].message;
-                            },
-                        });
-                    },
-                    error: (err: any) => {
-                        this.loading = false;
-                        this.errorMessage = err.error.errors[0].message;
+                this.authService.verifyCaptcha(token).subscribe({
+                    next: (response) => {
+                        if (response.sucess) {
+                            this.signInService.register(this.userDto).subscribe({
+                                next: (res: User | any) => {
+                                    this.authService.login(this.loginDto).subscribe({
+                                        next: (res: AccessToken | any) => {
+                                            // Redirection vers la page d'attente
+                                            this.router.navigateByUrl('awaiting-mail');
+                                        },
+                                        error: (err: any) => {
+                                            this.loading = false;
+                                            this.errorMessage = err.error.errors[0].message;
+                                        },
+                                    });
+                                },
+                                error: (err: any) => {
+                                    this.loading = false;
+                                    this.errorMessage = err.error.errors[0].message;
+                                },
+                            });
+                        } else {
+                            this.errorMessage = 'reCAPTCHA invalide';
+                        }
                     },
                 });
             },

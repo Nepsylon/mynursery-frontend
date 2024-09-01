@@ -20,6 +20,10 @@ export class AuthService extends BaseService<any> {
         this.checkTokenExpiration();
     }
 
+    verifyCaptcha(token: string): Observable<any> {
+        return this.http.post('https://www.google.com/recaptcha/api/siteverify', { token });
+    }
+
     // On initialise l'état connecté si jeton existant
     autoSignIn() {
         if (localStorage.getItem('mn-token')) {

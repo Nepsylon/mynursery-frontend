@@ -65,7 +65,15 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.loading = true;
         this.recaptchaSubscription = this.recaptchaV3Service.execute('login').subscribe({
             next: (token: string) => {
-                this.submitLoginForm();
+                this.authService.verifyCaptcha(token).subscribe({
+                    next: (response) => {
+                        if (response.sucess) {
+                            this.submitLoginForm();
+                        } else {
+                            this.errorMessage = 'reCAPTCHA invalide';
+                        }
+                    },
+                });
             },
             error: (error) => {
                 this.loading = false;
