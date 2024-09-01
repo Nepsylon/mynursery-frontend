@@ -4,7 +4,7 @@
     "scripts": {
         "ng": "ng",
         "start": "ng serve",
-        "build": "URL=$URL RECAPTCHA_SITE_KEY=$RECAPTCHA_SITE_KEY ng build",
+        "build": "ng build",
         "watch": "ng build --watch --configuration development",
         "test": "ng test"
     },
