@@ -73,33 +73,26 @@ export class SignInComponent implements OnInit, OnDestroy {
 
         this.recaptchaV3Service.execute('register').subscribe({
             next: (token: string) => {
-                this.authService.verifyCaptcha(token).subscribe({
-                    next: (response) => {
-                        if (response.sucess) {
-                            this.signInService.register(this.userDto).subscribe({
-                                next: (res: User | any) => {
-                                    this.authService.login(this.loginDto).subscribe({
-                                        next: (res: AccessToken | any) => {
-                                            // Redirection vers la page d'attente
-                                            this.router.navigateByUrl('awaiting-mail');
-                                        },
-                                        error: (err: any) => {
-                                            this.loading = false;
-                                            this.errorMessage = err.error.errors[0].message;
-                                        },
-                                    });
-                                },
-                                error: (err: any) => {
-                                    this.loading = false;
-                                    this.errorMessage = err.error.errors[0].message;
-                                },
-                            });
-                        } else {
-                            this.errorMessage = 'reCAPTCHA invalide';
-                        }
+                this.signInService.register(this.userDto).subscribe({
+                    next: (res: User | any) => {
+                        this.authService.login(this.loginDto).subscribe({
+                            next: (res: AccessToken | any) => {
+                                // Redirection vers la page d'attente
+                                this.router.navigateByUrl('awaiting-mail');
+                            },
+                            error: (err: any) => {
+                                this.loading = false;
+                                this.errorMessage = err.error.errors[0].message;
+                            },
+                        });
+                    },
+                    error: (err: any) => {
+                        this.loading = false;
+                        this.errorMessage = err.error.errors[0].message;
                     },
                 });
             },
+
             error: (err: any) => {
                 this.errorMessage = err;
             },
